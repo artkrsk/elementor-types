@@ -319,7 +319,7 @@ export interface EnhancedAssetConfig {
 /**
  * Cache management utility
  */
-export interface CacheManager {
+export interface FrontendCacheManager {
   // Basic cache operations
   set(key: string, value: any, ttl?: number): void;
   get(key: string): any;
@@ -470,7 +470,7 @@ export interface GlobalFrontendUtilities {
   breakpoints: EnhancedBreakpointsUtility;
   performance: FrontendPerformanceMonitor;
   assets: EnhancedAssetsManager;
-  cache: CacheManager;
+  cache: FrontendCacheManager;
   dom: DOMUtilities;
   events: EventSystemUtility;
 

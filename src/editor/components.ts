@@ -397,7 +397,7 @@ export interface ShortcutOptions {
 /**
  * Icons manager interface
  */
-export interface IconsManager extends Module {
+export interface IconsModalManager extends Module {
   /** Icon library helper */
   library: IconLibrary;
 
@@ -862,7 +862,7 @@ export namespace Components {
   export type TemplateLibrary = TemplateLibraryComponent;
   export type DynamicTags = DynamicTagsManager;
   export type Hotkeys = HotkeysComponent;
-  export type Icons = IconsManager;
+  export type IconsModal = IconsModalManager;
   export type Preview = PreviewComponent;
   export type Selection = SelectionManager;
   export type Settings = SettingsComponent;

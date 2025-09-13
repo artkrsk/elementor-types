@@ -37,7 +37,7 @@ import type {
   EnhancedBreakpointsUtility,
   FrontendPerformanceMonitor,
   EnhancedAssetsManager,
-  CacheManager,
+  FrontendCacheManager,
   DOMUtilities,
   EventSystemUtility,
 } from "./enhanced-utilities";
@@ -113,7 +113,7 @@ export interface ElementorFrontendIntegrated extends BaseElementorFrontend {
   enhancedAssets: EnhancedAssetsManager;
 
   // Cache system
-  cache: CacheManager;
+  cache: FrontendCacheManager;
 
   // Enhanced DOM utilities
   dom: DOMUtilities;

@@ -74,19 +74,6 @@ export interface ElementorFrontend {
   handlers: ElementorFrontendHandlers;
 }
 
-/**
- * Elementor frontend namespace
- */
-export interface ElementorFrontend {
-  /** Document class */
-  Document: any;
-
-  /** Tools namespace */
-  tools: ElementorFrontendTools;
-
-  /** Handlers namespace */
-  handlers: ElementorFrontendHandlers;
-}
 
 /**
  * Elementor modules utils namespace

@@ -12,33 +12,8 @@
 import { ViewModule } from "../core";
 import { SwiperOptions } from "../third-party";
 
-/**
- * Base handler settings interface
- */
-export interface HandlerSettings {
-  /** Element jQuery object */
-  $element: JQuery;
-
-  /** Custom selectors for handler elements */
-  selectors?: Record<string, string>;
-
-  /** Handler-specific classes */
-  classes?: Record<string, string>;
-
-  /** Additional handler configuration */
-  [key: string]: any;
-}
-
-/**
- * Handler element collection interface
- */
-export interface HandlerElements {
-  /** Main element */
-  $element?: JQuery;
-
-  /** Dynamic element collection */
-  [key: string]: JQuery | undefined;
-}
+// Import the comprehensive handler interfaces from enhanced-base
+import type { HandlerSettings, HandlerElements } from "./handlers/enhanced-base";
 
 /**
  * Editor listener configuration

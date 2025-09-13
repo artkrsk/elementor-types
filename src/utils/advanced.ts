@@ -361,7 +361,7 @@ export interface ReactUtility extends Module {
 /**
  * Dynamic tags manager interface
  */
-export interface DynamicTagsManager extends Module {
+export interface DynamicTagsCacheManager extends Module {
   /** Cache for tag data */
   cache: Record<string, any>;
 
@@ -423,7 +423,7 @@ export namespace Utils {
   export type Tiers = TiersManager;
   export type Time = TimeUtility;
   export type React = ReactUtility;
-  export type DynamicTags = DynamicTagsManager;
+  export type DynamicTagsCache = DynamicTagsCacheManager;
   export type Tour = IntroductionTour;
   export type Step = IntroductionStep;
   export type Plan = TierPlan;

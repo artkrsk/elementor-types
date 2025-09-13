@@ -95,21 +95,6 @@ export interface ElementsBrowserEvents {
   "input @ui.input": "onInputChanged";
 }
 
-/**
- * Category model data structure
- */
-export interface CategoryModelData {
-  /** Category name/slug */
-  name: string;
-  /** Category title */
-  title: string;
-  /** Category icon */
-  icon: string;
-  /** Category default open state */
-  defaultActive: boolean;
-  /** Category promotion configuration */
-  promotion?: any;
-}
 
 /**
  * Element model for panel elements page
