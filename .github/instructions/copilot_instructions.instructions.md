@@ -1,6 +1,6 @@
 ---
 description: Guidelines for creating and maintaining Github Copilot instructions to ensure consistency and effectiveness.
-applyTo: "**"
+applyTo: '**'
 ---
 
 - **Required Rule Structure:**
@@ -17,25 +17,22 @@ applyTo: "**"
   ```
 
 - **File References:**
-
-  - Use `[filename](./relative/path/to/filename)` to reference files
-  - Example: [prisma.instructions.md](./prisma.instructions.md) for instructions references
-  - Example: [schema.prisma](../../prisma/schema.prisma) for code references
+  - Use \`\[filename\]\(./relative/path/to/filename\)\` to reference files
+  - Example: \`\[taskmaster.instructions.md\]\(./taskmaster.instructions.md\)\` for instructions references
+  - Example: \`\[ContainerHandler.ts\]\(../../src/core/modules.ts\)\` for code references
 
 - **Code Examples:**
-
   - Use language-specific code blocks
 
   ```typescript
   // ✅ DO: Show good examples
-  const goodExample = true;
+  const goodExample = true
 
   // ❌ DON'T: Show anti-patterns
-  const badExample = false;
+  const badExample = false
   ```
 
 - **Instructions Content Guidelines:**
-
   - Start with high-level overview
   - Include specific, actionable requirements
   - Show examples of correct implementation
@@ -43,7 +40,6 @@ applyTo: "**"
   - Keep instructions DRY by referencing other instructions
 
 - **Instructions Maintenance:**
-
   - Update instructions when new patterns emerge
   - Add examples from actual codebase
   - Remove outdated patterns
