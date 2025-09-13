@@ -1,13 +1,13 @@
 # Elementor Types Coverage Report
 
-Generated: 2025-09-13T07:02:07.787Z
+Generated: 2025-09-13T07:06:08.227Z
 
 ## Summary
 
 - **Total JS Files**: 516
-- **Covered Files**: 176
+- **Covered Files**: 178
 - **Partially Covered**: 56
-- **Uncovered Files**: 284
+- **Uncovered Files**: 282
 - **Overall Coverage**: 40%
 
 ## Module Coverage

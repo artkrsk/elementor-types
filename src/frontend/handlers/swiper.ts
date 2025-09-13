@@ -55,15 +55,6 @@ export declare class CarouselBase extends SwiperBase {
 }
 
 /**
- * Background slideshow handler
- */
-export declare class BackgroundSlideshow extends SwiperBase {
-  slideshowSpecialMethods(): void;
-  buildSwiperElements(): void;
-  handleKenBurns(): void;
-}
-
-/**
  * Image carousel handler
  */
 export declare class ImageCarousel extends CarouselBase {

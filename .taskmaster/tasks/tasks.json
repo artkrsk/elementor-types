@@ -544,7 +544,7 @@
         "description": "Replace 'any' type in ElementorFrontendTools interface with proper TypeScript interface for StretchElement utility",
         "details": "1. Analyze the StretchElement utility in elementor-dev-js to understand its methods and properties\n2. Create proper interface for StretchElement utility\n3. Update ElementorFrontendTools in src/globals/elementor-modules.ts to use the interface\n4. Add verification test to ensure the improved types work correctly",
         "testStrategy": "",
-        "status": "pending",
+        "status": "done",
         "dependencies": [],
         "priority": "medium",
         "subtasks": []
@@ -555,7 +555,7 @@
         "description": "Add comprehensive types for core control classes (select, number, color, media, slider controls)",
         "details": "1. Analyze control JavaScript files in elementor-dev-js/editor/controls/ for select, number, color, media, slider\n2. Create TypeScript interfaces for each control class with proper methods and properties\n3. Add these to src/editor/controls/ directory as separate files or enhance existing files\n4. Update imports and exports to make these available\n5. Create verification tests for the new control types",
         "testStrategy": "",
-        "status": "pending",
+        "status": "done",
         "dependencies": [],
         "priority": "high",
         "subtasks": []
@@ -566,7 +566,7 @@
         "description": "Complete frontend widget handler types for common widgets (counter, tabs, toggle, video, background-slideshow)",
         "details": "1. Analyze common handler JavaScript files in elementor-dev-js/frontend/handlers/ \n2. Create specific interfaces for Counter, Tabs, Toggle, Video, BackgroundSlideshow handlers\n3. Add these interfaces to src/frontend/handlers/ directory \n4. Update the main handler exports to include these new types\n5. Create verification tests showing how to extend these handlers",
         "testStrategy": "",
-        "status": "pending",
+        "status": "done",
         "dependencies": [],
         "priority": "high",
         "subtasks": []
@@ -577,7 +577,7 @@
         "description": "Improve ElementorEditor namespace with proper types for Container, utils, elements, and views",
         "details": "1. Analyze editor JavaScript files to understand Container class, utils, elements, and views structures\n2. Replace 'any' types in ElementorEditor interface with proper interfaces\n3. Create separate interface files for complex editor components\n4. Update src/globals/elementor-modules.ts with improved types\n5. Add verification tests for editor namespace improvements",
         "testStrategy": "",
-        "status": "pending",
+        "status": "in-progress",
         "dependencies": [],
         "priority": "medium",
         "subtasks": []
@@ -585,7 +585,7 @@
     ],
     "metadata": {
       "created": "2025-09-13T05:21:57.537Z",
-      "updated": "2025-09-13T07:01:34.030Z",
+      "updated": "2025-09-13T07:27:01.604Z",
       "description": "Tasks for achieving 100% TypeScript coverage of Elementor JS codebase"
     }
   }

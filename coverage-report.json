@@ -1,9 +1,9 @@
 {
-  "timestamp": "2025-09-13T07:02:07.787Z",
+  "timestamp": "2025-09-13T07:06:08.227Z",
   "summary": {
     "totalJSFiles": 516,
-    "coveredFiles": 176,
-    "uncoveredFiles": 284,
+    "coveredFiles": 178,
+    "uncoveredFiles": 282,
     "partialCoverage": 56,
     "coveragePercentage": 40
   },
@@ -1886,6 +1886,29 @@
           }
         },
         {
+          "file": "/Users/art/Projects/Framework/packages/elementor-types/elementor-dev-js/editor/document/elements/commands/paste-style.js",
+          "fileName": "paste-style",
+          "covered": true,
+          "partial": false,
+          "reason": "",
+          "details": {
+            "classes": [
+              "PasteStyle"
+            ],
+            "methods": [
+              "validateArgs",
+              "validateControls",
+              "getHistory",
+              "apply",
+              "applyPasteStyleData",
+              "pasteStyle"
+            ],
+            "exports": [
+              "PasteStyle"
+            ]
+          }
+        },
+        {
           "file": "/Users/art/Projects/Framework/packages/elementor-types/elementor-dev-js/editor/document/elements/commands/paste.js",
           "fileName": "paste",
           "covered": true,
@@ -2416,6 +2439,24 @@
             ],
             "exports": [
               "Duplicate"
+            ]
+          }
+        },
+        {
+          "file": "/Users/art/Projects/Framework/packages/elementor-types/elementor-dev-js/editor/document/ui/commands/paste-style.js",
+          "fileName": "paste-style",
+          "covered": true,
+          "partial": false,
+          "reason": "",
+          "details": {
+            "classes": [
+              "PasteStyle"
+            ],
+            "methods": [
+              "apply"
+            ],
+            "exports": [
+              "PasteStyle"
             ]
           }
         },
@@ -5648,29 +5689,6 @@
           }
         },
         {
-          "file": "/Users/art/Projects/Framework/packages/elementor-types/elementor-dev-js/editor/document/elements/commands/paste-style.js",
-          "fileName": "paste-style",
-          "covered": false,
-          "partial": false,
-          "reason": "No type definitions found",
-          "details": {
-            "classes": [
-              "PasteStyle"
-            ],
-            "methods": [
-              "validateArgs",
-              "validateControls",
-              "getHistory",
-              "apply",
-              "applyPasteStyleData",
-              "pasteStyle"
-            ],
-            "exports": [
-              "PasteStyle"
-            ]
-          }
-        },
-        {
           "file": "/Users/art/Projects/Framework/packages/elementor-types/elementor-dev-js/editor/document/elements/commands/reset-settings.js",
           "fileName": "reset-settings",
           "covered": false,
@@ -7007,24 +7025,6 @@
             ],
             "exports": [
               "FooterSeverRefreshMenu"
-            ]
-          }
-        },
-        {
-          "file": "/Users/art/Projects/Framework/packages/elementor-types/elementor-dev-js/editor/document/ui/commands/paste-style.js",
-          "fileName": "paste-style",
-          "covered": false,
-          "partial": false,
-          "reason": "No type definitions found",
-          "details": {
-            "classes": [
-              "PasteStyle"
-            ],
-            "methods": [
-              "apply"
-            ],
-            "exports": [
-              "PasteStyle"
             ]
           }
         },
@@ -11810,11 +11810,6 @@
         "reason": "No type definitions found"
       },
       {
-        "file": "/Users/art/Projects/Framework/packages/elementor-types/elementor-dev-js/editor/document/elements/commands/paste-style.js",
-        "module": "editor",
-        "reason": "No type definitions found"
-      },
-      {
         "file": "/Users/art/Projects/Framework/packages/elementor-types/elementor-dev-js/editor/document/elements/commands/reset-settings.js",
         "module": "editor",
         "reason": "No type definitions found"
@@ -12176,11 +12171,6 @@
       },
       {
         "file": "/Users/art/Projects/Framework/packages/elementor-types/elementor-dev-js/editor/document/save/hooks/ui/settings/index.js",
-        "module": "editor",
-        "reason": "No type definitions found"
-      },
-      {
-        "file": "/Users/art/Projects/Framework/packages/elementor-types/elementor-dev-js/editor/document/ui/commands/paste-style.js",
         "module": "editor",
         "reason": "No type definitions found"
       },

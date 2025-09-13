@@ -36,14 +36,30 @@ export declare class ControlBaseView extends Module {
  */
 export declare class ControlBaseDataView extends ControlBaseView {
   validatorTypes: {
-    Base: any;
-    Number: any;
-    Breakpoint: any;
+    Base: new (options?: any) => {
+      isValid(value: any): boolean;
+      getErrorMessage(): string;
+    };
+    Number: new (options: {
+      validationTerms: { min?: number; max?: number };
+    }) => {
+      isValid(value: any): boolean;
+      getErrorMessage(): string;
+      validationTerms: { min?: number; max?: number };
+    };
+    Breakpoint: new (options?: any) => {
+      isValid(value: any): boolean;
+      getErrorMessage(): string;
+    };
   };
   isFirstClick?: boolean;
   showInput?: boolean;
   disableSearch?: boolean;
   allowMultiple?: boolean;
+
+  // Validation methods
+  addValidator(validator: any): void;
+  registerValidators(): void;
 
   onBaseInputTextChange(event: Event): void;
   onBaseInputChange(event: Event): void;
