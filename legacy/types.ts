@@ -2426,7 +2426,7 @@ export interface ElementsHandler {
     HandlerClass: typeof ElementorModules.frontend.handlers.Base,
     options: HandlerOptions
   ): void;
-  attachHandler(elementName: string, Handlers: any, skin?: string): void;
+  attachHandler(elementName: string, Handlers: any, skin: string | null): void;
   getHandler(
     handlerName: string
   ): Promise<typeof ElementorModules.frontend.handlers.Base>;

@@ -14,6 +14,23 @@ import {
   FrontendStretchElementUtility,
 } from "./frontend-handler-interfaces";
 
+import {
+  ElementorEditorModules,
+  ElementorEditorUtils,
+  ElementorEditorElementModels,
+  ElementorEditorElements,
+  ElementorEditorViews,
+} from "../editor/namespace";
+
+// Re-export editor interfaces for external use
+export {
+  ElementorEditorModules,
+  ElementorEditorUtils,
+  ElementorEditorElementModels,
+  ElementorEditorElements,
+  ElementorEditorViews,
+};
+
 /**
  * Elementor frontend tools namespace
  */
@@ -58,55 +75,17 @@ export interface ElementorFrontend {
 }
 
 /**
- * Elementor editor utils namespace
+ * Elementor frontend namespace
  */
-export interface ElementorEditorUtils {
-  /** Editor module base class */
-  Module: any;
+export interface ElementorFrontend {
+  /** Document class */
+  Document: any;
 
-  /** Introduction utility */
-  Introduction: any;
-}
+  /** Tools namespace */
+  tools: ElementorFrontendTools;
 
-/**
- * Elementor editor element models namespace
- */
-export interface ElementorEditorElementModels {
-  /** Base settings model */
-  BaseSettings: any;
-}
-
-/**
- * Elementor editor elements namespace
- */
-export interface ElementorEditorElements {
-  /** Element models */
-  models: ElementorEditorElementModels;
-}
-
-/**
- * Elementor editor views namespace
- */
-export interface ElementorEditorViews {
-  /** Controls stack view */
-  ControlsStack: any;
-}
-
-/**
- * Elementor editor namespace
- */
-export interface ElementorEditor {
-  /** Editor elements */
-  elements: ElementorEditorElements;
-
-  /** Editor utilities */
-  utils: ElementorEditorUtils;
-
-  /** Editor views */
-  views: ElementorEditorViews;
-
-  /** Container class */
-  Container: any;
+  /** Handlers namespace */
+  handlers: ElementorFrontendHandlers;
 }
 
 /**
@@ -143,8 +122,8 @@ export interface ElementorModules {
   /** Frontend namespace (added by frontend/modules.js) */
   frontend?: ElementorFrontend;
 
-  /** Editor namespace (added by editor/modules.js) */
-  editor?: ElementorEditor;
+  /** Editor namespace (only available in editor context) */
+  editor?: ElementorEditorModules;
 }
 
 // Export the main interface without global declarations

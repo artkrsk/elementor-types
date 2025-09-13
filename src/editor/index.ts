@@ -8,6 +8,9 @@ export * from "./main";
 export * from "./managers";
 export * from "./history";
 
+// Editor namespace interfaces
+export * from "./namespace";
+
 // Component subsystems
 export * from "./controls";
 
