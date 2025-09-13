@@ -982,6 +982,36 @@ declare namespace ElementorModules {
             onResize(): void;
             onStop(): void;
           }
+
+          class ColumnResizable extends ElementorModules.Module {
+            onResize(): void;
+            onStop(): void;
+            getColumnPercentSize(): number;
+          }
+
+          class ContextMenu extends ElementorModules.Module {
+            show(event: Event): void;
+            hide(): void;
+            getContextMenuItems(): any[];
+          }
+
+          class InlineEditing extends ElementorModules.Module {
+            startEditing(): void;
+            stopEditing(): void;
+            isEditing(): boolean;
+            onKeyDown(event: KeyboardEvent): void;
+          }
+
+          class InnerTabs extends ElementorModules.Module {
+            activateTab(tabIndex: number): void;
+            getActiveTab(): number;
+          }
+
+          class Sortable extends ElementorModules.Module {
+            onStart(): void;
+            onSort(): void;
+            onStop(): void;
+          }
         }
 
         namespace container {
@@ -1014,6 +1044,86 @@ declare namespace ElementorModules {
           at(index: number): any;
           length: number;
         }
+      }
+    }
+
+    // ===== Data Models & Collections =====
+    namespace data {
+      class Model {
+        attributes: any;
+        id: string;
+        cid: string;
+        get(key: string): any;
+        set(key: string | object, value?: any): void;
+        unset(key: string): void;
+        clear(): void;
+        toJSON(): any;
+        clone(): Model;
+        isValid(): boolean;
+        validate(): boolean | object;
+        on(event: string, callback: Function): void;
+        off(event: string, callback?: Function): void;
+        trigger(event: string, ...args: any[]): void;
+      }
+
+      class Collection {
+        model: any;
+        models: Model[];
+        length: number;
+        comparator?: string | Function;
+        add(models: Model | Model[]): any;
+        remove(models: Model | Model[]): any;
+        reset(models?: Model[]): any;
+        set(models: Model[]): any;
+        get(id: string | number): Model;
+        at(index: number): Model;
+        where(attributes: object): Model[];
+        findWhere(attributes: object): Model;
+        pluck(attribute: string): any[];
+        sort(): Collection;
+        sortBy(attribute: string): Model[];
+        toJSON(): any[];
+        on(event: string, callback: Function): void;
+        off(event: string, callback?: Function): void;
+        trigger(event: string, ...args: any[]): void;
+      }
+
+      // Backbone Radio Channels
+      namespace channels {
+        interface Channel {
+          on(event: string, callback: Function): void;
+          off(event: string, callback?: Function): void;
+          trigger(event: string, ...args: any[]): void;
+          request(command: string, ...args: any[]): any;
+          reply(command: string, callback: Function): void;
+          stopReplying(command?: string): void;
+        }
+
+        const editor: Channel;
+        const data: Channel;
+        const panelElements: Channel;
+        const dataEditMode: Channel;
+        const deviceMode: Channel;
+        const templates: Channel;
+        const responsivePreview: Channel;
+      }
+    }
+
+    // ===== Settings & Schemes =====
+    namespace settings {
+      class Settings extends ElementorModules.Module {
+        page: any;
+        editorPreferences: any;
+        get(key: string): any;
+        set(key: string, value: any): void;
+        getSettings(): any;
+      }
+
+      class Schemes extends ElementorModules.Module {
+        color: any;
+        typography: any;
+        getScheme(type: string): any;
+        setScheme(type: string, scheme: any): void;
       }
     }
 
