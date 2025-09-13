@@ -41,27 +41,27 @@ export declare class EnhancedBase extends ViewModule {
   elements: HandlerElements;
 
   constructor(settings: { $element: JQuery<HTMLElement> });
-  
+
   // Core lifecycle
   isActive(settings?: any): boolean;
   isElementInTheCurrentDocument(): boolean;
   onInit(...args: any[]): void;
   onDestroy(): void;
   run(): void;
-  
+
   // Element management
   findElement(selector: string): JQuery<HTMLElement>;
   getUniqueHandlerID(cid?: string, $element?: JQuery<HTMLElement>): string;
-  
+
   // Settings management
   getDefaultSettings(): HandlerSettings;
   getSettings(key?: string): any;
   setHandlerSettings(settings: Partial<HandlerSettings>): void;
-  
+
   // Element configuration
   getDefaultElements(): HandlerElements;
   getElements(key?: string): any;
-  
+
   // Element settings and configuration
   getElementSettings(setting?: string): any;
   getEditSettings(setting?: string): any;
@@ -70,20 +70,20 @@ export declare class EnhancedBase extends ViewModule {
   getWidgetType(): string | undefined;
   getModelCID(): string;
   getCurrentDeviceSetting(settingKey: string): any;
-  
+
   // Event handling
   bindEvents(): void;
   unbindEvents(): void;
-  
+
   // Editor integration
   initEditorListeners(): void;
   getEditorListeners(): any[];
   addEditorListeners(): void;
   removeEditorListeners(): void;
-  
+
   // Animation and effects
   animate(element: JQuery<HTMLElement>, animation: string, options?: any): void;
-  
+
   // Responsive handling
   getCurrentDeviceMode(): string;
   onDeviceModeChange(): void;
@@ -124,26 +124,26 @@ export declare class TabsModule extends EnhancedBase {
   deactivateActiveTab(): void;
   isActiveTab(tabIndex: number): boolean;
   bindEvents(): void;
-  
+
   // Event handlers
   onTabTitleClick(event: Event): void;
   onTabTitleKeydown(event: KeyboardEvent): void;
-  
+
   // Tab management
   changeActiveTab(tabIndex: number, fromUser?: boolean): void;
   getTabTitleFilterSelector(tabIndex: number): string;
   getTabContentFilterSelector(tabIndex: number): string;
   getTabIndex($tab: JQuery<HTMLElement>): number;
   getActiveTab(): JQuery<HTMLElement>;
-  
+
   // Animation
   showTab($content: JQuery<HTMLElement>): void;
   hideTab($content: JQuery<HTMLElement>): void;
-  
+
   // Accessibility
   makeTabsAccessible(): void;
   activateFirstTab(): void;
-  
+
   // Keyboard navigation
   onKeyDown(event: KeyboardEvent): void;
   isTabTitleEvent(event: Event): boolean;
@@ -173,21 +173,21 @@ export declare class SwiperBase extends EnhancedBase {
   initSwiper(): Promise<void>;
   getSwiperOptions(): any;
   getSwiperSettings(): any;
-  
+
   // Swiper management
   updateSwiperOption(propertyName: string): void;
   getChangeableProperties(): string[];
-  
+
   // Event handling
   onSlideChange(): void;
   onSwiperInit(): void;
-  
+
   // Responsive
   handleElementHandlers(): void;
-  
+
   // Accessibility
   makeButtonsAccessible(): void;
-  
+
   // Pause/resume functionality
   togglePauseOnHover(enable: boolean): void;
   onFocusDisableAutoplay(): void;
@@ -225,23 +225,30 @@ export declare class CarouselBase extends SwiperBase {
   // Carousel functionality
   getSwiperSettings(): any;
   getOffsetWidth(): number;
-  applyOffsetSettings(elementSettings: any, swiperOptions: any, slidesToShow: number): void;
-  forceSliderToShowNextSlideWhenOnLast(swiperOptions: any, slidesToShow: number): void;
+  applyOffsetSettings(
+    elementSettings: any,
+    swiperOptions: any,
+    slidesToShow: number
+  ): void;
+  forceSliderToShowNextSlideWhenOnLast(
+    swiperOptions: any,
+    slidesToShow: number
+  ): void;
   addClassToSwiperContainer(className: string): void;
-  
+
   // Event handling
   bindEvents(): void;
   unbindEvents(): void;
   onDirectionArrowKeydown(event: KeyboardEvent): void;
-  
+
   // Pagination
   getPaginationBullets(type?: string): any[];
   a11ySetPaginationTabindex(): void;
-  
+
   // Accessibility
   a11ySetSlideAriaHidden(status?: string): void;
   getSwiperWrapperTranformXValue(): number;
-  
+
   // Responsive
   getSpaceBetween(device?: string | null): number;
   updateSpaceBetween(propertyName: string): void;
@@ -280,7 +287,7 @@ export interface AnimationConfig {
  * Lightbox configuration for image and video widgets
  */
 export interface LightboxConfig {
-  type: 'image' | 'video' | 'slideshow';
+  type: "image" | "video" | "slideshow";
   url?: string;
   slides?: any[];
   navigation?: boolean;
