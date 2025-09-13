@@ -231,6 +231,164 @@ declare namespace ElementorModules {
         onFocusDisableAutoplay(): void;
         handleElementHandlers(): void;
       }
+
+      // Base class for tab-like widgets (tabs, accordion, toggle)
+      class TabsModule extends Base {
+        activateDefaultTab(): void;
+        handleKeyboardNavigation(event: KeyboardEvent): void;
+        changeActiveTab(tabIndex: string | number): void;
+        isActiveTab(tabIndex: string | number): boolean;
+        activateTab(tabIndex: string | number): void;
+        deactivateActiveTab(tabIndex?: string | number): void;
+        findAndExposeTabIndexFromSearch(elementsToSearch: any): void;
+      }
+
+      // Specific handler classes
+      class Accordion extends TabsModule {}
+
+      class Alert extends Base {
+        dismiss(): void;
+      }
+
+      class BackgroundSlideshow extends SwiperBase {
+        slideshowSpecialMethods(): void;
+        buildSwiperElements(): void;
+        handleKenBurns(): void;
+      }
+
+      class BackgroundVideo extends Base {
+        player?: any;
+        isFramework?: boolean;
+        onElementChange(propertyName: string): void;
+        playVideo(): void;
+        pauseVideo(): void;
+        showVideoFrame(): void;
+        hideVideoFrame(): void;
+        prepareYTVideo(YT: any): void;
+        prepareVimeoVideo(Vimeo: any): void;
+        changeVideoSize(): void;
+        startVideoLoop(player: any): void;
+        pauseVideoLoop(): void;
+        setEntranceAnimation(animation: string): void;
+      }
+
+      class Counter extends Base {
+        intersectionObserver?: IntersectionObserver;
+      }
+
+      class HandlesPosition extends Base {
+        isFirstSection(): boolean;
+        isOverflowHidden(): boolean;
+        getOffset(): number;
+        setHandlesPosition(): void;
+      }
+
+      class ImageCarousel extends CarouselBase {
+        lightbox?: any;
+        handleLightboxSlideChange(): void;
+        onSlideChange(): void;
+        getSlidesCount(): number;
+        updateLightboxSlide(): void;
+        onLightboxSlideItemClick(event: Event): void;
+        getLightboxSlides(): any[];
+        onLightboxSlideChange(): void;
+      }
+
+      class Progress extends Base {
+        intersectionObserver?: IntersectionObserver;
+        onElementChange(propertyName: string): void;
+      }
+
+      class Tabs extends TabsModule {
+        onTabKeyDown(event: KeyboardEvent): void;
+      }
+
+      class TextEditor extends Base {
+        onElementChange(propertyName: string): void;
+        dropCapLetterHeightFix(): void;
+      }
+
+      class Toggle extends TabsModule {}
+
+      class Video extends Base {
+        player?: any;
+        apiProvider?: any;
+        youtubePlayer?: any;
+        handleVideo(): void;
+        playVideo(): void;
+        animateVideo(): Promise<void>;
+        hideLightbox(): Promise<void>;
+        prepareYTVideo(YT: any, onOverlayClick?: boolean): void;
+        prepareVimeoVideo(Vimeo: any, onOverlayClick?: boolean): void;
+        changeVideoSize(): void;
+        handleAspectRatio(): void;
+        startVideoLoop(player: any): void;
+        pauseVideoLoop(): void;
+        bindEvents(): void;
+        onElementChange(propertyName: string): void;
+      }
+
+      class WpAudio extends Base {
+        onElementChange(propertyName: string): void;
+        initAudio(): void;
+      }
+
+      // Container-specific handlers
+      namespace container {
+        class Container extends Base {
+          onElementChange(propertyName: string): void;
+        }
+
+        class GridContainer extends Base {
+          onElementChange(propertyName: string): void;
+          setGridColumnsTemplate(): void;
+          setGridRowsTemplate(): void;
+        }
+
+        class Shapes extends Base {
+          buildSVG(): void;
+          svgURL(shapeType: string, fileName: string): string;
+          setShapeElementType(): void;
+          createSvgShapeElement(): HTMLElement;
+          buildShapeNode(): HTMLElement;
+          setNegative(): void;
+          onElementChange(propertyName: string): void;
+        }
+      }
+
+      // Section-specific handlers
+      namespace section {
+        class Section extends Base {
+          onElementChange(propertyName: string): void;
+        }
+
+        class Shapes extends Base {
+          buildSVG(): void;
+          svgURL(shapeType: string, fileName: string): string;
+          setShapeElementType(): void;
+          createSvgShapeElement(): HTMLElement;
+          buildShapeNode(): HTMLElement;
+          setNegative(): void;
+          onElementChange(propertyName: string): void;
+        }
+
+        class StretchedSection extends StretchedElement {}
+      }
+
+      // Accessibility handlers
+      namespace accessibility {
+        class NestedTitleKeyboardHandler extends Base {
+          getNestedTitleSelector(): string;
+          getWidgetNumber(): number;
+          getTitleIndex(currentElement: HTMLElement): number;
+          getNextTitle(currentElement: HTMLElement): HTMLElement | null;
+          getPreviousTitle(currentElement: HTMLElement): HTMLElement | null;
+          handleKeyboardNavigation(event: KeyboardEvent): void;
+          addTitleAriaLabels(): void;
+          addTitleTabindex(): void;
+          onElementChange(propertyName: string): void;
+        }
+      }
     }
 
     namespace tools {
@@ -295,6 +453,313 @@ declare namespace ElementorModules {
       getControlsPointer(): object;
       getControlValue(controlName: string): any;
       setControlValue(controlName: string, value: any): void;
+    }
+
+    // ===== Editor Controls System =====
+    namespace controls {
+      // Base control classes
+      class ControlBaseView extends ElementorModules.Module {
+        model: any;
+        container: Container;
+        elementSettingsModel: any; // deprecated
+        ui(): object;
+        events(): object;
+        templateHelpers(): object;
+        className(): string;
+        behaviors(): object;
+        getBehavior(name: string): any;
+        getTemplate(): any;
+        getControlValue(): any;
+        setValue(value: any): void;
+        applySavedValue(): void;
+        updateElementModel(value: any): void;
+        onRender(): void;
+        onDestroy(): void;
+        saveEditor(): void;
+        onBaseInputChange(event: Event): void;
+        onBeforeDestroy(): void;
+      }
+
+      class ControlBaseDataView extends ControlBaseView {
+        validatorTypes: {
+          Base: any;
+          Number: any;
+          Breakpoint: any;
+        };
+        isFirstClick?: boolean;
+        showInput?: boolean;
+        disableSearch?: boolean;
+        allowMultiple?: boolean;
+        onBaseInputTextChange(event: Event): void;
+        onBaseInputChange(event: Event): void;
+        onResponsiveSwitchersClick(event: Event): void;
+        validateSettings(): void;
+        onRender(): void;
+        onDestroy(): void;
+        updateElementModel(value: any): void;
+        applySavedValue(): void;
+        getGlobalKey(): string;
+        getCurrentValue(): any;
+        isGlobalActive(): boolean;
+        toggleLinkedItems(): void;
+      }
+
+      class ControlBaseMultiple extends ControlBaseDataView {
+        childView: any;
+        childViewContainer: string;
+        templateHelpers(): object;
+        getChildType(): string;
+        getChildView(): any;
+        getChildViewOptions(model: any): object;
+        updateElementModel(value: any): void;
+        onRender(): void;
+        onBeforeDestroy(): void;
+      }
+
+      class ControlBaseUnits extends ControlBaseDataView {
+        currentUnit?: string;
+        unitMeasures?: object;
+        $controls?: JQuery;
+        units?: string[];
+        getUnit(): string;
+        getDefaultValue(): any;
+        updateUnitsChoices(): void;
+        onUnitChange(): void;
+        onInputChange(): void;
+        initUnits(): void;
+      }
+
+      // Specific control types
+      class BoxShadow extends ControlBaseDataView {
+        onColorChanged(): void;
+        updateCSSVar(styleItem: any, key: string, value: any): void;
+        applyValueFromSettings(): void;
+      }
+
+      class Button extends ControlBaseView {
+        onButtonClick(event: Event): void;
+      }
+
+      class Choose extends ControlBaseDataView {
+        applySavedValue(): void;
+      }
+
+      class Code extends ControlBaseDataView {
+        editor?: any;
+        onRender(): void;
+        applySavedValue(): void;
+        onDestroy(): void;
+      }
+
+      class Color extends ControlBaseDataView {
+        colorPicker?: any;
+        initPicker(): void;
+        onPickerChange(): void;
+        onPickerClear(): void;
+        onAddGlobalButtonClick(): void;
+        getCurrentValue(): any;
+        reRoute(isEnabled: boolean): void;
+        applySavedValue(): void;
+        onDestroy(): void;
+      }
+
+      class DateTime extends ControlBaseDataView {
+        onInputChange(): void;
+        onRender(): void;
+      }
+
+      class Dimensions extends ControlBaseDataView {
+        onInputChange(): void;
+        onLinkedInputChange(): void;
+        getCurrentValue(): any;
+        applySavedValue(): void;
+      }
+
+      class Font extends ControlBaseDataView {
+        cache?: WeakMap<any, any>;
+        childView?: any;
+        getStyleId(): string;
+        onFontChange(): void;
+        enqueueFont(): void;
+        onRender(): void;
+        onDestroy(): void;
+      }
+
+      class Gallery extends ControlBaseDataView {
+        attachments?: any;
+        library?: any;
+        onButtonClick(): void;
+        initRemoveDialog(): void;
+        onRender(): void;
+        applySavedValue(): void;
+      }
+
+      class Gaps extends ControlBaseDataView {
+        onInputChange(): void;
+        getCurrentValue(): any;
+        applySavedValue(): void;
+      }
+
+      class Hidden extends ControlBaseDataView {}
+
+      class Icon extends ControlBaseDataView {
+        onRender(): void;
+        onIconPickerSelect(): void;
+        getControlValue(): any;
+      }
+
+      class Icons extends ControlBaseMultiple {
+        childView: any;
+        onRender(): void;
+        getChildView(): any;
+        onIconPickerSelect(): void;
+        getControlValue(): any;
+        updateElementModel(value: any): void;
+      }
+
+      class ImageDimensions extends ControlBaseDataView {
+        onApplyImageSize(): void;
+        onImageDimensionChange(): void;
+        onCustomImageDimensionChange(): void;
+        getCurrentValue(): any;
+        applySavedValue(): void;
+        onRender(): void;
+      }
+
+      class Media extends ControlBaseDataView {
+        ui(): object;
+        events(): object;
+        onRender(): void;
+        applySavedValue(): void;
+        openFrame(view: string): void;
+        select(): void;
+        onFrameOpen(): void;
+        onFrameSelect(): void;
+        onFrameClose(): void;
+        onRemoveClick(): void;
+        onButtonClick(): void;
+      }
+
+      class Notice extends ControlBaseView {
+        onRender(): void;
+      }
+
+      class Number extends ControlBaseDataView {
+        onInputChange(): void;
+        onRender(): void;
+        validateValue(value: any): any;
+      }
+
+      class PopoverToggle extends Choose {
+        onRender(): void;
+        onChildControlValueChange(): void;
+        onChooseSelect(): void;
+        updatePopoverVisibility(): void;
+      }
+
+      class Repeater extends ControlBaseDataView {
+        childView?: any;
+        templateHelpers(): object;
+        getChildView(): any;
+        getChildViewOptions(model: any): object;
+        updateElementModel(value: any): void;
+        onAddButtonClick(): void;
+        onSortUpdate(): void;
+        onRender(): void;
+        onBeforeDestroy(): void;
+      }
+
+      class RepeaterRow extends ControlBaseDataView {
+        className(): string;
+        tagName(): string;
+        controlViews?: object;
+        onRowDuplicate(): void;
+        onRowRemove(): void;
+        onRowToggle(): void;
+        onRender(): void;
+        onDestroy(): void;
+      }
+
+      class Section extends ControlBaseView {
+        onRender(): void;
+      }
+
+      class Select extends ControlBaseDataView {
+        onRender(): void;
+        onSelectChange(): void;
+        applySavedValue(): void;
+      }
+
+      class Select2 extends ControlBaseDataView {
+        cache?: WeakMap<any, any>;
+        getSelect2Placeholder(): string;
+        getSelect2Options(): object;
+        onRender(): void;
+        onDestroy(): void;
+      }
+
+      class Slider extends ControlBaseDataView {
+        onInputChange(): void;
+        onSliderChange(): void;
+        resetDimensions(): void;
+        onRender(): void;
+        onDestroy(): void;
+      }
+
+      class Structure extends ControlBaseView {
+        currentPreset?: any;
+        onPresetSelected(event: Event): void;
+        onRender(): void;
+      }
+
+      class Switcher extends ControlBaseDataView {
+        onSwitcherChange(): void;
+        applySavedValue(): void;
+      }
+
+      class Tab extends ControlBaseView {
+        onRender(): void;
+      }
+
+      class URL extends ControlBaseMultiple {
+        onRender(): void;
+        onInputChange(): void;
+        updateElementModel(value: any): void;
+      }
+
+      class VisualChoice extends ControlBaseDataView {
+        onChoiceSelect(event: Event): void;
+        applySavedValue(): void;
+      }
+
+      class WpWidget extends ControlBaseDataView {
+        onFormUpdate(): void;
+        onRender(): void;
+        applySavedValue(): void;
+      }
+
+      class WYSIWYG extends ControlBaseDataView {
+        editor?: any;
+        onRender(): void;
+        onDestroy(): void;
+        applySavedValue(): void;
+        getWysiwygValue(): string;
+      }
+
+      // Control behaviors
+      namespace behaviors {
+        class GlobalSettings extends ElementorModules.Module {
+          initialize(): void;
+          onElementChange(): void;
+          updateElementModel(): void;
+        }
+
+        class Tags extends ElementorModules.Module {
+          initialize(): void;
+          onRender(): void;
+          onDestroy(): void;
+        }
+      }
     }
   }
 
