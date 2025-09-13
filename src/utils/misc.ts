@@ -21,7 +21,7 @@ export declare class React extends Module {
   /**
    * Render a React component to an element
    * Automatically detects and uses React 18+ createRoot or legacy ReactDOM.render
-   * 
+   *
    * @param component - React component to render
    * @param element - DOM element to render into
    * @param props - Props to pass to component
@@ -30,7 +30,7 @@ export declare class React extends Module {
 
   /**
    * Create React root for React 18+ (modern API)
-   * 
+   *
    * @param element - DOM element to create root for
    * @returns React root instance
    */
@@ -38,7 +38,7 @@ export declare class React extends Module {
 
   /**
    * Render using React 18+ createRoot API
-   * 
+   *
    * @param component - React component to render
    * @param element - DOM element to render into
    * @param props - Props to pass to component
@@ -47,7 +47,7 @@ export declare class React extends Module {
 
   /**
    * Render using legacy ReactDOM.render API
-   * 
+   *
    * @param component - React component to render
    * @param element - DOM element to render into
    * @param props - Props to pass to component
@@ -62,14 +62,14 @@ export declare class React extends Module {
 
   /**
    * Check if React 18+ createRoot is available
-   * 
+   *
    * @returns True if createRoot API is available
    */
   hasCreateRootAPI(): boolean;
 
   /**
    * Get React version string
-   * 
+   *
    * @returns React version or 'unknown' if not detected
    */
   getReactVersion(): string;
@@ -160,7 +160,7 @@ export declare class React extends Module {
 export declare class Time extends Module {
   /**
    * Get user timestamp string with proper timezone handling
-   * 
+   *
    * @param date - Date object to format (defaults to current date)
    * @param includeTimezone - Whether to include timezone information
    * @returns Formatted timestamp string
@@ -169,7 +169,7 @@ export declare class Time extends Module {
 
   /**
    * Format timestamp to readable time
-   * 
+   *
    * @param timestamp - Unix timestamp in milliseconds
    * @param format - Format string (e.g., 'YYYY-MM-DD HH:mm:ss')
    * @returns Formatted time string
@@ -178,7 +178,7 @@ export declare class Time extends Module {
 
   /**
    * Get timezone offset in minutes
-   * 
+   *
    * @param date - Date to get offset for (defaults to current date)
    * @returns Timezone offset in minutes from UTC
    */
@@ -186,7 +186,7 @@ export declare class Time extends Module {
 
   /**
    * Format date to ISO8601 string
-   * 
+   *
    * @param date - Date to format (defaults to current date)
    * @param includeMilliseconds - Whether to include milliseconds
    * @returns ISO8601 formatted string
@@ -195,24 +195,28 @@ export declare class Time extends Module {
 
   /**
    * Get user's local timezone identifier
-   * 
+   *
    * @returns Timezone identifier (e.g., 'America/New_York')
    */
   getUserTimezone(): string;
 
   /**
    * Convert timestamp between timezones
-   * 
+   *
    * @param timestamp - Unix timestamp in milliseconds
    * @param fromTimezone - Source timezone
    * @param toTimezone - Target timezone
    * @returns Converted timestamp
    */
-  convertTimezone(timestamp: number, fromTimezone: string, toTimezone: string): number;
+  convertTimezone(
+    timestamp: number,
+    fromTimezone: string,
+    toTimezone: string
+  ): number;
 
   /**
    * Get relative time string (e.g., "2 hours ago")
-   * 
+   *
    * @param timestamp - Unix timestamp to compare
    * @param baseTimestamp - Base timestamp for comparison (defaults to now)
    * @returns Relative time string

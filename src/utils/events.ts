@@ -89,7 +89,7 @@ export declare class Events extends Module {
   /**
    * Dispatch a custom event on a context element
    * Enhanced with better jQuery support and backwards compatibility
-   * 
+   *
    * @param context - Element or jQuery element to dispatch event on
    * @param event - Event name, supports namespacing (e.g., 'custom:event')
    * @param data - Event data payload
@@ -104,7 +104,7 @@ export declare class Events extends Module {
 
   /**
    * Enhanced jQuery event binding with namespace support
-   * 
+   *
    * @param context - jQuery element to bind events on
    * @param events - Event string or object mapping events to handlers
    * @param handler - Event handler function (when events is string)
