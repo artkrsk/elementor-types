@@ -11,6 +11,9 @@ export * from "./history";
 // Component subsystems
 export * from "./controls";
 
+// Data system
+export * as Data from "./data";
+
 // Command system
 export * as Commands from "./commands";
 
