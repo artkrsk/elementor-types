@@ -420,3 +420,314 @@ export declare class WYSIWYG extends ControlBaseDataView {
   applySavedValue(): void;
   getWysiwygValue(): string;
 }
+
+/**
+ * Text shadow control (extends box shadow functionality)
+ */
+export declare class TextShadow extends BoxShadow {
+  // Inherits from BoxShadow with text-specific enhancements
+  onTextShadowChange(): void;
+  updateTextShadowPreview(): void;
+}
+
+/**
+ * Border control for element borders
+ */
+export declare class Border extends ControlBaseDataView {
+  // Border style properties
+  borderTypes: string[];
+  currentBorderType: string;
+
+  // Core functionality
+  onBorderStyleChange(): void;
+  onBorderWidthChange(): void;
+  onBorderColorChange(): void;
+  onBorderRadiusChange(): void;
+
+  // Border utilities
+  getBorderValue(): any;
+  setBorderValue(border: any): void;
+  updateBorderPreview(): void;
+
+  // Individual border sides
+  setTopBorder(value: any): void;
+  setRightBorder(value: any): void;
+  setBottomBorder(value: any): void;
+  setLeftBorder(value: any): void;
+
+  // Lifecycle
+  onRender(): void;
+  applySavedValue(): void;
+}
+
+/**
+ * Typography control for text styling
+ */
+export declare class Typography extends ControlBaseDataView {
+  // Font management
+  fonts: string[];
+  googleFonts: string[];
+  systemFonts: string[];
+  customFonts: string[];
+
+  // Typography properties
+  fontFamily: string;
+  fontSize: string;
+  fontWeight: string;
+  fontStyle: string;
+  textTransform: string;
+  textDecoration: string;
+  lineHeight: string;
+  letterSpacing: string;
+  wordSpacing: string;
+
+  // Core functionality
+  onFontFamilyChange(): void;
+  onFontSizeChange(): void;
+  onFontWeightChange(): void;
+  onFontStyleChange(): void;
+  onTextTransformChange(): void;
+  onTextDecorationChange(): void;
+  onLineHeightChange(): void;
+  onLetterSpacingChange(): void;
+  onWordSpacingChange(): void;
+
+  // Font loading
+  loadGoogleFont(fontFamily: string): Promise<void>;
+  loadCustomFont(fontData: any): Promise<void>;
+  previewFont(fontFamily: string): void;
+
+  // Typography utilities
+  getTypographyValue(): any;
+  setTypographyValue(typography: any): void;
+  updateTypographyPreview(): void;
+
+  // Font discovery
+  discoverUsedFonts(): string[];
+  optimizeFontLoading(): void;
+
+  // Lifecycle
+  onRender(): void;
+  applySavedValue(): void;
+  onDestroy(): void;
+}
+
+/**
+ * Background control for element backgrounds
+ */
+export declare class Background extends ControlBaseDataView {
+  // Background types
+  backgroundTypes: string[];
+  currentBackgroundType: string;
+
+  // Background properties
+  backgroundColor: string;
+  backgroundImage: string;
+  backgroundPosition: string;
+  backgroundSize: string;
+  backgroundRepeat: string;
+  backgroundAttachment: string;
+  backgroundBlendMode: string;
+
+  // Gradient properties
+  gradientType: string;
+  gradientAngle: number;
+  gradientColors: string[];
+  gradientStops: number[];
+
+  // Video background
+  videoUrl: string;
+  videoPoster: string;
+  videoLoop: boolean;
+  videoMuted: boolean;
+
+  // Core functionality
+  onBackgroundTypeChange(): void;
+  onBackgroundColorChange(): void;
+  onBackgroundImageChange(): void;
+  onBackgroundPositionChange(): void;
+  onBackgroundSizeChange(): void;
+  onBackgroundRepeatChange(): void;
+  onBackgroundAttachmentChange(): void;
+
+  // Gradient functionality
+  onGradientTypeChange(): void;
+  onGradientAngleChange(): void;
+  onGradientColorChange(index: number, color: string): void;
+  onGradientStopChange(index: number, stop: number): void;
+  addGradientStop(): void;
+  removeGradientStop(index: number): void;
+
+  // Video functionality
+  onVideoUrlChange(): void;
+  onVideoPosterChange(): void;
+  onVideoSettingsChange(): void;
+
+  // Background utilities
+  getBackgroundValue(): any;
+  setBackgroundValue(background: any): void;
+  updateBackgroundPreview(): void;
+  generateGradientCSS(): string;
+
+  // Media handling
+  selectBackgroundImage(): void;
+  selectVideoPoster(): void;
+  validateVideoUrl(url: string): boolean;
+
+  // Lifecycle
+  onRender(): void;
+  applySavedValue(): void;
+}
+
+/**
+ * Animation control for element animations
+ */
+export declare class Animation extends ControlBaseDataView {
+  // Animation properties
+  animationType: string;
+  animationDuration: number;
+  animationDelay: number;
+  animationDirection: string;
+  animationFillMode: string;
+  animationIterationCount: number | string;
+  animationTimingFunction: string;
+
+  // Animation presets
+  animationPresets: any[];
+  customAnimations: any[];
+
+  // Core functionality
+  onAnimationTypeChange(): void;
+  onAnimationDurationChange(): void;
+  onAnimationDelayChange(): void;
+  onAnimationDirectionChange(): void;
+  onAnimationFillModeChange(): void;
+  onAnimationIterationCountChange(): void;
+  onAnimationTimingFunctionChange(): void;
+
+  // Animation utilities
+  getAnimationValue(): any;
+  setAnimationValue(animation: any): void;
+  previewAnimation(): void;
+  stopAnimationPreview(): void;
+
+  // Custom animations
+  createCustomAnimation(keyframes: any[]): void;
+  editCustomAnimation(id: string, keyframes: any[]): void;
+  deleteCustomAnimation(id: string): void;
+
+  // Animation management
+  loadAnimationPresets(): void;
+  saveAnimationPreset(animation: any, name: string): void;
+  importAnimations(animations: any[]): void;
+  exportAnimations(): any[];
+
+  // Lifecycle
+  onRender(): void;
+  applySavedValue(): void;
+}
+
+/**
+ * Transform control for CSS transforms
+ */
+export declare class Transform extends ControlBaseDataView {
+  // Transform properties
+  translateX: number;
+  translateY: number;
+  translateZ: number;
+  rotateX: number;
+  rotateY: number;
+  rotateZ: number;
+  scaleX: number;
+  scaleY: number;
+  scaleZ: number;
+  skewX: number;
+  skewY: number;
+
+  // Transform origin
+  transformOriginX: string;
+  transformOriginY: string;
+  transformOriginZ: string;
+
+  // Perspective
+  perspective: number;
+  perspectiveOriginX: string;
+  perspectiveOriginY: string;
+
+  // Core functionality
+  onTranslateChange(): void;
+  onRotateChange(): void;
+  onScaleChange(): void;
+  onSkewChange(): void;
+  onTransformOriginChange(): void;
+  onPerspectiveChange(): void;
+
+  // Transform utilities
+  getTransformValue(): any;
+  setTransformValue(transform: any): void;
+  generateTransformCSS(): string;
+  updateTransformPreview(): void;
+
+  // Transform presets
+  applyTransformPreset(preset: string): void;
+  saveTransformPreset(name: string): void;
+  resetTransform(): void;
+
+  // 3D utilities
+  enable3D(): void;
+  disable3D(): void;
+  is3DEnabled(): boolean;
+
+  // Lifecycle
+  onRender(): void;
+  applySavedValue(): void;
+}
+
+/**
+ * Filter control for CSS filters
+ */
+export declare class Filter extends ControlBaseDataView {
+  // Filter properties
+  blur: number;
+  brightness: number;
+  contrast: number;
+  grayscale: number;
+  hueRotate: number;
+  invert: number;
+  opacity: number;
+  saturate: number;
+  sepia: number;
+  dropShadow: any;
+
+  // Core functionality
+  onBlurChange(): void;
+  onBrightnessChange(): void;
+  onContrastChange(): void;
+  onGrayscaleChange(): void;
+  onHueRotateChange(): void;
+  onInvertChange(): void;
+  onOpacityChange(): void;
+  onSaturateChange(): void;
+  onSepiaChange(): void;
+  onDropShadowChange(): void;
+
+  // Filter utilities
+  getFilterValue(): any;
+  setFilterValue(filter: any): void;
+  generateFilterCSS(): string;
+  updateFilterPreview(): void;
+
+  // Filter presets
+  applyFilterPreset(preset: string): void;
+  saveFilterPreset(name: string): void;
+  resetFilters(): void;
+
+  // Advanced filters
+  addCustomFilter(filter: string): void;
+  removeCustomFilter(index: number): void;
+  validateFilterValue(value: string): boolean;
+
+  // Lifecycle
+  onRender(): void;
+  applySavedValue(): void;
+}
