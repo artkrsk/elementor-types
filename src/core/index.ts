@@ -4,6 +4,7 @@
  */
 
 export * from "./modules";
+export * from "./utils";
 
 // Re-export for convenience
 export type {

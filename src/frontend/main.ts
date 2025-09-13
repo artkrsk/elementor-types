@@ -75,6 +75,28 @@ export interface ElementorFrontend {
   getKitSettings(settingName?: string): any;
   getPageSettings(settingName?: string): any;
   getGeneralSettings(settingName?: string): any;
+
+  // Additional methods from JS analysis
+  getWidescreenSetting(settings: object, settingKey: string): any;
+  getElements(elementName?: string): any; // deprecated
+  getDefaultSettings(): {
+    selectors: {
+      elementor: string;
+      adminBar: string;
+    };
+  };
+  getDefaultElements(): {
+    window: Window;
+    $window: JQuery<Window>;
+    $document: JQuery<Document>;
+    $head: JQuery<HTMLHeadElement>;
+    $body: JQuery<HTMLBodyElement>;
+    $deviceMode: JQuery<HTMLElement>;
+  };
+  bindEvents(): void;
+  setDeviceModeData(): void;
+  populateActiveBreakpointsConfig(): void;
+
   addListenerOnce(
     listenerID: string,
     event: string,
