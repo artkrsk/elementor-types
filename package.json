@@ -1,0 +1,53 @@
+{
+  "name": "@framework/elementor-types",
+  "version": "1.0.0",
+  "description": "TypeScript type definitions for Elementor WordPress plugin",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/**/*",
+    "src/**/*",
+    "README.md"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "clean": "rm -rf dist",
+    "prepack": "pnpm run clean && pnpm run build",
+    "type-check": "tsc --noEmit",
+    "lint": "tsc --noEmit --strict"
+  },
+  "keywords": [
+    "elementor",
+    "wordpress",
+    "typescript",
+    "types",
+    "definitions"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jquery": "^3.5.29",
+    "swiper": "^12.0.1",
+    "typescript": "^5.2.0"
+  },
+  "peerDependencies": {
+    "@types/jquery": "^3.5.0",
+    "swiper": "^11.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/your-org/framework.git",
+    "directory": "packages/elementor-types"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
