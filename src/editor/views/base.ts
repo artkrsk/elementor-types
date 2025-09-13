@@ -302,3 +302,179 @@ export declare class BaseWidgetView extends BaseElementView {
    */
   getContextMenuGroups(): ContextMenuGroup[];
 }
+
+/**
+ * View manager interface
+ * Manages view lifecycle and hierarchy
+ */
+export interface ViewManager {
+  /** Active views registry */
+  activeViews: Map<string, BaseElementView>;
+
+  /** View hierarchy tree */
+  viewHierarchy: Map<string, string[]>;
+
+  /** View event bus */
+  eventBus: any;
+
+  /**
+   * Register a view
+   * @param id - View ID
+   * @param view - View instance
+   */
+  registerView(id: string, view: BaseElementView): void;
+
+  /**
+   * Unregister a view
+   * @param id - View ID
+   */
+  unregisterView(id: string): void;
+
+  /**
+   * Get view by ID
+   * @param id - View ID
+   */
+  getView(id: string): BaseElementView | undefined;
+
+  /**
+   * Get all views of a specific type
+   * @param type - Element type
+   */
+  getViewsByType(type: string): BaseElementView[];
+
+  /**
+   * Get child views of a parent
+   * @param parentId - Parent view ID
+   */
+  getChildViews(parentId: string): BaseElementView[];
+
+  /**
+   * Destroy view and cleanup
+   * @param id - View ID
+   */
+  destroyView(id: string): void;
+
+  /**
+   * Refresh view rendering
+   * @param id - View ID
+   */
+  refreshView(id: string): void;
+
+  /**
+   * Broadcast event to all views
+   * @param event - Event name
+   * @param data - Event data
+   */
+  broadcastEvent(event: string, data?: any): void;
+}
+
+/**
+ * View renderer interface
+ * Handles view rendering and updates
+ */
+export interface ViewRenderer {
+  /** Rendering queue */
+  renderQueue: Set<string>;
+
+  /** Rendering in progress flag */
+  isRendering: boolean;
+
+  /**
+   * Queue view for rendering
+   * @param viewId - View ID
+   * @param priority - Render priority
+   */
+  queueRender(viewId: string, priority?: number): void;
+
+  /**
+   * Process render queue
+   */
+  processRenderQueue(): void;
+
+  /**
+   * Render view immediately
+   * @param view - View to render
+   */
+  renderView(view: BaseElementView): void;
+
+  /**
+   * Batch render multiple views
+   * @param views - Views to render
+   */
+  batchRender(views: BaseElementView[]): void;
+
+  /**
+   * Clear render queue
+   */
+  clearRenderQueue(): void;
+}
+
+/**
+ * View state interface
+ * Manages view state and persistence
+ */
+export interface ViewState {
+  /** View visibility state */
+  visible: boolean;
+
+  /** View selected state */
+  selected: boolean;
+
+  /** View locked state */
+  locked: boolean;
+
+  /** View editing state */
+  editing: boolean;
+
+  /** View loading state */
+  loading: boolean;
+
+  /** Custom state properties */
+  custom: { [key: string]: any };
+}
+
+/**
+ * View state manager
+ * Manages view state across the application
+ */
+export interface ViewStateManager {
+  /** View states registry */
+  viewStates: Map<string, ViewState>;
+
+  /**
+   * Get view state
+   * @param viewId - View ID
+   */
+  getState(viewId: string): ViewState;
+
+  /**
+   * Set view state
+   * @param viewId - View ID
+   * @param state - State to set
+   */
+  setState(viewId: string, state: Partial<ViewState>): void;
+
+  /**
+   * Update view state property
+   * @param viewId - View ID
+   * @param property - Property name
+   * @param value - Property value
+   */
+  updateState(viewId: string, property: keyof ViewState, value: any): void;
+
+  /**
+   * Clear view state
+   * @param viewId - View ID
+   */
+  clearState(viewId: string): void;
+
+  /**
+   * Persist view states
+   */
+  persistStates(): void;
+
+  /**
+   * Restore view states
+   */
+  restoreStates(): void;
+}

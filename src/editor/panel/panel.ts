@@ -817,3 +817,234 @@ export declare class PanelLayoutView {
    */
   closeCurrentPage(): void;
 }
+
+/**
+ * Edit mode types
+ */
+export type EditMode = "edit" | "preview" | "select";
+
+/**
+ * Edit mode change event detail
+ */
+export interface EditModeChangeDetail {
+  /** The new active mode */
+  activeMode: EditMode;
+  /** The previous mode (if available) */
+  previousMode?: EditMode;
+}
+
+/**
+ * Edit mode channel interface
+ * Communication channel for edit mode state
+ */
+export interface EditModeChannel {
+  /**
+   * Get current active mode
+   * @param request - Request type
+   */
+  request(request: "activeMode"): EditMode;
+
+  /**
+   * Set active mode response
+   * @param request - Request type
+   * @param mode - Mode to set
+   */
+  reply(request: "activeMode", mode: EditMode): void;
+
+  /**
+   * Trigger mode switch event
+   * @param event - Event type
+   * @param mode - New mode
+   */
+  trigger(event: "switch", mode: EditMode): void;
+}
+
+/**
+ * Edit mode manager
+ * Manages edit mode state and transitions
+ */
+export interface EditModeManager {
+  /** Current active edit mode */
+  activeMode: EditMode;
+
+  /** Edit mode communication channel */
+  channel: EditModeChannel;
+
+  /** Edit mode state history */
+  modeHistory: EditMode[];
+
+  /**
+   * Change edit mode
+   * @param newMode - New mode to activate
+   */
+  changeEditMode(newMode: EditMode): void;
+
+  /**
+   * Get current active mode
+   */
+  getActiveMode(): EditMode;
+
+  /**
+   * Check if currently in edit mode
+   */
+  isEditMode(): boolean;
+
+  /**
+   * Check if currently in preview mode
+   */
+  isPreviewMode(): boolean;
+
+  /**
+   * Check if currently in select mode
+   */
+  isSelectMode(): boolean;
+
+  /**
+   * Enter edit mode
+   */
+  enterEditMode(): void;
+
+  /**
+   * Enter preview mode
+   * @param fullPreview - Whether to enter full preview mode
+   */
+  enterPreviewMode(fullPreview?: boolean): void;
+
+  /**
+   * Enter select mode
+   */
+  enterSelectMode(): void;
+
+  /**
+   * Exit current mode and return to edit
+   */
+  exitCurrentMode(): void;
+
+  /**
+   * Handle mode switch events
+   * @param newMode - New active mode
+   */
+  onEditModeSwitched(newMode: EditMode): void;
+
+  /**
+   * Add mode change listener
+   * @param callback - Callback function
+   */
+  onModeChange(
+    callback: (mode: EditMode, previousMode?: EditMode) => void
+  ): void;
+
+  /**
+   * Remove mode change listener
+   * @param callback - Callback function to remove
+   */
+  offModeChange(
+    callback: (mode: EditMode, previousMode?: EditMode) => void
+  ): void;
+}
+
+/**
+ * Edit mode behavior interface
+ * For components that respond to edit mode changes
+ */
+export interface EditModeBehavior {
+  /**
+   * Handle edit mode switch
+   * @param activeMode - New active mode
+   */
+  onEditModeSwitched(activeMode: EditMode): void;
+
+  /**
+   * Handle entering edit mode
+   */
+  onEnterEditMode?(): void;
+
+  /**
+   * Handle entering preview mode
+   */
+  onEnterPreviewMode?(): void;
+
+  /**
+   * Handle entering select mode
+   */
+  onEnterSelectMode?(): void;
+
+  /**
+   * Handle exiting current mode
+   */
+  onExitMode?(): void;
+}
+
+/**
+ * Panel edit mode integration
+ * Panel-specific edit mode functionality
+ */
+export interface PanelEditModeIntegration {
+  /**
+   * Handle panel mode changes
+   * @param activeMode - New active edit mode
+   */
+  onPanelEditModeSwitched(activeMode: EditMode): void;
+
+  /**
+   * Show panel for edit mode
+   */
+  showPanelForEdit(): void;
+
+  /**
+   * Hide panel for preview mode
+   */
+  hidePanelForPreview(): void;
+
+  /**
+   * Adjust panel for select mode
+   */
+  adjustPanelForSelect(): void;
+
+  /**
+   * Update panel visibility based on mode
+   * @param mode - Current edit mode
+   */
+  updatePanelVisibility(mode: EditMode): void;
+
+  /**
+   * Update panel interactions based on mode
+   * @param mode - Current edit mode
+   */
+  updatePanelInteractions(mode: EditMode): void;
+}
+
+/**
+ * Edit mode context
+ * Context information for edit mode operations
+ */
+export interface EditModeContext {
+  /** Current edit mode */
+  mode: EditMode;
+  /** Whether edit mode allows interactions */
+  allowInteractions: boolean;
+  /** Whether edit mode allows selections */
+  allowSelections: boolean;
+  /** Whether edit mode shows editing tools */
+  showEditingTools: boolean;
+  /** Whether edit mode allows drag and drop */
+  allowDragDrop: boolean;
+  /** Context menu context */
+  contextMenuContext: "panel" | "preview";
+}
+
+/**
+ * Edit mode configuration
+ */
+export interface EditModeConfig {
+  /** Default edit mode */
+  defaultMode: EditMode;
+  /** Allowed modes */
+  allowedModes: EditMode[];
+  /** Mode transition animations */
+  animations: boolean;
+  /** Auto-save on mode change */
+  autoSave: boolean;
+  /** Mode change confirmation */
+  confirmModeChange: boolean;
+}
