@@ -10,3 +10,4 @@ export * from "./validation";
 export * from "./groups";
 export * from "./conditions";
 export * from "./factory";
+export * from "./window-controls";
