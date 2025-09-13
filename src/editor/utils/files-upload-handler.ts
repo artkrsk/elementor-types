@@ -773,11 +773,9 @@ export class UploadProgressTracker {
   }
 }
 
-// Global upload events
-declare global {
-  interface WindowEventMap {
-    "elementor:upload:progress": CustomEvent<UploadProgress>;
-    "elementor:upload:complete": CustomEvent<{ file: File; result: any }>;
-    "elementor:upload:error": CustomEvent<{ file: File; error: any }>;
-  }
+// Export types for external use - no global declarations
+export interface UploadEventMap {
+  "elementor:upload:progress": CustomEvent<UploadProgress>;
+  "elementor:upload:complete": CustomEvent<{ file: File; result: any }>;
+  "elementor:upload:error": CustomEvent<{ file: File; error: any }>;
 }

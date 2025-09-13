@@ -31,6 +31,7 @@ export * as Commands from "./commands";
 
 // Component namespaces to avoid naming conflicts
 export * as Elements from "./elements";
+export * as Layouts from "./layouts";
 export * as BrowserImport from "./browser-import";
 export * as Components from "./components";
 
