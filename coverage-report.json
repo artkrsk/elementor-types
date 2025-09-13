@@ -1,11 +1,11 @@
 {
-  "timestamp": "2025-09-13T07:06:08.227Z",
+  "timestamp": "2025-09-13T07:40:28.141Z",
   "summary": {
     "totalJSFiles": 516,
-    "coveredFiles": 178,
-    "uncoveredFiles": 282,
-    "partialCoverage": 56,
-    "coveragePercentage": 40
+    "coveredFiles": 183,
+    "uncoveredFiles": 279,
+    "partialCoverage": 54,
+    "coveragePercentage": 41
   },
   "modules": {
     "admin": {
@@ -420,7 +420,7 @@
     },
     "editor": {
       "jsFiles": 431,
-      "tsFiles": 18,
+      "tsFiles": 19,
       "covered": [
         {
           "file": "/Users/art/Projects/Framework/packages/elementor-types/elementor-dev-js/editor/command-bases/command-container-base.js",
@@ -1241,6 +1241,22 @@
           }
         },
         {
+          "file": "/Users/art/Projects/Framework/packages/elementor-types/elementor-dev-js/editor/components/preview/commands/reload.js",
+          "fileName": "reload",
+          "covered": true,
+          "partial": false,
+          "reason": "",
+          "details": {
+            "classes": [
+              "Reload"
+            ],
+            "methods": [
+              "apply"
+            ],
+            "exports": []
+          }
+        },
+        {
           "file": "/Users/art/Projects/Framework/packages/elementor-types/elementor-dev-js/editor/components/preview/component.js",
           "fileName": "component",
           "covered": true,
@@ -1442,6 +1458,27 @@
           }
         },
         {
+          "file": "/Users/art/Projects/Framework/packages/elementor-types/elementor-dev-js/editor/container/model/children-array.js",
+          "fileName": "children-array",
+          "covered": true,
+          "partial": false,
+          "reason": "",
+          "details": {
+            "classes": [
+              "ChildrenArray"
+            ],
+            "methods": [
+              "clear",
+              "findRecursive",
+              "forEachRecursive",
+              "someRecursive"
+            ],
+            "exports": [
+              "class"
+            ]
+          }
+        },
+        {
           "file": "/Users/art/Projects/Framework/packages/elementor-types/elementor-dev-js/editor/container/panel.js",
           "fileName": "panel",
           "covered": true,
@@ -1457,6 +1494,36 @@
               "closeEditor",
               "getControlView",
               "getControlModel"
+            ],
+            "exports": [
+              "class"
+            ]
+          }
+        },
+        {
+          "file": "/Users/art/Projects/Framework/packages/elementor-types/elementor-dev-js/editor/controls/behaviors/scrubbing.js",
+          "fileName": "scrubbing",
+          "covered": true,
+          "partial": false,
+          "reason": "",
+          "details": {
+            "classes": [
+              "Scrubbing"
+            ],
+            "methods": [
+              "constructor",
+              "ui",
+              "events",
+              "scrub",
+              "getMovementType",
+              "getModifiedValue",
+              "isInputValidForScrubbing",
+              "setActive",
+              "setInactive",
+              "onMouseDownInput",
+              "onMouseDownLabel",
+              "onMouseEnterLabel",
+              "onMouseLeaveLabel"
             ],
             "exports": [
               "class"
@@ -1886,6 +1953,26 @@
           }
         },
         {
+          "file": "/Users/art/Projects/Framework/packages/elementor-types/elementor-dev-js/editor/document/elements/commands/move.js",
+          "fileName": "move",
+          "covered": true,
+          "partial": false,
+          "reason": "",
+          "details": {
+            "classes": [
+              "Move"
+            ],
+            "methods": [
+              "validateArgs",
+              "getHistory",
+              "apply"
+            ],
+            "exports": [
+              "Move"
+            ]
+          }
+        },
+        {
           "file": "/Users/art/Projects/Framework/packages/elementor-types/elementor-dev-js/editor/document/elements/commands/paste-style.js",
           "fileName": "paste-style",
           "covered": true,
@@ -2193,6 +2280,26 @@
             ],
             "exports": [
               "Insert"
+            ]
+          }
+        },
+        {
+          "file": "/Users/art/Projects/Framework/packages/elementor-types/elementor-dev-js/editor/document/repeater/commands/move.js",
+          "fileName": "move",
+          "covered": true,
+          "partial": false,
+          "reason": "",
+          "details": {
+            "classes": [
+              "Move"
+            ],
+            "methods": [
+              "validateArgs",
+              "getHistory",
+              "apply"
+            ],
+            "exports": [
+              "Move"
             ]
           }
         },
@@ -4013,22 +4120,6 @@
           }
         },
         {
-          "file": "/Users/art/Projects/Framework/packages/elementor-types/elementor-dev-js/editor/components/preview/commands/reload.js",
-          "fileName": "reload",
-          "covered": false,
-          "partial": false,
-          "reason": "No type definitions found",
-          "details": {
-            "classes": [
-              "Reload"
-            ],
-            "methods": [
-              "apply"
-            ],
-            "exports": []
-          }
-        },
-        {
           "file": "/Users/art/Projects/Framework/packages/elementor-types/elementor-dev-js/editor/components/settings/base/manager.js",
           "fileName": "manager",
           "covered": false,
@@ -5649,26 +5740,6 @@
           }
         },
         {
-          "file": "/Users/art/Projects/Framework/packages/elementor-types/elementor-dev-js/editor/document/elements/commands/move.js",
-          "fileName": "move",
-          "covered": false,
-          "partial": false,
-          "reason": "No type definitions found",
-          "details": {
-            "classes": [
-              "Move"
-            ],
-            "methods": [
-              "validateArgs",
-              "getHistory",
-              "apply"
-            ],
-            "exports": [
-              "Move"
-            ]
-          }
-        },
-        {
           "file": "/Users/art/Projects/Framework/packages/elementor-types/elementor-dev-js/editor/document/elements/commands/paste-area.js",
           "fileName": "paste-area",
           "covered": false,
@@ -6731,26 +6802,6 @@
             "methods": [],
             "exports": [
               "default as DynamicComponent"
-            ]
-          }
-        },
-        {
-          "file": "/Users/art/Projects/Framework/packages/elementor-types/elementor-dev-js/editor/document/repeater/commands/move.js",
-          "fileName": "move",
-          "covered": false,
-          "partial": false,
-          "reason": "No type definitions found",
-          "details": {
-            "classes": [
-              "Move"
-            ],
-            "methods": [
-              "validateArgs",
-              "getHistory",
-              "apply"
-            ],
-            "exports": [
-              "Move"
             ]
           }
         },
@@ -8755,57 +8806,6 @@
           }
         },
         {
-          "file": "/Users/art/Projects/Framework/packages/elementor-types/elementor-dev-js/editor/container/model/children-array.js",
-          "fileName": "children-array",
-          "covered": false,
-          "partial": true,
-          "reason": "Partially covered - some exports found",
-          "details": {
-            "classes": [
-              "ChildrenArray"
-            ],
-            "methods": [
-              "clear",
-              "findRecursive",
-              "forEachRecursive",
-              "someRecursive"
-            ],
-            "exports": [
-              "class"
-            ]
-          }
-        },
-        {
-          "file": "/Users/art/Projects/Framework/packages/elementor-types/elementor-dev-js/editor/controls/behaviors/scrubbing.js",
-          "fileName": "scrubbing",
-          "covered": false,
-          "partial": true,
-          "reason": "Partially covered - some exports found",
-          "details": {
-            "classes": [
-              "Scrubbing"
-            ],
-            "methods": [
-              "constructor",
-              "ui",
-              "events",
-              "scrub",
-              "getMovementType",
-              "getModifiedValue",
-              "isInputValidForScrubbing",
-              "setActive",
-              "setInactive",
-              "onMouseDownInput",
-              "onMouseDownLabel",
-              "onMouseEnterLabel",
-              "onMouseLeaveLabel"
-            ],
-            "exports": [
-              "class"
-            ]
-          }
-        },
-        {
           "file": "/Users/art/Projects/Framework/packages/elementor-types/elementor-dev-js/editor/controls/popover-toggle.js",
           "fileName": "popover-toggle",
           "covered": false,
@@ -9541,7 +9541,7 @@
           }
         }
       ],
-      "coverage": 39
+      "coverage": 40
     },
     "frontend": {
       "jsFiles": 50,
@@ -11425,11 +11425,6 @@
         "reason": "No type definitions found"
       },
       {
-        "file": "/Users/art/Projects/Framework/packages/elementor-types/elementor-dev-js/editor/components/preview/commands/reload.js",
-        "module": "editor",
-        "reason": "No type definitions found"
-      },
-      {
         "file": "/Users/art/Projects/Framework/packages/elementor-types/elementor-dev-js/editor/components/settings/base/manager.js",
         "module": "editor",
         "reason": "No type definitions found"
@@ -11800,11 +11795,6 @@
         "reason": "No type definitions found"
       },
       {
-        "file": "/Users/art/Projects/Framework/packages/elementor-types/elementor-dev-js/editor/document/elements/commands/move.js",
-        "module": "editor",
-        "reason": "No type definitions found"
-      },
-      {
         "file": "/Users/art/Projects/Framework/packages/elementor-types/elementor-dev-js/editor/document/elements/commands/paste-area.js",
         "module": "editor",
         "reason": "No type definitions found"
@@ -12091,11 +12081,6 @@
       },
       {
         "file": "/Users/art/Projects/Framework/packages/elementor-types/elementor-dev-js/editor/document/index.js",
-        "module": "editor",
-        "reason": "No type definitions found"
-      },
-      {
-        "file": "/Users/art/Projects/Framework/packages/elementor-types/elementor-dev-js/editor/document/repeater/commands/move.js",
         "module": "editor",
         "reason": "No type definitions found"
       },
@@ -12654,7 +12639,7 @@
     {
       "priority": "MEDIUM",
       "category": "Coverage",
-      "message": "editor module has low coverage (39%)",
+      "message": "editor module has low coverage (40%)",
       "action": "Review and add missing type definitions for editor"
     },
     {
