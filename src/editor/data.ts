@@ -225,7 +225,7 @@ export interface CacheEntry {
 /**
  * Cache manager interface
  */
-export interface CacheManager extends Module {
+export interface EditorCacheManager extends Module {
   /** Cache storage */
   storage: Map<string, CacheEntry>;
 
@@ -338,7 +338,7 @@ export namespace Data {
   export type Request = RequestOptions;
   export type Response<T = any> = ApiResponse<T>;
   export type Cache = CacheEntry;
-  export type CacheManagerType = CacheManager;
+  export type CacheManager = EditorCacheManager;
   export type Validator = DataValidator;
   export type CommandBase = DataCommandBase;
 }
