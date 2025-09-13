@@ -17,6 +17,12 @@ export * from "./controls";
 // Panel system
 export * as Panel from "./panel";
 
+// View system
+export * as Views from "./views";
+
+// Model system
+export * as Models from "./models";
+
 // Data system
 export * as Data from "./data";
 
