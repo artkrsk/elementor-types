@@ -6,6 +6,13 @@
  * other projects will use to interact with Elementor's module system.
  */
 
+import {
+  FrontendHandlerBase,
+  FrontendStretchedElementHandler,
+  FrontendSwiperHandlerBase,
+  FrontendCarouselHandlerBase,
+} from "./frontend-handler-interfaces";
+
 /**
  * Elementor frontend tools namespace
  */
@@ -18,17 +25,17 @@ export interface ElementorFrontendTools {
  * Elementor frontend handlers namespace
  */
 export interface ElementorFrontendHandlers {
-  /** Base handler class */
-  Base: any;
+  /** Base handler class constructor */
+  Base: new (settings?: any) => FrontendHandlerBase;
 
-  /** Stretched element handler */
-  StretchedElement: any;
+  /** Stretched element handler constructor */
+  StretchedElement: new (settings?: any) => FrontendStretchedElementHandler;
 
-  /** Swiper base handler */
-  SwiperBase: any;
+  /** Swiper base handler constructor */
+  SwiperBase: new (settings?: any) => FrontendSwiperHandlerBase;
 
-  /** Carousel base handler */
-  CarouselBase: any;
+  /** Carousel base handler constructor */
+  CarouselBase: new (settings?: any) => FrontendCarouselHandlerBase;
 }
 
 /**
