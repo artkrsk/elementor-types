@@ -203,6 +203,26 @@ export interface RepeaterControl extends ControlBaseData {
 }
 
 /**
+ * URL control interface
+ */
+export interface UrlControl extends ControlBaseData {
+  /** Initialize autocomplete functionality */
+  autoComplete(): void;
+
+  /** Handle more options toggle click */
+  onMoreOptionsToggleClick(): void;
+
+  /** Ready handler */
+  onReady(): void;
+
+  /** Cleanup before destroy */
+  onBeforeDestroy(): void;
+
+  /** Extend method for creating subclasses */
+  extend(properties: Record<string, any>): new (...args: any[]) => UrlControl;
+}
+
+/**
  * Complete control constructors interface for window.elementor.modules.controls
  */
 export interface ElementorWindowControls {
@@ -312,7 +332,9 @@ export interface ElementorWindowControls {
   Text_shadow: new (...args: any[]) => ControlBaseData;
 
   /** URL control */
-  Url: new (...args: any[]) => ControlBaseData;
+  Url: (new (...args: any[]) => UrlControl) & {
+    extend(properties: Record<string, any>): new (...args: any[]) => UrlControl;
+  };
 
   /** WordPress widget control */
   Wp_widget: new (...args: any[]) => ControlBaseData;
