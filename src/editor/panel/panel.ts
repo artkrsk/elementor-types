@@ -116,6 +116,239 @@ export interface PanelPageConfig {
 }
 
 /**
+ * Panel page options for initialization
+ */
+export interface PanelPageOptions {
+  /** Auto-focus search on page show */
+  autoFocusSearch?: boolean;
+  /** Page-specific custom options */
+  [key: string]: any;
+}
+
+/**
+ * Panel page regions configuration
+ */
+export interface PanelPageRegions {
+  /** Main content region */
+  content?: string;
+  /** Elements wrapper region */
+  elements?: string;
+  /** Search area region */
+  search?: string;
+  /** Notice area region */
+  notice?: string;
+  /** Navigation region */
+  navigation?: string;
+  /** Additional custom regions */
+  [regionName: string]: string | undefined;
+}
+
+/**
+ * Panel page region views configuration
+ */
+export interface PanelPageRegionViews {
+  /** Region view mapping */
+  [viewName: string]: {
+    /** Target region */
+    region: any;
+    /** View class/constructor */
+    view: any;
+    /** View options */
+    options?: any;
+  };
+}
+
+/**
+ * Panel page base interface
+ * Common functionality for all panel pages
+ */
+export interface PanelPageBase {
+  /** Page template selector */
+  template: string;
+
+  /** Page element ID */
+  id: string;
+
+  /** Page options */
+  options: PanelPageOptions;
+
+  /** Page regions */
+  regions: PanelPageRegions;
+
+  /** Region views configuration */
+  regionViews: PanelPageRegionViews;
+
+  /**
+   * Initialize page
+   */
+  initialize(): void;
+
+  /**
+   * Show a specific view in a region
+   * @param viewName - Name of the view to show
+   */
+  showView(viewName: string): void;
+
+  /**
+   * Get current page title
+   */
+  getTitle?(): string;
+
+  /**
+   * Handle page show event
+   */
+  onShow(): void;
+
+  /**
+   * Handle page destroy event
+   */
+  onDestroy(): void;
+}
+
+/**
+ * Menu page group configuration
+ */
+export interface MenuPageGroup {
+  /** Group name/identifier */
+  name: string;
+  /** Group title */
+  title: string;
+  /** Group items */
+  items: MenuPageItem[];
+}
+
+/**
+ * Menu page item configuration
+ */
+export interface MenuPageItem {
+  /** Item name/identifier */
+  name: string;
+  /** Item icon class */
+  icon: string;
+  /** Item title */
+  title: string;
+  /** Item type (link, command, etc.) */
+  type?: string;
+  /** Link URL (for link type) */
+  link?: string;
+  /** Command to execute (for command type) */
+  command?: string;
+  /** Click callback */
+  callback?: () => void;
+}
+
+/**
+ * Panel Menu Page
+ * Main menu page with navigation groups and items
+ */
+export interface PanelMenuPage extends PanelPageBase {
+  /** Menu groups collection */
+  collection: any;
+
+  /**
+   * Get arrow icon class based on RTL
+   */
+  getArrowClass(): string;
+}
+
+/**
+ * Panel Menu Page Static Methods
+ * Static functionality for menu page management
+ */
+export interface PanelMenuPageStatic {
+  /**
+   * Get menu groups
+   */
+  getGroups(): any;
+
+  /**
+   * Initialize menu groups
+   */
+  initGroups(): void;
+
+  /**
+   * Add admin menu items
+   */
+  addAdminMenu(): void;
+}
+
+/**
+ * Editor page tab configuration
+ */
+export interface EditorPageTab {
+  /** Tab title */
+  title: string;
+  /** Tab content view */
+  view?: any;
+  /** Tab is active */
+  active?: boolean;
+}
+
+/**
+ * Editor page tabs configuration
+ */
+export interface EditorPageTabs {
+  /** Content tab */
+  content: EditorPageTab;
+  /** Style tab */
+  style: EditorPageTab;
+  /** Advanced tab */
+  advanced: EditorPageTab;
+  /** Layout tab */
+  layout: EditorPageTab;
+  /** Additional custom tabs */
+  [tabName: string]: EditorPageTab;
+}
+
+/**
+ * Editor page render arguments
+ */
+export interface EditorPageRenderArgs {
+  /** Element model */
+  model: any;
+  /** Element view */
+  view: any;
+  /** Active control */
+  activeControl?: any;
+}
+
+/**
+ * Panel Editor Page
+ * Element editing page with tabs and controls
+ */
+export interface PanelEditorPage extends PanelPageBase {
+  /** Active tabs memory */
+  activeTabs: { [modelId: string]: string };
+
+  /** Currently active model ID */
+  activeModelId: string | null;
+
+  /**
+   * Get default tabs configuration
+   */
+  defaultTabs(): EditorPageTabs;
+
+  /**
+   * Get tabs wrapper selector
+   */
+  getTabsWrapperSelector(): string;
+
+  /**
+   * Render a specific tab
+   * @param tab - Tab name
+   * @param args - Render arguments
+   */
+  renderTab(tab: string, args: EditorPageRenderArgs): void;
+
+  /**
+   * Check if page should be rendered
+   * @param tab - Tab name
+   * @param modelId - Model ID
+   */
+  shouldRenderPage(tab: string, modelId: string): boolean;
+}
+
+/**
  * Panel footer UI elements
  */
 export interface PanelFooterUI {
@@ -271,8 +504,100 @@ export interface PanelPages {
   editor: PanelPageConfig;
   /** Main menu page */
   menu: PanelPageConfig;
+  /** Page settings page */
+  "page-settings": PanelPageConfig;
+  /** History page */
+  history: PanelPageConfig;
+  /** Global widgets page */
+  global: PanelPageConfig;
   /** Additional custom pages */
   [pageName: string]: PanelPageConfig;
+}
+
+/**
+ * Panel page state management
+ */
+export interface PanelPageState {
+  /** Current active page */
+  currentPage: string | null;
+  /** Page history stack */
+  history: string[];
+  /** Page-specific data storage */
+  pageData: { [pageName: string]: any };
+  /** Page loading states */
+  loading: { [pageName: string]: boolean };
+  /** Page error states */
+  errors: { [pageName: string]: string | null };
+}
+
+/**
+ * Panel page manager
+ * Centralized page state and lifecycle management
+ */
+export interface PanelPageManager {
+  /** Current page state */
+  state: PanelPageState;
+
+  /** Registered pages */
+  pages: PanelPages;
+
+  /**
+   * Register a new page
+   * @param pageName - Name of the page
+   * @param pageConfig - Page configuration
+   */
+  registerPage(pageName: string, pageConfig: PanelPageConfig): void;
+
+  /**
+   * Unregister a page
+   * @param pageName - Name of the page to remove
+   */
+  unregisterPage(pageName: string): void;
+
+  /**
+   * Check if page exists
+   * @param pageName - Name of the page
+   */
+  hasPage(pageName: string): boolean;
+
+  /**
+   * Get page configuration
+   * @param pageName - Name of the page
+   */
+  getPage(pageName: string): PanelPageConfig | null;
+
+  /**
+   * Set page data
+   * @param pageName - Name of the page
+   * @param data - Data to store
+   */
+  setPageData(pageName: string, data: any): void;
+
+  /**
+   * Get page data
+   * @param pageName - Name of the page
+   */
+  getPageData(pageName: string): any;
+
+  /**
+   * Set page loading state
+   * @param pageName - Name of the page
+   * @param loading - Loading state
+   */
+  setPageLoading(pageName: string, loading: boolean): void;
+
+  /**
+   * Set page error state
+   * @param pageName - Name of the page
+   * @param error - Error message or null
+   */
+  setPageError(pageName: string, error: string | null): void;
+
+  /**
+   * Clear page state
+   * @param pageName - Name of the page
+   */
+  clearPageState(pageName: string): void;
 }
 
 /**
@@ -379,6 +704,12 @@ export declare class PanelLayoutView {
   /** Perfect scrollbar instance */
   perfectScrollbar: any | null;
 
+  /** Page history for back navigation */
+  pageHistory: string[];
+
+  /** Page routing configuration */
+  routes: { [route: string]: string };
+
   /**
    * Initialize panel layout
    */
@@ -395,6 +726,11 @@ export declare class PanelLayoutView {
   initPages(): void;
 
   /**
+   * Initialize routing system
+   */
+  initRoutes(): void;
+
+  /**
    * Get page configuration(s)
    * @param page - Specific page name (optional)
    */
@@ -408,6 +744,12 @@ export declare class PanelLayoutView {
   addPage(pageName: string, pageData: PanelPageConfig): void;
 
   /**
+   * Remove page from panel
+   * @param pageName - Name of the page to remove
+   */
+  removePage(pageName: string): void;
+
+  /**
    * Show a specific page
    * @param pageName - Name of the page to show
    * @param viewOptions - Options for the page view
@@ -415,12 +757,63 @@ export declare class PanelLayoutView {
   showPage(pageName: string, viewOptions?: any): void;
 
   /**
+   * Navigate to a specific page with history tracking
+   * @param pageName - Name of the page to navigate to
+   * @param viewOptions - Options for the page view
+   * @param trackHistory - Whether to track in history
+   */
+  navigateToPage(
+    pageName: string,
+    viewOptions?: any,
+    trackHistory?: boolean
+  ): void;
+
+  /**
+   * Go back to previous page
+   */
+  goBack(): void;
+
+  /**
+   * Check if can go back
+   */
+  canGoBack(): boolean;
+
+  /**
    * Get current page view
    */
   getCurrentPageView(): any;
 
   /**
+   * Get current page name
+   */
+  getCurrentPageName(): string | null;
+
+  /**
+   * Handle page routing events
+   * @param route - Route path
+   * @param args - Route arguments
+   */
+  onRoute(route: string, ...args: any[]): void;
+
+  /**
+   * Handle page change events
+   * @param oldPage - Previous page name
+   * @param newPage - New page name
+   */
+  onPageChange(oldPage: string | null, newPage: string): void;
+
+  /**
    * Update scrollbar for current content
    */
   updateScrollbar(): void;
+
+  /**
+   * Refresh current page
+   */
+  refreshCurrentPage(): void;
+
+  /**
+   * Close current page and return to default
+   */
+  closeCurrentPage(): void;
 }
