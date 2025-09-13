@@ -5,3 +5,4 @@
 
 export * from "./window";
 export * from "./elementor-modules";
+export * from "./frontend-handler-interfaces";

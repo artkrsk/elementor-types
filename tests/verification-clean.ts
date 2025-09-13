@@ -1,5 +1,17 @@
 /**
- * TypeScript Verification Tests
+ * TypeScript // Imp// Import specific handler types  
+import type { 
+  FrontendHandlerBase,
+  FrontendHandlerSettings,
+  FrontendHandlerElements,
+  FrontendEditorListener 
+} from '../src/globals';cific handler types
+import type { 
+  FrontendHandlerBase,
+  FrontendHandlerSettings,
+  FrontendHandlerElements,
+  FrontendEditorListener 
+} from '../src/globals/frontend-handler-interfaces';ation Tests
  * These tests verify that our type definitions work correctly
  * and can be used in real development scenarios.
  */
@@ -40,11 +52,11 @@ declare global {
  * Test 1: Frontend Handler Development
  * Common scenario: Creating a custom frontend handler
  */
-class CustomWidgetHandler implements HandlerBase {
+class CustomWidgetHandler implements FrontendHandlerBase {
   $element: JQuery;
-  editorListeners: EditorListener[] | null = null;
+  editorListeners: FrontendEditorListener[] | null = null;
   isEdit: boolean | null = null;
-  elements?: HandlerElements;
+  elements: FrontendHandlerElements | null = null;
 
   constructor($element: JQuery) {
     this.$element = $element;

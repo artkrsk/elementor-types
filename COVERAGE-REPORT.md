@@ -1,6 +1,6 @@
 # Elementor Types Coverage Report
 
-Generated: 2025-09-13T06:50:47.036Z
+Generated: 2025-09-13T07:02:07.787Z
 
 ## Summary
 
