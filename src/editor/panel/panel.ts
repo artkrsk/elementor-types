@@ -4,6 +4,20 @@
  */
 
 /**
+ * Panel UI elements interface
+ */
+export interface PanelUI {
+  /** Header region */
+  header: JQuery;
+  /** Content region */
+  content: JQuery;
+  /** Footer region */
+  footer: JQuery;
+  /** Mode switcher region */
+  modeSwitcher: JQuery;
+}
+
+/**
  * Panel storage configuration
  */
 export interface PanelStorage {
@@ -29,6 +43,69 @@ export interface PanelRegions {
 }
 
 /**
+ * Panel header UI elements
+ */
+export interface PanelHeaderUI {
+  /** Menu button */
+  menuButton: string;
+  /** Menu icon element */
+  menuIcon: string;
+  /** Title element */
+  title: string;
+  /** Add button */
+  addButton: string;
+}
+
+/**
+ * Panel header events configuration
+ */
+export interface PanelHeaderEvents {
+  /** Add button click event */
+  "click @ui.addButton": "onClickAdd";
+  /** Menu button click event */
+  "click @ui.menuButton": "onClickMenu";
+}
+
+/**
+ * Panel Header Item View
+ * Header component with menu and add functionality
+ */
+export declare class PanelHeaderItemView {
+  /** Header template selector */
+  template: string;
+
+  /** Header element ID */
+  id: string;
+
+  /** Header UI elements */
+  ui: PanelHeaderUI;
+
+  /** Header events */
+  events: PanelHeaderEvents;
+
+  /**
+   * Get behaviors for the header
+   */
+  behaviors(): any;
+
+  /**
+   * Set header title
+   * @param title - HTML title content
+   */
+  setTitle(title: string): void;
+
+  /**
+   * Handle add button click
+   */
+  onClickAdd(): void;
+
+  /**
+   * Handle menu button click
+   */
+  onClickMenu(): void;
+}
+
+/**
  * Panel page configuration
  */
 export interface PanelPageConfig {
@@ -36,6 +113,152 @@ export interface PanelPageConfig {
   view: any;
   /** Page title (can include HTML) */
   title?: string;
+}
+
+/**
+ * Panel footer UI elements
+ */
+export interface PanelFooterUI {
+  /** All menu buttons */
+  menuButtons: string;
+  /** Settings button */
+  settings: string;
+  /** Device mode icon */
+  deviceModeIcon: string;
+  /** Save template button */
+  saveTemplate: string;
+  /** History button */
+  history: string;
+  /** Navigator button */
+  navigator: string;
+}
+
+/**
+ * Panel footer events configuration
+ */
+export interface PanelFooterEvents {
+  /** Menu buttons click event */
+  "click @ui.menuButtons": "onMenuButtonsClick";
+  /** Settings click event */
+  "click @ui.settings": "onSettingsClick";
+  /** Device mode icon click event */
+  "click @ui.deviceModeIcon": "onDeviceModeIconClick";
+  /** Save template click event */
+  "click @ui.saveTemplate": "onSaveTemplateClick";
+  /** History click event */
+  "click @ui.history": "onHistoryClick";
+  /** Navigator click event */
+  "click @ui.navigator": "onNavigatorClick";
+}
+
+/**
+ * Panel footer sub-menu item data
+ */
+export interface PanelFooterSubMenuItem {
+  /** Item name/identifier */
+  name: string;
+  /** Item icon class */
+  icon: string;
+  /** Item title */
+  title: string;
+  /** Item description (optional) */
+  description?: string;
+  /** Click callback (optional) */
+  callback?: () => void;
+  /** Insert before this item (optional) */
+  before?: string;
+}
+
+/**
+ * Panel Footer View
+ * Footer component with device modes, settings, and tools
+ */
+export declare class PanelFooterView {
+  /** Footer template selector */
+  template: string;
+
+  /** Footer tag name */
+  tagName: string;
+
+  /** Footer element ID */
+  id: string;
+
+  /** Possible device rotation modes */
+  possibleRotateModes: string[];
+
+  /** Footer UI elements */
+  ui: PanelFooterUI;
+
+  /** Footer events */
+  events: PanelFooterEvents;
+
+  /**
+   * Initialize footer view
+   */
+  initialize(): void;
+
+  /**
+   * Get behaviors for the footer
+   */
+  behaviors(): any;
+
+  /**
+   * Add a sub-menu item to a menu
+   * @param subMenuName - Name of the sub-menu
+   * @param itemData - Sub-menu item configuration
+   */
+  addSubMenuItem(subMenuName: string, itemData: PanelFooterSubMenuItem): JQuery;
+
+  /**
+   * Remove a sub-menu item from a menu
+   * @param subMenuName - Name of the sub-menu
+   * @param itemData - Sub-menu item to remove
+   */
+  removeSubMenuItem(
+    subMenuName: string,
+    itemData: Pick<PanelFooterSubMenuItem, "name">
+  ): JQuery;
+
+  /**
+   * Show settings page
+   */
+  showSettingsPage(): void;
+
+  /**
+   * Handle menu button clicks
+   * @param event - Click event
+   */
+  onMenuButtonsClick(event: JQuery.Event): void;
+
+  /**
+   * Handle settings button click
+   */
+  onSettingsClick(): void;
+
+  /**
+   * Handle device mode icon click
+   */
+  onDeviceModeIconClick(): void;
+
+  /**
+   * Handle save template button click
+   */
+  onSaveTemplateClick(): void;
+
+  /**
+   * Handle history button click
+   */
+  onHistoryClick(): void;
+
+  /**
+   * Handle navigator button click
+   */
+  onNavigatorClick(): void;
+
+  /**
+   * Handle device mode change events
+   */
+  onDeviceModeChange(): void;
 }
 
 /**
@@ -57,7 +280,7 @@ export interface PanelPages {
  */
 export interface PanelResizeConfig {
   /** Resize handles (e for east, w for west) */
-  handles: 'e' | 'w';
+  handles: "e" | "w";
   /** Minimum panel width */
   minWidth: number;
   /** Maximum panel width */
@@ -72,6 +295,9 @@ export declare class BasePanel {
   /** Panel DOM element selector */
   el: string;
 
+  /** Panel UI elements */
+  ui: PanelUI;
+
   /** Panel storage instance */
   storage: PanelStorage;
 
@@ -80,6 +306,14 @@ export declare class BasePanel {
 
   /** Current panel page view */
   currentPageView: any | null;
+
+  /** Panel resize configuration */
+  resizeConfig?: PanelResizeConfig;
+
+  /**
+   * Initialize panel
+   */
+  initialize(): void;
 
   /**
    * Get storage key for this panel
@@ -105,13 +339,18 @@ export declare class BasePanel {
    * Save panel size to storage
    * @param size - Size configuration to save
    */
-  saveSize(size: Partial<PanelStorage['size']>): void;
+  saveSize(size: Partial<PanelStorage["size"]>): void;
 
   /**
    * Handle edit mode switch events
    * @param activeMode - The new active mode
    */
   onEditModeSwitched(activeMode: string): void;
+
+  /**
+   * Handle panel ready event
+   */
+  onReady(): void;
 }
 
 /**
