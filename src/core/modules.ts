@@ -22,12 +22,46 @@ export interface ModuleElements {
  * Foundation for all Elementor modules
  */
 export declare class Module {
-  constructor(settings?: ModuleSettings);
+  /**
+   * Module constructor with flexible initialization
+   * 
+   * @param settings - Initial settings object
+   * @param instanceParams - Additional instance parameters for complex initialization
+   * 
+   * The constructor handles:
+   * - Basic settings initialization
+   * - Instance parameter processing 
+   * - Automatic __construct() method calling if present
+   * - Element initialization for ViewModules
+   * - Event binding setup
+   */
+  constructor(settings?: ModuleSettings, instanceParams?: any);
+
+  /**
+   * Instance parameters for complex module initialization
+   * Used by modules that need additional context during construction
+   */
+  instanceParams?: any;
 
   /**
    * Static extend method for creating subclasses
-   * Creates a new class that inherits from this class
-   * The returned class will have a __super__ property pointing to the parent prototype
+   * 
+   * Creates a new class that inherits from this class with proper prototype chain.
+   * The returned class will have a __super__ property for accessing parent methods.
+   * 
+   * @param properties - Object containing methods and properties for the new class
+   * @returns Extended class constructor with __super__ property
+   * 
+   * @example
+   * const MyModule = Module.extend({
+   *   initialize() {
+   *     MyModule.__super__.initialize.call(this);
+   *     // Custom initialization
+   *   }
+   * });
+   * 
+   * // Access parent prototype methods
+   * MyModule.__super__.getSettings.call(instance);
    */
   static extend<T = any>(properties: object): typeof Module & (new (...args: any[]) => T) & {
     __super__: typeof Module.prototype;
@@ -67,9 +101,19 @@ export declare class Module {
    * 
    * @param eventName - Event name(s). Can be:
    *   - Single event: 'init'
-   *   - Multiple events (space-separated): 'init destroy'
+   *   - Multiple events (space-separated): 'init destroy ready'
    *   - Object with event-callback pairs: { init: callback1, destroy: callback2 }
    * @param callback - Event callback function (not used when eventName is object)
+   * 
+   * @example
+   * // Single event
+   * module.on('init', callback);
+   * 
+   * // Multiple events with same callback
+   * module.on('init destroy ready', callback);
+   * 
+   * // Object syntax for different callbacks
+   * module.on({ init: initCallback, destroy: destroyCallback });
    */
   on(eventName: string, callback: Function): this;
   on(eventName: object): this;
@@ -78,17 +122,42 @@ export declare class Module {
   /**
    * Remove event listeners
    * 
-   * @param eventName - Event name to remove listeners from
+   * @param eventName - Event name(s) to remove listeners from. Supports:
+   *   - Single event: 'init'
+   *   - Multiple events (space-separated): 'init destroy'
    * @param callback - Specific callback to remove (optional - removes all if not provided)
+   * 
+   * @example
+   * // Remove specific callback
+   * module.off('init', callback);
+   * 
+   * // Remove all callbacks for multiple events
+   * module.off('init destroy');
    */
   off(eventName: string, callback?: Function): this;
 
   /**
    * Trigger event and call associated callbacks
-   * Also automatically calls onEventName method if it exists on the instance
    * 
-   * @param eventName - Event name to trigger
-   * @param params - Parameters to pass to callbacks
+   * Automatically calls onEventName method if it exists on the instance:
+   * - trigger('init') will call this.onInit() if it exists
+   * - trigger('before:render') will call this.onBeforeRender() if it exists
+   * 
+   * @param eventName - Event name to trigger. Supports:
+   *   - Single event: 'init'
+   *   - Multiple events (space-separated): 'init ready'
+   *   - Namespaced events: 'before:render', 'after:destroy'
+   * @param params - Parameters to pass to callbacks and auto-methods
+   * 
+   * @example
+   * // Single event with auto-method calling
+   * module.trigger('init', data); // Calls callbacks + this.onInit(data)
+   * 
+   * // Multiple events
+   * module.trigger('before:render after:render', element);
+   * 
+   * // Namespaced event
+   * module.trigger('editor:ready', editor); // Calls this.onEditorReady(editor)
    */
   trigger(eventName: string, ...params: any[]): this;
 
@@ -111,6 +180,35 @@ export declare class Module {
    * Extend the module class
    */
   static extend(properties: object): typeof Module;
+
+  /**
+   * Get element viewport percentage
+   * Calculates what percentage of an element is visible in the viewport
+   * 
+   * @param element - DOM element or jQuery element to check
+   * @returns Percentage (0-100) of element visible in viewport
+   * 
+   * @example
+   * const percentage = module.getElementViewportPercentage(element);
+   * if (percentage > 50) {
+   *   // Element is more than 50% visible
+   * }
+   */
+  getElementViewportPercentage(element: HTMLElement | JQuery<HTMLElement>): number;
+
+  /**
+   * Get page scroll percentage
+   * Calculates how far down the page the user has scrolled
+   * 
+   * @returns Percentage (0-100) of page scrolled
+   * 
+   * @example
+   * const scrolled = module.getPageScrollPercentage();
+   * if (scrolled > 75) {
+   *   // User has scrolled more than 75% of the page
+   * }
+   */
+  getPageScrollPercentage(): number;
 }
 
 /**
