@@ -3,9 +3,14 @@
  * Admin-specific types and interfaces
  */
 
-// Export admin types when they're implemented
-// export * from './main';
-// export * from './config';
+// Main admin module
+export * from "./main";
 
-// Placeholder - will be populated during type extraction
-export {};
+// Admin component modules
+export * from "./beta-tester";
+export * from "./floating-elements";
+export * from "./new-template";
+export * from "./maintenance-mode";
+export * from "./feedback";
+export * from "./gutenberg";
+export * from "./menu-handler";
