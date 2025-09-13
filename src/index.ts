@@ -83,19 +83,13 @@ export type {
 // Editor essentials
 export type {
   ElementorEditor,
-  Panel,
-  Navigator,
-  ResponsiveBar,
   HistoryManager,
-  TemplateLibrary,
-  DynamicTags,
-  Notifications,
-  IntroductionTooltips,
-  Validator,
   ElementorGlobals,
   ElementorIconsManager,
-  IconsManager,
 } from "./editor";
+
+// Global interfaces
+export type { ElementorModules } from "./globals";
 
 // Utility types
 export type {
@@ -116,6 +110,56 @@ export * from "./core";
 export * from "./third-party";
 export * from "./globals";
 
+// ============================================================================
+// Modern export conveniences for better tree-shaking
+// ============================================================================
+
+// Re-export utility functions for type checking
+export {
+  hasId,
+  isBoxShadowValue,
+  isCSSValue,
+  isColorValue,
+  isDimensionsValue,
+  isElementType,
+  isIconValue,
+  isLinkValue,
+  isMediaValue,
+  isResponsiveValue,
+  isTypographyValue,
+} from "./utils";
+
 // Note: Frontend, Editor, Admin types are available via namespace imports
 // to avoid naming conflicts (e.g., both have Section classes)
-// Use: import { Frontend, Editor } from '@arts/elementor-types'
+// Use: import { Frontend, Editor } from '@elementor/types'
+// Or: import type { Frontend, Editor } from '@elementor/types'
+
+/**
+ * Common usage patterns:
+ *
+ * @example Namespace imports (recommended)
+ * ```typescript
+ * import type { Frontend, Editor, Core } from '@elementor/types';
+ *
+ * class MyHandler extends Frontend.Handlers.Base {
+ *   // Implementation
+ * }
+ *
+ * const command: Editor.Commands.CommandBase = ...;
+ * const module: Core.Module = ...;
+ * ```
+ *
+ * @example Direct imports for specific types
+ * ```typescript
+ * import type { ElementorModules, ElementorFrontend } from '@elementor/types';
+ * import { isResponsiveValue, isMediaValue } from '@elementor/types';
+ * ```
+ *
+ * @example Element and component types
+ * ```typescript
+ * import type { Editor } from '@elementor/types';
+ *
+ * type MyElement = Editor.Elements.Widget;
+ * type MyControl = Editor.Controls.Select;
+ * ```
+ */

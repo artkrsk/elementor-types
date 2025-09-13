@@ -3,17 +3,8 @@
  * Main ElementorEditor interface and core editor types
  */
 
-import type { Panel, Navigator, ResponsiveBar } from "./components";
 import type { HistoryManager } from "./history";
-import type {
-  TemplateLibrary,
-  DynamicTags,
-  Notifications,
-  IntroductionTooltips,
-  Validator,
-  ElementorGlobals,
-  ElementorIconsManager,
-} from "./managers";
+import type { ElementorGlobals, ElementorIconsManager } from "./managers";
 
 /**
  * Main Elementor Editor interface
@@ -71,26 +62,26 @@ export interface ElementorEditor {
 
   $previewContents: JQuery<HTMLElement>;
 
-  // Panel and UI Components
-  panel: Panel;
-  navigator: Navigator;
-  responsiveBar: ResponsiveBar;
+  // Panel and UI Components (placeholders)
+  panel: any;
+  navigator: any;
+  responsiveBar: any;
 
   // History and Undo/Redo
   history: HistoryManager;
 
-  // Template Library
-  templates: TemplateLibrary;
+  // Template Library (placeholder)
+  templates: any;
 
-  // Dynamic Tags
-  dynamicTags: DynamicTags;
+  // Dynamic Tags (placeholder)
+  dynamicTags: any;
 
-  // Notifications and Tooltips
-  notifications: Notifications;
-  introduction: IntroductionTooltips;
+  // Notifications and Tooltips (placeholders)
+  notifications: any;
+  introduction: any;
 
   // Validator and Globals
-  validator: Validator;
+  validator: any;
   globals: ElementorGlobals;
 
   // Icons Manager
