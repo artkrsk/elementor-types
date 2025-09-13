@@ -47,8 +47,8 @@ export interface ElementorFrontendTools {
  * Elementor frontend handlers namespace
  */
 export interface ElementorFrontendHandlers {
-  /** Base handler class constructor */
-  Base: new (settings?: any) => FrontendHandlerBase;
+  /** Base handler class constructor with extend method */
+  Base: typeof import("../frontend/handlers/base").Base;
 
   /** Stretched element handler constructor */
   StretchedElement: new (settings?: any) => FrontendStretchedElementHandler;

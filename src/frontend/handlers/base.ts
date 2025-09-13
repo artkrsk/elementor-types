@@ -16,6 +16,17 @@ export declare class Base extends ViewModule {
   constructor(settings: { $element: JQuery<HTMLElement> });
 
   /**
+   * Static extend method for creating subclasses
+   * Creates a new class that inherits from this class
+   */
+  static extend<T = any>(properties: object): typeof Base & (new (...args: any[]) => T);
+
+  /**
+   * Find an element by selector within this handler's element scope
+   */
+  findElement(selector: string): JQuery<HTMLElement>;
+
+  /**
    * Check if handler is active based on settings
    */
   isActive(settings?: any): boolean;

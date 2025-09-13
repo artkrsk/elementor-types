@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//Users/art/Projects/Framework/packages/**)",
+      "Bash(grep:*)",
+      "Bash(xargs basename:*)",
+      "Bash(pnpm run:*)",
+      "Bash(npx tsc:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

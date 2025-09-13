@@ -25,6 +25,12 @@ export declare class Module {
   constructor(settings?: ModuleSettings);
 
   /**
+   * Static extend method for creating subclasses
+   * Creates a new class that inherits from this class
+   */
+  static extend<T = any>(properties: object): typeof Module & (new (...args: any[]) => T);
+
+  /**
    * Get default settings for the module
    */
   getDefaultSettings(): ModuleSettings;
@@ -85,6 +91,11 @@ export declare class Module {
  * ViewModule extends Module with DOM element handling
  */
 export declare class ViewModule extends Module {
+  /**
+   * Static extend method for creating subclasses
+   * Creates a new class that inherits from this class
+   */
+  static extend<T = any>(properties: object): typeof ViewModule & (new (...args: any[]) => T);
   elements: ModuleElements | null;
 
   /**
