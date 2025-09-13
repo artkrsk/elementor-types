@@ -1458,6 +1458,66 @@ declare namespace ElementorModules {
           importTemplate(templateData: object): Promise<any>;
           saveTemplate(data: object): Promise<any>;
         }
+
+        namespace commands {
+          class InsertTemplate extends $e.modules.CommandBase {
+            apply(args: { model: any; options?: any }): Promise<any>;
+          }
+
+          class Open extends $e.modules.CommandBase {
+            apply(args?: any): void;
+          }
+        }
+
+        namespace commandsData {
+          class Templates extends $e.modules.CommandData {
+            apply(args: any): Promise<any>;
+          }
+        }
+
+        namespace models {
+          class Template extends ElementorModules.Module {
+            type: string;
+            title: string;
+            thumbnail: string;
+            date: string;
+            tags: string[];
+            isPro: boolean;
+            url: string;
+            attributes: any;
+            get(key: string): any;
+            set(key: string, value: any): void;
+            toJSON(): any;
+          }
+        }
+
+        namespace collections {
+          class Templates extends ElementorModules.Module {
+            models: models.Template[];
+            length: number;
+            add(template: models.Template): void;
+            remove(template: models.Template): void;
+            get(id: string): models.Template;
+            getFilteredByType(type: string): models.Template[];
+            getFilteredByTags(tags: string[]): models.Template[];
+          }
+        }
+
+        namespace views {
+          class Modal extends ElementorModules.Module {
+            show(): void;
+            hide(): void;
+            onFilterChange(): void;
+          }
+        }
+
+        class Manager extends ElementorModules.Module {
+          templates: collections.Templates;
+          getTemplates(): any[];
+          deleteTemplate(template: any): void;
+          loadTemplates(): Promise<void>;
+          getTemplateContent(templateID: string): Promise<any>;
+        }
       }
 
       // Validator System
