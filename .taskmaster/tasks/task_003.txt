@@ -1,6 +1,6 @@
 # Task ID: 3
 # Title: Expand Editor Base Interface
-# Status: pending
+# Status: done
 # Dependencies: None
 # Priority: high
 # Description: Enhance ElementorEditor interface to cover all methods and properties from EditorBase class

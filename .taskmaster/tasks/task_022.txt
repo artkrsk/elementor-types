@@ -1,0 +1,11 @@
+# Task ID: 22
+# Title: Expand Command System Coverage
+# Status: done
+# Dependencies: 4, 21
+# Priority: high
+# Description: Add 125+ missing command files - Panel commands, Document commands, UI commands, Save commands
+# Details:
+Implement Panel commands (18 files in regions/panel/commands/), Document commands (35+ files in document/*/commands/), Navigator commands (4 files), UI commands (copy, paste, duplicate), Global commands (enable, disable, unlink), Dynamic commands (enable, disable), Browser import commands (validation, import), Save commands (draft, publish, autosave).
+
+# Test Strategy:
+Test command execution, validation, undo/redo functionality, command dependencies and workflows
