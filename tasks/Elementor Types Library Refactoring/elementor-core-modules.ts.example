@@ -1,0 +1,195 @@
+/**
+ * Core Elementor Module System Types
+ * Base classes and interfaces for the Elementor module system
+ */
+
+import type { JQuery } from 'jquery';
+
+/**
+ * Settings object for modules
+ */
+export interface ModuleSettings {
+  [key: string]: any;
+}
+
+/**
+ * Collection of DOM elements used by modules
+ */
+export interface ModuleElements {
+  [key: string]: JQuery | HTMLElement;
+}
+
+/**
+ * Base Module class
+ * Foundation for all Elementor modules
+ */
+export declare class Module {
+  constructor(settings?: ModuleSettings);
+  
+  /**
+   * Get default settings for the module
+   */
+  getDefaultSettings(): ModuleSettings;
+  
+  /**
+   * Get current settings or a specific setting
+   */
+  getSettings(setting?: string): any;
+  
+  /**
+   * Update module settings
+   */
+  setSettings(
+    settingKey: string | object,
+    value?: any,
+    settingsContainer?: object
+  ): this;
+  
+  /**
+   * Get formatted error message
+   */
+  getErrorMessage(type: string, functionName?: string): string;
+  
+  /**
+   * Force implementation of a method in child class
+   */
+  forceMethodImplementation(functionName?: string): never;
+  
+  /**
+   * Event handling
+   */
+  on(eventName: string | object, callback?: Function): this;
+  off(eventName: string, callback?: Function): this;
+  trigger(eventName: string, ...params: any[]): this;
+  
+  /**
+   * Get unique constructor ID
+   */
+  getConstructorID(): string;
+  
+  /**
+   * Get items with optional filtering
+   */
+  getItems(items: any, itemKey?: string): any;
+  
+  /**
+   * Constructor initialization
+   */
+  __construct(...args: any[]): void;
+  
+  /**
+   * Extend module with additional properties
+   */
+  static extend(properties: object): typeof Module;
+}
+
+/**
+ * View Module - extends Module with DOM handling
+ */
+export declare class ViewModule extends Module {
+  /**
+   * Collection of cached DOM elements
+   */
+  elements: ModuleElements | null;
+  
+  /**
+   * Get default DOM elements for the module
+   */
+  getDefaultElements(): ModuleElements;
+  
+  /**
+   * Bind event handlers
+   */
+  bindEvents(): void;
+  
+  /**
+   * Unbind event handlers (optional)
+   */
+  unbindEvents?(): void;
+  
+  /**
+   * Module initialization
+   */
+  onInit(...args: any[]): void;
+  
+  /**
+   * Initialize DOM elements
+   */
+  initElements(): void;
+  
+  /**
+   * Find element within module scope
+   */
+  findElement(selector: string): JQuery;
+}
+
+/**
+ * Arguments validation object
+ */
+export declare class ArgsObject {
+  args: object;
+  
+  constructor(args: object);
+  
+  /**
+   * Require that an argument exists
+   */
+  requireArgument(property: string, args?: object): void;
+  
+  /**
+   * Require that an argument is of a specific type
+   */
+  requireArgumentType(property: string, type: string, args?: object): void;
+  
+  /**
+   * Require that an argument is an instance of a specific class
+   */
+  requireArgumentInstance(
+    property: string,
+    instance: any,
+    args?: object
+  ): void;
+  
+  /**
+   * Require that an argument has a specific constructor
+   */
+  requireArgumentConstructor(
+    property: string,
+    type: any,
+    args?: object
+  ): void;
+}
+
+/**
+ * Instance type checking utility
+ */
+export declare class InstanceType {
+  /**
+   * Custom instanceof check
+   */
+  static [Symbol.hasInstance](target: any): boolean;
+  
+  /**
+   * Get the instance type name
+   */
+  static getInstanceType(): string;
+  
+  /**
+   * Array of valid instance type names
+   */
+  instanceTypes?: string[];
+}
+
+/**
+ * Error for forcing method implementation
+ */
+export declare class ForceMethodImplementation extends Error {
+  constructor(
+    info?: { 
+      isStatic?: boolean; 
+      fullName: string; 
+      functionName?: string 
+    },
+    args?: object
+  );
+}

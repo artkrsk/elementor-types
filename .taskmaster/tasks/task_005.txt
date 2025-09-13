@@ -1,0 +1,11 @@
+# Task ID: 5
+# Title: Extract editor types and components
+# Status: pending
+# Dependencies: 1, 2
+# Priority: high
+# Description: Move ElementorEditor, Panel, HistoryManager, and other editor types to editor/ directory
+# Details:
+Separate all editor-specific types including the main editor interface, panel components, history management, and editor utilities into the editor module.
+
+# Test Strategy:
+Ensure editor plugin development can import necessary types from the new editor module

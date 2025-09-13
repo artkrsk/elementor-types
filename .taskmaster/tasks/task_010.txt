@@ -1,0 +1,11 @@
+# Task ID: 10
+# Title: Extract global declarations
+# Status: pending
+# Dependencies: 1
+# Priority: low
+# Description: Move Window interface augmentations and global declarations to globals/ directory
+# Details:
+Separate all global type augmentations including Window interface extensions, global variable declarations, and ambient module declarations.
+
+# Test Strategy:
+Confirm global declarations are properly applied and accessible throughout the type system

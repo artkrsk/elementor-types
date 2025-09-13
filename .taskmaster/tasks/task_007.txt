@@ -1,0 +1,11 @@
+# Task ID: 7
+# Title: Extract control system types
+# Status: pending
+# Dependencies: 5
+# Priority: medium
+# Description: Move all control-related types and interfaces to editor/controls/ directory
+# Details:
+Organize all control types, base control classes, and control-specific interfaces into the controls module for better organization of the editor control system.
+
+# Test Strategy:
+Confirm control types are properly accessible for custom control development
