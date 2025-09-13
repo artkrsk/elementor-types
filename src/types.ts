@@ -761,6 +761,710 @@ declare namespace ElementorModules {
         }
       }
     }
+
+    // ===== Editor Components System =====
+    namespace components {
+      // Browser Import System
+      namespace browserImport {
+        class Manager extends $e.modules.editor.utils.Module {
+          readers: { [key: string]: any };
+          parsers: { [key: string]: any };
+          normalizer: Normalizer;
+          parseConfig(config: any): void;
+          registerReader(reader: any): void;
+          registerParser(parser: any): void;
+          import(files: FileList | File[]): Promise<any>;
+          validate(args: any): Promise<boolean>;
+        }
+
+        class Normalizer extends ElementorModules.Module {
+          manager: Manager;
+          normalize(data: any): any;
+        }
+
+        class Component extends $e.modules.ComponentBase {
+          manager: Manager;
+        }
+
+        namespace files {
+          class FileReaderBase extends ElementorModules.Module {
+            static getName(): string;
+            static get mimeTypes(): string[];
+            read(file: File): Promise<any>;
+          }
+
+          class FileParserBase extends ElementorModules.Module {
+            static getName(): string;
+            parse(data: any): Promise<any>;
+            validate(data: any): boolean;
+          }
+
+          namespace readers {
+            class Image extends FileReaderBase {}
+            class Video extends FileReaderBase {}
+            class Json extends FileReaderBase {}
+          }
+
+          namespace parsers {
+            class MediaParser extends FileParserBase {
+              extractWidgetData(data: any): any;
+            }
+
+            namespace image {
+              class Widget extends MediaParser {}
+            }
+
+            namespace video {
+              class Widget extends MediaParser {}
+            }
+
+            namespace json {
+              class Elements extends FileParserBase {}
+            }
+          }
+        }
+
+        namespace commands {
+          class Import extends $e.modules.CommandBase {
+            apply(args: { files: FileList | File[] }): Promise<any>;
+          }
+
+          namespace internal {
+            class Validate extends $e.modules.CommandBase {
+              apply(args: any): Promise<boolean>;
+            }
+          }
+        }
+      }
+
+      // Documents System
+      namespace documents {
+        class Component extends $e.modules.ComponentBase {
+          documents: { [id: string]: Document };
+          getCurrent(): Document;
+          create(type: string, options: any): Document;
+          open(id: string): Promise<Document>;
+          close(id: string): void;
+          save(id: string): Promise<any>;
+        }
+
+        class Document extends ElementorModules.Module {
+          id: string;
+          type: string;
+          container: Container;
+          config: any;
+          $element: JQuery;
+          editor: Editor;
+          getTitle(): string;
+          getContainer(): Container;
+          save(): Promise<any>;
+          close(): void;
+          isEditable(): boolean;
+        }
+
+        class Editor extends ElementorModules.Module {
+          document: Document;
+          isChanged: boolean;
+          status: string;
+          getStatus(): string;
+          setStatus(status: string): void;
+          save(): Promise<any>;
+        }
+
+        namespace commands {
+          class Open extends $e.modules.CommandBase {
+            apply(args: { id: string; type?: string }): Promise<Document>;
+          }
+
+          class Close extends $e.modules.CommandBase {
+            apply(args: { id: string }): void;
+          }
+
+          class Preview extends $e.modules.CommandBase {
+            apply(args: { id: string }): void;
+          }
+
+          class View extends $e.modules.CommandBase {
+            apply(args: { id: string }): void;
+          }
+
+          namespace internal {
+            class AttachPreview extends $e.modules.CommandInternalBase {
+              apply(args: any): void;
+            }
+
+            class Unload extends $e.modules.CommandInternalBase {
+              apply(args: { document: Document }): void;
+            }
+          }
+        }
+      }
+
+      // Dynamic Tags System
+      namespace dynamicTags {
+        class Component extends $e.modules.ComponentBase {
+          tags: { [key: string]: any };
+          getConfig(tagName?: string): any;
+          getTags(format?: string): any;
+          getTag(id: string): any;
+          registerTag(id: string, tag: any): void;
+          createTag(tagID: string, data: object): any;
+          parseTagsText(
+            text: string,
+            settings?: object,
+            parseCallback?: Function
+          ): any;
+          cleanCache(): void;
+        }
+
+        class TagView extends ElementorModules.Module {
+          model: any;
+          render(): void;
+          destroy(): void;
+        }
+      }
+
+      // Hotkeys System
+      namespace hotkeys {
+        class Component extends $e.modules.ComponentBase {
+          shortcuts: { [key: string]: any };
+          register(shortcut: string, callback: Function): void;
+          unregister(shortcut: string): void;
+          handle(event: KeyboardEvent): boolean;
+        }
+      }
+
+      // Icons Manager System
+      namespace iconsManager {
+        class Component extends $e.modules.ComponentBase {
+          libraries: { [key: string]: any };
+          enqueueIconFonts(iconType: string): void;
+          getIconLibraries(): object;
+          registerIconLibrary(libraryName: string, config: object): void;
+          renderIcon(icon: object, attributes?: object, tag?: string): string;
+        }
+
+        class IconsManager extends ElementorModules.Module {
+          tabs: { [key: string]: any };
+          currentTab: string;
+          modal: any;
+          show(): void;
+          hide(): void;
+          setCurrentTab(tabName: string): void;
+        }
+      }
+
+      // Preview System
+      namespace preview {
+        class Component extends $e.modules.ComponentBase {
+          iframe: HTMLIFrameElement;
+          window: Window;
+          document: Document;
+          reload(): void;
+          refresh(): void;
+          getCurrentUrl(): string;
+        }
+
+        namespace commands {
+          class Drop extends $e.modules.editor.CommandContainerBase {
+            apply(args: any): void;
+          }
+
+          class Reload extends $e.modules.CommandBase {
+            apply(): void;
+          }
+        }
+      }
+
+      // Selection System
+      namespace selection {
+        class Component extends $e.modules.ComponentBase {
+          selected: Container[];
+          select(container: Container): void;
+          unselect(container: Container): void;
+          clear(): void;
+          getSelected(): Container[];
+          isSelected(container: Container): boolean;
+        }
+      }
+
+      // Settings System
+      namespace settings {
+        class Component extends $e.modules.ComponentBase {
+          pages: { [key: string]: any };
+          getCurrentPage(): any;
+          setPage(page: string): void;
+        }
+      }
+
+      // Template Library System
+      namespace templateLibrary {
+        class Component extends $e.modules.ComponentBase {
+          manager: any;
+          layout: any;
+          showModal(): void;
+          hideModal(): void;
+          getFilter(name: string): any;
+          setFilter(name: string, value: any): void;
+          importTemplate(templateData: object): Promise<any>;
+          saveTemplate(data: object): Promise<any>;
+        }
+      }
+
+      // Validator System
+      namespace validator {
+        class Component extends $e.modules.ComponentBase {
+          validators: { [key: string]: any };
+          validate(value: any, validationTerms: object): boolean;
+          addValidationMethod(methodName: string, method: Function): void;
+        }
+
+        class BreakpointValidator extends ElementorModules.Module {
+          validate(value: any): boolean;
+          getErrorMessage(): string;
+        }
+
+        class NumberValidator extends ElementorModules.Module {
+          validate(value: any): boolean;
+          getErrorMessage(): string;
+        }
+      }
+    }
+
+    // ===== Document System =====
+    namespace document {
+      // Base command classes
+      class CommandBase extends $e.modules.CommandBase {
+        document: any;
+        initialize(args: any): void;
+      }
+
+      class CommandHistoryBase extends $e.modules.editor.CommandContainerBase {
+        document: any;
+        getHistory(args: any): {
+          containers: any[];
+          type: string;
+          subTitle: string;
+        };
+        initialize(args: any): void;
+      }
+
+      class CommandInternalBase extends $e.modules.CommandInternalBase {
+        document: any;
+        initialize(args: any): void;
+      }
+
+      // Save commands namespace
+      namespace save {
+        class Base extends CommandBase {
+          status: string;
+          shouldSave(args: any): boolean;
+          prepareSaveData(args: any): any;
+        }
+
+        class Auto extends Base {
+          apply(args: any): Promise<any>;
+        }
+
+        class Draft extends Base {
+          apply(args: any): Promise<any>;
+        }
+
+        class Discard extends Base {
+          apply(args: any): Promise<any>;
+        }
+
+        class Pending extends Base {
+          apply(args: any): Promise<any>;
+        }
+
+        class Update extends Base {
+          apply(args: any): Promise<any>;
+        }
+
+        class Default extends Base {
+          apply(args: any): Promise<any>;
+        }
+
+        namespace internal {
+          class SetIsModified extends CommandInternalBase {
+            apply(args: { isModified: boolean }): void;
+          }
+
+          class Save extends CommandInternalBase {
+            apply(args: any): Promise<any>;
+          }
+        }
+
+        class Component extends $e.modules.ComponentBase {
+          namespace: string;
+          defaultSaveType: string;
+          save(type?: string, options?: any): Promise<any>;
+          isSaveEnabled(): boolean;
+          setSaveEnabled(enabled: boolean): void;
+        }
+      }
+
+      // Repeater commands namespace
+      namespace repeater {
+        class Move extends CommandHistoryBase {
+          apply(args: {
+            container: any;
+            name: string;
+            sourceIndex: number;
+            targetIndex: number;
+            containers?: any[];
+          }): any;
+        }
+
+        class Duplicate extends CommandHistoryBase {
+          apply(args: {
+            container: any;
+            name: string;
+            index: number;
+            containers?: any[];
+          }): any;
+        }
+
+        class Remove extends CommandHistoryBase {
+          apply(args: {
+            container: any;
+            name: string;
+            index: number;
+            containers?: any[];
+          }): any;
+        }
+
+        class Select extends CommandHistoryBase {
+          apply(args: { container: any; name: string; index: number }): void;
+        }
+
+        class Insert extends CommandHistoryBase {
+          apply(args: {
+            container: any;
+            name: string;
+            model: any;
+            options?: { at?: number };
+          }): any;
+        }
+
+        class Component extends $e.modules.ComponentBase {
+          namespace: string;
+        }
+      }
+
+      // UI states and globals
+      namespace ui {
+        class Component extends $e.modules.ComponentBase {
+          states: { [key: string]: any };
+          setState(state: string, value: any): void;
+          getState(state: string): any;
+        }
+      }
+
+      namespace globals {
+        class Component extends $e.modules.ComponentBase {
+          data: { [key: string]: any };
+          get(key: string): any;
+          set(key: string, value: any): void;
+          delete(key: string): void;
+        }
+
+        namespace colors {
+          class Component extends $e.modules.ComponentBase {
+            namespace: string;
+          }
+
+          namespace commands {
+            class Create extends $e.modules.editor.CommandContainerBase {
+              apply(args: any): any;
+            }
+          }
+        }
+
+        namespace typography {
+          class Component extends $e.modules.ComponentBase {
+            namespace: string;
+          }
+
+          namespace commands {
+            class Create extends $e.modules.editor.CommandContainerBase {
+              apply(args: any): any;
+            }
+          }
+        }
+
+        namespace commands {
+          namespace data {
+            class Colors extends $e.modules.CommandData {
+              apply(args: any): any;
+            }
+
+            class Typography extends $e.modules.CommandData {
+              apply(args: any): any;
+            }
+
+            class Index extends $e.modules.CommandData {
+              apply(args: any): any;
+            }
+          }
+        }
+      }
+
+      // History system
+      namespace history {
+        class Component extends $e.modules.ComponentBase {
+          items: any[];
+          currentIndex: number;
+          startTransaction(title: string): void;
+          endTransaction(): void;
+          addItem(item: any): void;
+          undo(): void;
+          redo(): void;
+          canUndo(): boolean;
+          canRedo(): boolean;
+          clear(): void;
+        }
+      }
+
+      // Hooks system
+      namespace hooks {
+        class Component extends $e.modules.ComponentBase {
+          hooks: { [key: string]: Function[] };
+          addAction(
+            action: string,
+            callback: Function,
+            priority?: number
+          ): void;
+          removeAction(action: string, callback: Function): void;
+          doAction(action: string, ...args: any[]): void;
+          addFilter(
+            filter: string,
+            callback: Function,
+            priority?: number
+          ): void;
+          removeFilter(filter: string, callback: Function): void;
+          applyFilters(filter: string, value: any, ...args: any[]): any;
+        }
+      }
+    }
+
+    // ===== Editor Infrastructure =====
+    class EditorBase extends ElementorModules.Module {
+      widgetsCache: { [key: string]: any };
+      config: any;
+      loaded: boolean;
+      elementsManager: any;
+      documents: any;
+      schemes: any;
+      heartbeat: any;
+      ajax: any;
+
+      init(): void;
+      start(): void;
+      initComponents(): void;
+      bindEvents(): void;
+      getElementsDefaultArgs(): any;
+      loadingView: any;
+      getRegion(name: string): any;
+    }
+
+    class Editor extends EditorBase {
+      getContainer(): Container;
+      isChanged(): boolean;
+      saved(): void;
+      getModel(): any;
+    }
+
+    namespace views {
+      class ControlsPopover extends ElementorModules.Module {
+        currentControl: any;
+        isOpen: boolean;
+        show(controlView: any): void;
+        hide(): void;
+        toggle(controlView: any): void;
+        position(): void;
+        onRender(): void;
+        onDestroy(): void;
+      }
+    }
+
+    namespace introductionTooltips {
+      class Manager extends ElementorModules.Module {
+        tooltips: { [key: string]: any };
+        show(tooltipId: string): void;
+        hide(tooltipId: string): void;
+        register(tooltipId: string, tooltip: any): void;
+        hasViewed(tooltipId: string): boolean;
+        markAsViewed(tooltipId: string): void;
+      }
+
+      class GlobalColorIntroduction extends ElementorModules.Module {
+        show(): void;
+        hide(): void;
+      }
+
+      class GlobalFontIntroduction extends ElementorModules.Module {
+        show(): void;
+        hide(): void;
+      }
+    }
+
+    namespace errors {
+      class ElementTypeNotFound extends Error {
+        constructor(message: string);
+      }
+    }
+
+    namespace utils {
+      class Module extends ElementorModules.Module {}
+
+      class Promotion extends ElementorModules.Module {
+        showDialog(options: any): void;
+        hideDialog(): void;
+      }
+
+      class NoticeBar extends ElementorModules.Module {
+        show(message: string, type?: string): void;
+        hide(): void;
+      }
+
+      class ControlConditions extends ElementorModules.Module {
+        check(condition: any, values: any): boolean;
+      }
+
+      class FontVariables extends ElementorModules.Module {
+        generateCSS(): string;
+      }
+    }
+  }
+
+  // ===== Admin System =====
+  namespace admin {
+    class BetaTesterModule extends ElementorModules.ViewModule {
+      layout: any;
+      show(): void;
+      hide(): void;
+      toggle(): void;
+    }
+
+    class BetaTesterView extends ElementorModules.Module {
+      render(): void;
+      destroy(): void;
+    }
+
+    class BetaTesterLayout extends ElementorModules.Module {
+      show(): void;
+      hide(): void;
+    }
+
+    class MenuHandler extends ElementorModules.ViewModule {
+      initialize(): void;
+      bindEvents(): void;
+    }
+
+    namespace floatingElements {
+      class Layout extends ElementorModules.Module {
+        show(): void;
+        hide(): void;
+      }
+
+      class NewFloatingElements extends ElementorModules.Module {
+        show(): void;
+        hide(): void;
+      }
+
+      class View extends ElementorModules.Module {
+        render(): void;
+        destroy(): void;
+      }
+    }
+
+    namespace newTemplate {
+      class Layout extends ElementorModules.Module {
+        show(): void;
+        hide(): void;
+      }
+
+      class NewTemplate extends ElementorModules.Module {
+        create(type: string): void;
+      }
+
+      class TemplateControls extends ElementorModules.Module {
+        render(): void;
+      }
+
+      class View extends ElementorModules.Module {
+        render(): void;
+        destroy(): void;
+      }
+    }
+  }
+
+  // ===== Utils System =====
+  namespace utils {
+    class Events extends ElementorModules.Module {
+      dispatch(context: HTMLElement | JQuery, event: string, data?: any): void;
+    }
+
+    class Hooks extends ElementorModules.Module {
+      actions: { [key: string]: Function[] };
+      filters: { [key: string]: Function[] };
+      addAction(action: string, callback: Function, priority?: number): void;
+      removeAction(action: string, callback: Function): void;
+      doAction(action: string, ...args: any[]): void;
+      addFilter(filter: string, callback: Function, priority?: number): void;
+      removeFilter(filter: string, callback: Function): void;
+      applyFilters(filter: string, value: any, ...args: any[]): any;
+    }
+
+    class Breakpoints extends ElementorModules.Module {
+      activeBreakpoints: { [key: string]: any };
+      getActiveBreakpointsList(): string[];
+      getBreakpointValues(): number[];
+      getDesktopMinPoint(): number;
+    }
+
+    class React extends ElementorModules.Module {
+      render(component: any, element: HTMLElement): void;
+      unmount(element: HTMLElement): void;
+    }
+
+    class Time extends ElementorModules.Module {
+      getUserTimestamp(date?: Date): string;
+      formatTime(timestamp: number): string;
+    }
+
+    class Notifications extends ElementorModules.Module {
+      showToast(options: {
+        message: string;
+        type?: "info" | "success" | "warning" | "error";
+        duration?: number;
+      }): void;
+    }
+
+    class Introduction extends ElementorModules.Module {
+      show(introductionId: string): void;
+      hide(introductionId: string): void;
+      hasViewed(introductionId: string): boolean;
+      markAsViewed(introductionId: string): void;
+    }
+
+    class JsonUploadWarningMessage extends ElementorModules.Module {
+      show(message: string): void;
+      hide(): void;
+    }
+
+    class Tiers extends ElementorModules.Module {
+      TIERS: {
+        free: string;
+        essential: string;
+        advanced: string;
+        expert: string;
+        agency: string;
+      };
+      isTierAtLeast(currentTier: string, expectedTier: string): boolean;
+    }
   }
 
   // Export ForceMethodImplementation function - remove the function declaration
@@ -792,6 +1496,24 @@ declare namespace $e {
     }
 
     class CommandContainerInternalBase extends CommandContainerBase {}
+
+    class ComponentBase extends BaseComponent {
+      manager?: any;
+    }
+
+    class CommandInternalBase extends CommandBase {}
+
+    class CommandData extends CommandBase {}
+
+    namespace editor {
+      class CommandContainerBase extends $e.modules.CommandContainerBase {}
+      class CommandHistoryBase extends CommandContainerBase {}
+      class CommandInternalBase extends $e.modules.CommandInternalBase {}
+
+      namespace utils {
+        class Module extends ElementorModules.Module {}
+      }
+    }
 
     class BaseComponent extends ElementorModules.Module {
       namespace: string;
