@@ -34,7 +34,7 @@ export declare class Breakpoints extends Module {
 
   /**
    * Get minimum breakpoint value for a specific device
-   * 
+   *
    * @param deviceKey - Device key (mobile, tablet, desktop, etc.)
    * @returns Minimum pixel value for the device breakpoint
    */
@@ -43,7 +43,7 @@ export declare class Breakpoints extends Module {
   /**
    * Get active match regex for breakpoint detection
    * Creates a regex pattern for matching current active breakpoints
-   * 
+   *
    * @returns RegExp for matching active breakpoint classes or identifiers
    */
   getActiveMatchRegex(): RegExp;

@@ -125,18 +125,18 @@ export interface PromotionEvent {
  * Promotion Utility Class
  */
 export class Promotion extends Module {
-	private config: PromotionConfig = {
-		enabled: true,
-		userPlan: 'free',
-		availablePlans: ['free', 'pro', 'expert'],
-		upgradeUrl: 'https://elementor.com/pro/',
-		dismissed: [],
-		displayLimits: {}
-	};
+  private config: PromotionConfig = {
+    enabled: true,
+    userPlan: "free",
+    availablePlans: ["free", "pro", "expert"],
+    upgradeUrl: "https://elementor.com/pro/",
+    dismissed: [],
+    displayLimits: {},
+  };
 
-	private promotions: Map<string, PromotionData> = new Map();
-	private templates: Map<string, string> = new Map();
-	private displayCounts: Map<string, number> = new Map();
+  private promotions: Map<string, PromotionData> = new Map();
+  private templates: Map<string, string> = new Map();
+  private displayCounts: Map<string, number> = new Map();
 
   /**
    * Initialize promotion system

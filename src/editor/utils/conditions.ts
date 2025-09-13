@@ -186,8 +186,8 @@ export default class Conditions {
       if (term.terms) {
         // Nested condition - convert term to condition set
         const nestedConditionSet: ConditionSet = {
-          relation: 'and', // Default relation for nested terms
-          terms: term.terms
+          relation: "and", // Default relation for nested terms
+          terms: term.terms,
         };
         comparisonResult = this.check(nestedConditionSet, comparisonObject);
       } else {
