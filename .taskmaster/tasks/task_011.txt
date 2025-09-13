@@ -1,0 +1,11 @@
+# Task ID: 11
+# Title: Create comprehensive index.ts with export strategy
+# Status: pending
+# Dependencies: 2, 3, 5, 8
+# Priority: high
+# Description: Build the main index.ts file with namespace exports, direct exports, and backward compatibility
+# Details:
+Create a comprehensive index.ts that provides multiple export patterns: namespace exports for grouped access, direct exports for common types, helper types, and a backward compatibility layer.
+
+# Test Strategy:
+Verify all import patterns work correctly and IntelliSense provides appropriate suggestions

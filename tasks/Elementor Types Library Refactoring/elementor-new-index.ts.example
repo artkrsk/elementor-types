@@ -1,0 +1,209 @@
+/**
+ * @arts/elementor-types
+ * 
+ * Comprehensive TypeScript type definitions for Elementor WordPress plugin
+ * 
+ * @version 2.0.0
+ * @license MIT
+ */
+
+// ============================================================================
+// Core Module System
+// ============================================================================
+export * from './core';
+export * as ElementorModules from './core';
+
+// ============================================================================
+// Frontend Types
+// ============================================================================
+export * from './frontend';
+export * as Frontend from './frontend';
+
+// ============================================================================
+// Editor Types
+// ============================================================================
+export * from './editor';
+export * as Editor from './editor';
+
+// ============================================================================
+// Admin Types
+// ============================================================================
+export * from './admin';
+export * as Admin from './admin';
+
+// ============================================================================
+// Utility Types
+// ============================================================================
+export * from './utils';
+export * as Utils from './utils';
+
+// ============================================================================
+// Third-party Integrations
+// ============================================================================
+export * from './third-party';
+
+// ============================================================================
+// Global Augmentations
+// ============================================================================
+import './globals';
+
+// ============================================================================
+// Convenience Exports - Most commonly used types
+// ============================================================================
+export type {
+  // Frontend essentials
+  ElementorFrontend,
+  ElementorFrontendConfig,
+  BaseHandler,
+  SwiperHandler,
+  CarouselHandler,
+  
+  // Editor essentials
+  ElementorEditor,
+  EditorConfig,
+  Container,
+  Widget,
+  Section,
+  Column,
+  
+  // Control system
+  ControlBase,
+  ControlData,
+  
+  // Command system
+  CommandBase,
+  ComponentBase,
+  
+  // Document management
+  Document,
+  DocumentManager,
+  
+  // Common utilities
+  ElementorBreakpoints,
+  ElementorHooks,
+  ElementorUtils,
+} from './types';
+
+// ============================================================================
+// Type Helpers and Utilities
+// ============================================================================
+
+/**
+ * Helper type to extract element settings
+ */
+export type ElementSettings<T extends Record<string, any> = Record<string, any>> = T & {
+  _element_id?: string;
+  _element_type?: string;
+  _widget_type?: string;
+};
+
+/**
+ * Helper type for responsive control values
+ */
+export type ResponsiveValue<T> = T | {
+  [device: string]: T;
+};
+
+/**
+ * Helper type for control conditions
+ */
+export type ControlCondition = {
+  [controlName: string]: any;
+} | {
+  relation?: 'or' | 'and';
+  terms: Array<{
+    name: string;
+    operator?: 'in' | 'not_in' | '===' | '!==' | '>' | '<' | '>=' | '<=';
+    value: any;
+  }>;
+};
+
+/**
+ * Helper type for widget handlers
+ */
+export type WidgetHandlerClass<T = {}> = new (options: {
+  $element: JQuery;
+  elementSettings?: T;
+}) => any;
+
+// ============================================================================
+// Namespace Exports for Backward Compatibility
+// ============================================================================
+
+/**
+ * @deprecated Use named imports instead
+ * Will be removed in v3.0.0
+ */
+export namespace Elementor {
+  export * from './frontend';
+  export * from './editor';
+  export * from './core';
+}
+
+// ============================================================================
+// Development Helpers
+// ============================================================================
+
+/**
+ * Type guard to check if running in Elementor editor
+ */
+export function isInEditor(): boolean {
+  return typeof window !== 'undefined' && 
+         window.elementor !== undefined && 
+         window.elementor.isEditMode?.();
+}
+
+/**
+ * Type guard to check if running in frontend
+ */
+export function isInFrontend(): boolean {
+  return typeof window !== 'undefined' && 
+         window.elementorFrontend !== undefined;
+}
+
+/**
+ * Type guard for checking if element is a widget
+ */
+export function isWidget(element: any): element is Widget {
+  return element?.elType === 'widget';
+}
+
+/**
+ * Type guard for checking if element is a section
+ */
+export function isSection(element: any): element is Section {
+  return element?.elType === 'section';
+}
+
+/**
+ * Type guard for checking if element is a column
+ */
+export function isColumn(element: any): element is Column {
+  return element?.elType === 'column';
+}
+
+/**
+ * Type guard for checking if element is a container
+ */
+export function isContainer(element: any): element is Container {
+  return element?.elType === 'container';
+}
+
+// ============================================================================
+// Version and Compatibility
+// ============================================================================
+
+/**
+ * Library version
+ */
+export const VERSION = '2.0.0';
+
+/**
+ * Minimum supported Elementor version
+ */
+export const MIN_ELEMENTOR_VERSION = '3.5.0';
+
+/**
+ * Maximum tested Elementor version
+ */
+export const MAX_TESTED_ELEMENTOR_VERSION = '3.18.0';

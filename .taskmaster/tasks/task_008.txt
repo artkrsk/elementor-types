@@ -1,0 +1,11 @@
+# Task ID: 8
+# Title: Extract utility types and helpers
+# Status: pending
+# Dependencies: 1
+# Priority: medium
+# Description: Move shared utilities like hooks, events, and breakpoints to utils/ directory
+# Details:
+Separate all shared utility types including hooks system, event handling, breakpoint management, and other cross-cutting concerns into the utils module.
+
+# Test Strategy:
+Ensure utility types are accessible from multiple modules and work correctly

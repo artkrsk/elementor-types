@@ -1,0 +1,11 @@
+# Task ID: 4
+# Title: Extract and organize handler types
+# Status: pending
+# Dependencies: 3
+# Priority: medium
+# Description: Move all handler-related types (BaseHandler, SwiperHandler, etc.) to frontend/handlers/ directory
+# Details:
+Organize all element handlers, widget handlers, and specialized handlers like SwiperHandler into a dedicated handlers subdirectory within frontend.
+
+# Test Strategy:
+Confirm all handler types are properly exported and can be imported for widget development
