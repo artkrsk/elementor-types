@@ -744,14 +744,12 @@ export class Promotion extends Module {
   }
 }
 
-// Global type declarations
-declare global {
-  interface Window {
-    elementorPromotion?: PromotionConfig;
-    gtag?: (
-      command: string,
-      action: string,
-      parameters?: Record<string, any>
-    ) => void;
-  }
+// Export types for external use - no global declarations
+export interface PromotionWindow {
+  elementorPromotion?: PromotionConfig;
+  gtag?: (
+    command: string,
+    action: string,
+    parameters?: Record<string, any>
+  ) => void;
 }

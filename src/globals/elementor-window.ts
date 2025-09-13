@@ -6,108 +6,148 @@
  */
 
 import type { ElementorWindowControls } from '../editor/controls/window-controls';
+import type { ElementorWindowElements } from '../editor/elements/window-elements';
+import type { ElementorWindowComponents } from '../editor/components/window-components';
+import type { ElementorWindowLayouts } from '../editor/layouts/window-layouts';
+import type { ElementorWindowViews } from '../editor/views/window-views';
 
 /**
  * Elementor Editor Modules Interface
- * This mirrors the modules object defined in editor-base.js
+ *
+ * This interface mirrors the modules object defined in editor-base.js and provides
+ * comprehensive type definitions for all Elementor editor modules available on
+ * `window.elementor.modules`.
+ *
+ * @example Access control modules
+ * ```typescript
+ * const colorControl = new window.elementor.modules.controls.Color();
+ * const mediaControl = new window.elementor.modules.controls.Media();
+ * ```
+ *
+ * @example Access element modules
+ * ```typescript
+ * const baseElement = new window.elementor.modules.elements.types.Base();
+ * const widgetElement = new window.elementor.modules.elements.types.Widget();
+ * ```
+ *
+ * @example Access component modules
+ * ```typescript
+ * const footerSaver = new window.elementor.modules.components.saver.behaviors.FooterSaver();
+ * ```
  */
 export interface ElementorWindowModules {
   /**
+   * Base Module class for all Elementor modules
    * @deprecated since 2.3.0, use `elementorModules.Module` instead.
    */
   Module: typeof import('../core/modules').Module;
 
-  /** Component modules */
-  components: {
-    templateLibrary: {
-      views: {
-        /**
-         * @deprecated since 2.4.0, use `elementorModules.common.views.modal.Layout` instead.
-         */
-        BaseModalLayout: any;
-      };
-    };
-    saver: {
-      behaviors: {
-        FooterSaver: any;
-      };
-    };
-  };
+  /**
+   * Component modules including template library, saver behaviors, and other UI components
+   * Provides access to modal layouts, document savers, and various editor components
+   */
+  components: ElementorWindowComponents;
 
   /**
+   * Saver functionality for backwards compatibility
    * @deprecated since 2.9.0, use `elementor.modules.components.saver.behaviors.FooterSaver` instead.
    */
   saver: {
+    /** Footer saver behavior for backwards compatibility */
     footerBehavior: any;
   };
 
-  /** Control modules */
+  /**
+   * Control modules providing all editor control types
+   * Includes Color, Media, Dimensions, Number, Select, and all other control constructors
+   */
   controls: ElementorWindowControls;
 
-  /** Element modules */
-  elements: {
-    types: {
-      Base: any;
-      [elementType: string]: any;
-    };
-    models: {
-      /**
-       * @deprecated since 2.4.0, use `elementorModules.editor.elements.models.BaseSettings` instead.
-       */
-      BaseSettings: any;
-      Element: any;
-    };
-    views: {
-      BaseElement: any;
-      BaseWidget: any;
-      Widget: any;
-    };
-    components: {
-      AddSectionView: any;
-    };
-  };
+  /**
+   * Element modules including types, models, views, and components
+   * Provides access to Widget, Section, Column, Container and other element types
+   */
+  elements: ElementorWindowElements;
 
-  /** Layout modules */
-  layouts: {
-    panel: {
-      pages: {
-        elements: {
-          views: {
-            Global: any;
-            Elements: any;
-          };
-        };
-        menu: {
-          Menu: any;
-        };
-      };
-    };
-  };
+  /**
+   * Layout modules for panel, pages, and UI structure
+   * Includes panel layouts, menu systems, and element organization
+   */
+  layouts: ElementorWindowLayouts;
 
-  /** View modules */
-  views: {
-    /**
-     * @deprecated since 2.4.0, use `elementorModules.editor.views.ControlsStack` instead.
-     */
-    ControlsStack: any;
-  };
+  /**
+   * View modules for rendering and UI management
+   * Includes ControlsStack, element views, and other visual components
+   */
+  views: ElementorWindowViews;
 
-  // Dynamic module additions (added at runtime)
+  // Dynamic module additions (added at runtime during editor initialization)
+
+  /** Landing page library module (conditionally loaded) */
   landingLibraryPageModule?: any;
+
+  /** Floating buttons library module (conditionally loaded) */
   floatingButtonsLibraryModule?: any;
+
+  /** Link in bio library module (conditionally loaded) */
   linkInBioLibraryModule?: any;
+
+  /** Floating bars library module (conditionally loaded) */
   floatingBarsLibraryModule?: any;
+
+  /** Elements color picker module (conditionally loaded) */
   elementsColorPicker?: any;
+
+  /** Promotion module (conditionally loaded) */
   promotionModule?: any;
+
+  /** Cloud library module (conditionally loaded) */
   cloudLibraryModule?: any;
 }
 
 /**
  * Main Elementor Editor Interface
- * This represents the window.elementor object in editor context
+ *
+ * This represents the complete `window.elementor` object available in the
+ * Elementor editor context. It provides access to all editor functionality
+ * including modules, configuration, utilities, and event systems.
+ *
+ * @example Basic usage
+ * ```typescript
+ * // Access editor configuration
+ * const version = window.elementor.config.version;
+ *
+ * // Use control modules
+ * const colorControl = new window.elementor.modules.controls.Color();
+ *
+ * // Listen to editor events
+ * window.elementor.on('document:loaded', () => {
+ *   console.log('Document loaded');
+ * });
+ *
+ * // Use hooks system
+ * window.elementor.hooks.addFilter('elements/widget/controls/common/default',
+ *   (controls, widgetType) => {
+ *     // Modify widget controls
+ *     return controls;
+ *   }
+ * );
+ * ```
+ *
+ * @example Working with elements
+ * ```typescript
+ * // Get element data
+ * const elementData = window.elementor.getElementData(model);
+ *
+ * // Check user capabilities
+ * const canEdit = window.elementor.userCan('design');
+ * ```
  */
 export interface ElementorEditor {
-  /** Modules namespace */
+  /**
+   * Modules namespace providing access to all editor modules
+   * This is the main entry point for accessing controls, elements, components, layouts, and views
+   */
   modules: ElementorWindowModules;
 
   /** Configuration object */
@@ -206,10 +246,4 @@ export interface ElementorEditor {
   };
 }
 
-// Global window interface extension
-declare global {
-  interface Window {
-    /** Elementor editor instance (available in editor context) */
-    elementor: ElementorEditor;
-  }
-}
+// Export interfaces for external use - no global declarations

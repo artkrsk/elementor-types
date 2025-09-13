@@ -18,10 +18,4 @@ export * from "./settings";
 export * from "./browser-import";
 export * from "./selection";
 export * from "./validator";
-
-export * from "./panel";
-
-// Document system components
-export * from "./documents";
-export * from "./document-elements";
-export * from "./document-helpers";
+export * from "./window-components";

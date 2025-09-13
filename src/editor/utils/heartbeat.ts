@@ -134,7 +134,7 @@ export class Heartbeat {
    */
   private setupWordPressHeartbeat(): void {
     // Configure WordPress heartbeat
-    if (wp.heartbeat.interval) {
+    if (wp.heartbeat?.interval) {
       wp.heartbeat.interval(this.settings.interval!);
     }
 
@@ -615,25 +615,24 @@ export class Heartbeat {
   }
 }
 
-// Global access for backward compatibility
-declare global {
-  interface Window {
-    elementorHeartbeat: Heartbeat;
-  }
-
-  namespace wp {
-    interface Heartbeat {
-      interval(seconds: number): void;
-      connectNow(): void;
-      suspend?(): void;
-      resume?(): void;
-    }
-
-    const heartbeat: Heartbeat;
-  }
+// Export types for external use - no global declarations
+export interface HeartbeatWindow extends Window {
+  elementorHeartbeat: Heartbeat;
 }
+
+export interface WPHeartbeat {
+  interval(seconds: number): void;
+  connectNow(): void;
+  suspend?(): void;
+  resume?(): void;
+}
+
+// Declare wp for internal use
+declare const wp: {
+  heartbeat?: WPHeartbeat;
+};
 
 // Initialize singleton instance
 if (typeof window !== "undefined") {
-  window.elementorHeartbeat = Heartbeat.getInstance();
+  (window as any).elementorHeartbeat = Heartbeat.getInstance();
 }

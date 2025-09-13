@@ -923,9 +923,7 @@ export class ElementTypes extends Module {
   }
 }
 
-// Global interface extensions
-declare global {
-  interface Window {
-    elementorCustomElements?: ElementDefinition[];
-  }
+// Export types for external use - no global declarations
+export interface ElementTypesWindow extends Window {
+  elementorCustomElements?: ElementDefinition[];
 }

@@ -642,10 +642,11 @@ export class ColorPicker {
   }
 }
 
-// Global declarations for jQuery Spectrum
-declare global {
-  interface JQuery {
-    spectrum(options?: any): JQuery;
-    spectrum(method: string, ...args: any[]): any;
-  }
+// Export types for external use - no global declarations
+export interface SpectrumJQuery {
+  spectrum(options?: any): SpectrumJQuery;
+  spectrum(method: string, ...args: any[]): any;
 }
+
+// Local jQuery declaration for internal use
+declare const $: any;

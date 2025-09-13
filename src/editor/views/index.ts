@@ -70,3 +70,5 @@ export type {
   NavigatorContextMenu,
   NavigatorDragDrop,
 } from "./navigator";
+
+export * from "./window-views";

@@ -133,7 +133,7 @@ export class Select2Utils {
 
     // Destroy existing Select2 if present
     if ($element.hasClass("select2-hidden-accessible")) {
-      $element.select2("destroy");
+      ($element as any).select2("destroy");
     }
 
     // Apply default configuration
@@ -146,7 +146,7 @@ export class Select2Utils {
     const finalConfig = { ...defaultConfig, ...config };
 
     // Initialize Select2
-    $element.select2(finalConfig as any);
+    ($element as any).select2(finalConfig as any);
 
     return $element;
   }
@@ -159,7 +159,7 @@ export class Select2Utils {
   static destroy(element: JQuery | HTMLElement | string): void {
     const $element = ensureJQuery(element);
     if ($element.hasClass("select2-hidden-accessible")) {
-      $element.select2("destroy");
+      ($element as any).select2("destroy");
     }
   }
 
@@ -303,7 +303,7 @@ export class Select2Utils {
   static open(element: JQuery | HTMLElement | string): void {
     const $element = ensureJQuery(element);
     if ($element.hasClass("select2-hidden-accessible")) {
-      $element.select2("open");
+      ($element as any).select2("open");
     }
   }
 
@@ -315,7 +315,7 @@ export class Select2Utils {
   static close(element: JQuery | HTMLElement | string): void {
     const $element = ensureJQuery(element);
     if ($element.hasClass("select2-hidden-accessible")) {
-      $element.select2("close");
+      ($element as any).select2("close");
     }
   }
 
@@ -327,7 +327,7 @@ export class Select2Utils {
   static focus(element: JQuery | HTMLElement | string): void {
     const $element = ensureJQuery(element);
     if ($element.hasClass("select2-hidden-accessible")) {
-      $element.select2("focus");
+      ($element as any).select2("focus");
     }
   }
 
@@ -628,10 +628,11 @@ export class Select2Registry {
   }
 }
 
-// Global declarations for jQuery Select2
-declare global {
-  interface JQuery {
-    select2(options?: any): JQuery;
-    select2(method: string, ...args: any[]): any;
-  }
+// Export types for external use - no global declarations
+export interface Select2jQuery {
+  select2(options?: any): Select2jQuery;
+  select2(method: string, ...args: any[]): any;
 }
+
+// Local jQuery declaration for internal use
+declare const $: any;
