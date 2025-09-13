@@ -37,6 +37,14 @@ export type {
   EditorPageRenderArgs,
   PanelPageState,
   PanelPageManager,
+  EditMode,
+  EditModeChangeDetail,
+  EditModeChannel,
+  EditModeManager,
+  EditModeBehavior,
+  PanelEditModeIntegration,
+  EditModeContext,
+  EditModeConfig,
 } from "./panel";
 
 export type {
@@ -44,8 +52,16 @@ export type {
   CategoryModel,
   ElementsCollection,
   CategoriesCollection,
-  ElementsPageView,
   ElementModelData,
   CategoryModelData,
   ElementsPageConfig,
+  ElementSearchFilters,
+  ElementsBrowserUI,
+  ElementsBrowserEvents,
+  ElementSearchView,
+  ElementCategoryView,
+  ElementCategoriesView,
+  ElementItemView,
+  ElementsListView,
+  ElementsPageLayoutView,
 } from "./elements";

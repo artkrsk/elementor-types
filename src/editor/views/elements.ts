@@ -191,3 +191,142 @@ export declare class ContainerEmptyComponent {
    */
   shouldShow(): boolean;
 }
+
+/**
+ * Element view factory
+ * Creates appropriate view instances for element types
+ */
+export interface ElementViewFactory {
+  /**
+   * Create view for element type
+   * @param elementType - Element type
+   * @param model - Element model
+   * @param options - View options
+   */
+  createView(elementType: string, model: any, options?: any): BaseElementView;
+
+  /**
+   * Register view class for element type
+   * @param elementType - Element type
+   * @param viewClass - View class constructor
+   */
+  registerViewClass(elementType: string, viewClass: any): void;
+
+  /**
+   * Get view class for element type
+   * @param elementType - Element type
+   */
+  getViewClass(elementType: string): any;
+
+  /**
+   * Check if view class exists for element type
+   * @param elementType - Element type
+   */
+  hasViewClass(elementType: string): boolean;
+}
+
+/**
+ * Preview management interface
+ * Handles preview rendering and updates
+ */
+export interface PreviewManager {
+  /** Preview iframe element */
+  $iframe: JQuery;
+
+  /** Preview document */
+  previewDocument: Document;
+
+  /** Preview window */
+  previewWindow: Window;
+
+  /** Preview loading state */
+  isLoading: boolean;
+
+  /**
+   * Initialize preview
+   */
+  initPreview(): void;
+
+  /**
+   * Load preview content
+   * @param url - Preview URL
+   */
+  loadPreview(url: string): void;
+
+  /**
+   * Refresh preview
+   */
+  refreshPreview(): void;
+
+  /**
+   * Update preview element
+   * @param elementId - Element ID
+   * @param content - New content
+   */
+  updatePreviewElement(elementId: string, content: string): void;
+
+  /**
+   * Scroll preview to element
+   * @param elementId - Element ID
+   */
+  scrollToElement(elementId: string): void;
+
+  /**
+   * Handle preview ready event
+   */
+  onPreviewReady(): void;
+}
+
+/**
+ * Element hierarchy manager
+ * Manages element parent-child relationships
+ */
+export interface ElementHierarchyManager {
+  /** Element hierarchy tree */
+  hierarchy: Map<string, string[]>;
+
+  /**
+   * Add element to hierarchy
+   * @param elementId - Element ID
+   * @param parentId - Parent element ID
+   */
+  addElement(elementId: string, parentId?: string): void;
+
+  /**
+   * Remove element from hierarchy
+   * @param elementId - Element ID
+   */
+  removeElement(elementId: string): void;
+
+  /**
+   * Get element children
+   * @param elementId - Element ID
+   */
+  getChildren(elementId: string): string[];
+
+  /**
+   * Get element parent
+   * @param elementId - Element ID
+   */
+  getParent(elementId: string): string | null;
+
+  /**
+   * Get element ancestors
+   * @param elementId - Element ID
+   */
+  getAncestors(elementId: string): string[];
+
+  /**
+   * Get element descendants
+   * @param elementId - Element ID
+   */
+  getDescendants(elementId: string): string[];
+
+  /**
+   * Move element in hierarchy
+   * @param elementId - Element to move
+   * @param newParentId - New parent ID
+   * @param position - Position in new parent
+   */
+  moveElement(elementId: string, newParentId: string, position?: number): void;
+}

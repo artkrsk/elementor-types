@@ -20,6 +20,10 @@ export type {
   ElementBehaviors,
   ElementViewEvents,
   DataBinding,
+  ViewManager,
+  ViewRenderer,
+  ViewState,
+  ViewStateManager,
 } from "./base";
 
 export type {
@@ -30,6 +34,9 @@ export type {
   ContainerView,
   ContainerEmptyView,
   ContainerEmptyComponent,
+  ElementViewFactory,
+  PreviewManager,
+  ElementHierarchyManager,
 } from "./elements";
 
 export type {
@@ -48,7 +55,6 @@ export type {
   PanelCategoriesView,
   PanelElementsView,
   PanelSearchView,
-  PanelGlobalElementsView,
 } from "./panel";
 
 export type {
@@ -59,4 +65,8 @@ export type {
   NavigatorIndicator,
   NavigatorDraggableOptions,
   NavigatorResizableOptions,
+  NavigatorSearch,
+  NavigatorTreeManager,
+  NavigatorContextMenu,
+  NavigatorDragDrop,
 } from "./navigator";
