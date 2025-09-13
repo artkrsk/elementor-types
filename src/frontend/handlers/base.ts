@@ -18,8 +18,11 @@ export declare class Base extends ViewModule {
   /**
    * Static extend method for creating subclasses
    * Creates a new class that inherits from this class
+   * The returned class will have a __super__ property pointing to the parent prototype
    */
-  static extend<T = any>(properties: object): typeof Base & (new (...args: any[]) => T);
+  static extend<T = any>(properties: object): typeof Base & (new (...args: any[]) => T) & {
+    __super__: typeof Base.prototype;
+  };
 
   /**
    * Find an element by selector within this handler's element scope

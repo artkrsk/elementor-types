@@ -14,6 +14,9 @@ export * from "./namespace";
 // Component subsystems
 export * from "./controls";
 
+// Panel system
+export * as Panel from "./panel";
+
 // Data system
 export * as Data from "./data";
 

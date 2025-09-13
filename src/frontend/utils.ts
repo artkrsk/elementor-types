@@ -5,6 +5,9 @@
 
 import type { ElementorFrontendConfig } from "./config";
 
+// Export detailed utility implementations
+export * from "./utils/";
+
 /**
  * Breakpoints utility interface
  */
