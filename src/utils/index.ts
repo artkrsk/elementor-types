@@ -10,3 +10,5 @@ export * from "./misc";
 export * from "./helpers";
 export * from "./guards";
 export * from "./advanced";
+export * from "./performance";
+export * from "./storage";

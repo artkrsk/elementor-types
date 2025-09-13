@@ -1,6 +1,6 @@
 # Task ID: 21
 # Title: Implement Editor Model System
-# Status: done
+# Status: pending
 # Dependencies: 20
 # Priority: critical
 # Description: Create complete model system types - 15+ missing model files for element models, settings models, collections
