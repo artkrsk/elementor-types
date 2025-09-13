@@ -29,6 +29,12 @@ export type ElementorGlobal = {
     dialogsManager: {
       createWidget(type: string, options: object): any;
     };
+    config: {
+      experimentalFeatures: {
+        container?: boolean;
+        [feature: string]: boolean | undefined;
+      };
+    };
   };
 
   elementorDevTools: {

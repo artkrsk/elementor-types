@@ -5,6 +5,7 @@
 
 import type { HistoryManager } from "./history";
 import type { ElementorGlobals, ElementorIconsManager } from "./managers";
+import type { WidgetCache } from "./elements";
 
 /**
  * Main Elementor Editor interface
@@ -86,6 +87,9 @@ export interface ElementorEditor {
 
   // Icons Manager
   iconsManager: ElementorIconsManager;
+
+  // Widget Cache for element type fallback logic
+  widgetsCache: WidgetCache;
 
   // Methods
   getPreferences(key: string): any;
