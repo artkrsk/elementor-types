@@ -1,21 +1,21 @@
 # Elementor Types Coverage Report
 
-Generated: 2025-09-13T07:06:08.227Z
+Generated: 2025-09-13T07:40:28.141Z
 
 ## Summary
 
 - **Total JS Files**: 516
-- **Covered Files**: 178
-- **Partially Covered**: 56
-- **Uncovered Files**: 282
-- **Overall Coverage**: 40%
+- **Covered Files**: 183
+- **Partially Covered**: 54
+- **Uncovered Files**: 279
+- **Overall Coverage**: 41%
 
 ## Module Coverage
 
 | Module | Coverage | Status |
 |--------|----------|--------|
 | admin | N/A% | ❌ Needs Work |
-| editor | 39% | ❌ Needs Work |
+| editor | 40% | ❌ Needs Work |
 | frontend | 67% | ❌ Needs Work |
 | utils | 39% | ❌ Needs Work |
 | modules | N/A% | ❌ Needs Work |
@@ -33,7 +33,7 @@ Generated: 2025-09-13T07:06:08.227Z
 
 ### 🟡 Coverage
 
-**Issue**: editor module has low coverage (39%)
+**Issue**: editor module has low coverage (40%)
 
 **Action**: Review and add missing type definitions for editor
 
