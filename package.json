@@ -1,5 +1,5 @@
 {
-  "name": "@framework/elementor-types",
+  "name": "@arts/elementor-types",
   "version": "1.0.0",
   "description": "TypeScript type definitions for Elementor WordPress plugin",
   "main": "dist/index.js",
@@ -31,7 +31,7 @@
     "types",
     "definitions"
   ],
-  "author": "Your Name",
+  "author": "Artem Semkin",
   "license": "MIT",
   "devDependencies": {
     "@types/jquery": "^3.5.29",
@@ -41,11 +41,6 @@
   "peerDependencies": {
     "@types/jquery": "^3.5.0",
     "swiper": "^11.0.0"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/your-org/framework.git",
-    "directory": "packages/elementor-types"
   },
   "publishConfig": {
     "access": "public"

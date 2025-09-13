@@ -400,6 +400,69 @@ declare namespace ElementorModules {
       }
     }
 
+    // ===== Frontend Utils =====
+    namespace utils {
+      class Anchors extends ViewModule {
+        getSettings(): any;
+        bindEvents(): void;
+        handleAnchorLinks(event: Event): void;
+        scrollToAnchor(anchorLink: string): void;
+      }
+
+      class AnchorScrollMargin extends ViewModule {
+        setScrollMargin(): void;
+        getScrollMargin(): number;
+      }
+
+      class FlexHorizontalScroll extends ViewModule {
+        bindEvents(): void;
+        onScroll(event: Event): void;
+      }
+
+      class Utils extends ViewModule {
+        escapeHTML(str: string): string;
+        isScrollSnapActive(): boolean;
+        getUserTimestamp(date?: Date): string;
+      }
+
+      namespace icons {
+        class IconsManager extends ViewModule {
+          createSvgElement(name: string, options: any): SVGElement;
+          createSvgNode(tag: string, options: any): SVGElement;
+        }
+      }
+
+      namespace lightbox {
+        class Lightbox extends ViewModule {
+          modal: any;
+          setEntranceAnimation(animation: string): void;
+          openSlideshow(gallery: any[]): void;
+          onSlideChange(): void;
+          getModal(): any;
+        }
+      }
+
+      namespace videoApi {
+        class BaseVideoApi extends ViewModule {
+          getApiURL(): string;
+          getURLRegex(): RegExp;
+          isApiLoaded(): boolean;
+          getApiObject(): any;
+          getVideoIDFromURL(url: string): string | null;
+          onApiReady(callback: Function): void;
+          getAutoplayURL(videoURL: string): string;
+        }
+
+        class YoutubeApi extends BaseVideoApi {
+          onYouTubeApiReady(): void;
+        }
+
+        class VimeoApi extends BaseVideoApi {
+          onVimeoApiReady(): void;
+        }
+      }
+    }
+
     class Document extends ViewModule {
       $element: JQuery;
       isEdit: boolean;
@@ -762,6 +825,282 @@ declare namespace ElementorModules {
       }
     }
 
+    // ===== Elements System =====
+    namespace elements {
+      // Element Type Base Classes
+      namespace types {
+        namespace base {
+          class ElementBase extends ElementorModules.Module {
+            getType(): string;
+            getView(): any;
+            getEmptyView(): any;
+            getModel(): any;
+          }
+        }
+
+        class Base extends ElementorModules.Module {
+          type: string;
+          view: any;
+          model: any;
+          onCreate(): void;
+          onDestroy(): void;
+        }
+
+        class Document extends Base {
+          getContainer(): Container;
+        }
+
+        class Section extends Base {
+          isInner: boolean;
+          getColumns(): Column[];
+        }
+
+        class InnerSection extends Section {}
+
+        class Column extends Base {
+          getSize(): number;
+          updateSize(size: number): void;
+          getParentSection(): Section;
+        }
+
+        class Container extends Base {
+          isGridContainer(): boolean;
+          setGridTemplate(): void;
+        }
+
+        class Widget extends Base {
+          widgetType: string;
+          getControls(): object;
+          getControlView(controlName: string): any;
+        }
+      }
+
+      // Element Models
+      namespace models {
+        class BaseElementModel extends ElementorModules.Module {
+          isValidChild(childModel: any): boolean;
+          attributes: any;
+          id: string;
+          cid: string;
+          get(key: string): any;
+          set(key: string, value: any): void;
+          toJSON(): any;
+        }
+
+        class ElementModel extends BaseElementModel {
+          elType: string;
+          settings: any;
+          getContainer(): Container;
+          getElementType(): string;
+        }
+
+        class Document extends BaseElementModel {
+          type: string;
+          container: Container;
+          isEditable(): boolean;
+        }
+
+        class Section extends ElementModel {
+          isInner: boolean;
+          getColumns(): any[];
+        }
+
+        class Column extends ElementModel {
+          getSize(): number;
+          setSize(size: number): void;
+        }
+
+        class Widget extends ElementModel {
+          widgetType: string;
+          controls: object;
+        }
+
+        class Container extends ElementModel {
+          gridTemplate: any;
+          getGridColumns(): number;
+          getGridRows(): number;
+        }
+      }
+
+      // Element Views
+      namespace views {
+        class BaseElementView extends ElementorModules.Module {
+          model: any;
+          container: Container;
+          allowRender: boolean;
+          toggleEditTools: boolean;
+          renderAttributes: object;
+          isRendering: boolean;
+          tagName: string;
+          className(): string;
+          attributes(): object;
+          ui(): object;
+          behaviors(): object;
+          getElementUniqueID(): string;
+          getID(): string;
+          getContainer(): Container;
+          getElementType(): string;
+          renderElement(): void;
+          onRender(): void;
+          onDestroy(): void;
+        }
+
+        class BaseWidget extends BaseElementView {
+          childViewContainer: string;
+          getChildView(): any;
+          getChildViewOptions(): object;
+        }
+
+        class Section extends BaseElementView {
+          childView: any;
+          addColumn(model: any): void;
+          removeColumn(model: any): void;
+        }
+
+        class Column extends BaseElementView {
+          isEmpty(): boolean;
+          getEmptyView(): any;
+        }
+
+        class Widget extends BaseWidget {
+          widgetType: string;
+          getControlsView(): any;
+        }
+
+        class Container extends BaseElementView {
+          isGridContainer(): boolean;
+          renderGrid(): void;
+        }
+
+        namespace behaviors {
+          class WidgetDraggable extends ElementorModules.Module {
+            onStart(): void;
+            onStop(): void;
+          }
+
+          class WidgetResizable extends ElementorModules.Module {
+            onResize(): void;
+            onStop(): void;
+          }
+        }
+
+        namespace container {
+          class EmptyView extends ElementorModules.Module {
+            tagName: string;
+            className: string;
+            template(): string;
+          }
+        }
+      }
+
+      // Elements Manager
+      class Manager extends ElementorModules.Module {
+        elements: { [key: string]: any };
+        registerElementType(elementType: string, elementClass: any): void;
+        getElementTypes(): object;
+        getElementType(elementType: string): any;
+        createElement(elementType: string, data: any): any;
+        runReadyTrigger(scope: any): void;
+      }
+
+      // Element Collections
+      namespace collections {
+        class Elements extends ElementorModules.Module {
+          model: any;
+          comparator: string | Function;
+          add(model: any): any;
+          remove(model: any): void;
+          get(id: string): any;
+          at(index: number): any;
+          length: number;
+        }
+      }
+    }
+
+    // ===== Regions System =====
+    namespace regions {
+      class BaseRegion extends ElementorModules.Module {
+        show(): void;
+        hide(): void;
+        toggle(): void;
+        isVisible(): boolean;
+      }
+
+      namespace panel {
+        class Component extends $e.modules.ComponentBase {
+          currentPageName: string;
+          currentPageView: any;
+          storage: any;
+          setPage(page: string): void;
+          getCurrentPageName(): string;
+          getCurrentPageView(): any;
+        }
+
+        namespace commands {
+          class Publish extends $e.modules.CommandBase {
+            apply(): Promise<any>;
+          }
+
+          class Save extends $e.modules.CommandBase {
+            apply(): Promise<any>;
+          }
+
+          class ChangeDeviceMode extends $e.modules.CommandBase {
+            apply(args: { device: string }): void;
+          }
+
+          class PageSettings extends $e.modules.CommandBase {
+            apply(): void;
+          }
+
+          class Close extends $e.modules.CommandBase {
+            apply(): void;
+          }
+
+          class Exit extends $e.modules.CommandBase {
+            apply(): void;
+          }
+
+          class Toggle extends $e.modules.CommandBase {
+            apply(): void;
+          }
+
+          class EditorPreferences extends $e.modules.CommandBase {
+            apply(): void;
+          }
+        }
+
+        namespace pages {
+          namespace editor {
+            class Component extends $e.modules.ComponentBase {
+              view: any;
+              show(): void;
+              hide(): void;
+            }
+          }
+        }
+      }
+
+      namespace navigator {
+        class Navigator extends BaseRegion {
+          indicators: any[];
+          isOpen(): boolean;
+          setStructureCustomized(elementView: any): void;
+          getIndicators(): any[];
+          addIndicator(id: string, options: object): void;
+        }
+      }
+
+      namespace responsiveBar {
+        class ResponsiveBar extends BaseRegion {
+          currentDeviceMode: string;
+          switchDevice(device: string): void;
+          getDevices(): string[];
+          getActiveBreakpoint(): string;
+        }
+      }
+    }
+
     // ===== Editor Components System =====
     namespace components {
       // Browser Import System
@@ -1028,6 +1367,64 @@ declare namespace ElementorModules {
           validate(value: any): boolean;
           getErrorMessage(): string;
         }
+      }
+    }
+
+    // ===== Editor Views System =====
+    namespace views {
+      class BaseContainer extends ElementorModules.Module {
+        childView: any;
+        childViewContainer: string;
+        collection: any;
+        addChildView(view: any): void;
+        removeChildView(view: any): void;
+        isEmpty(): boolean;
+        getEmptyView(): any;
+      }
+
+      class BaseSectionsContainer extends BaseContainer {
+        template: any;
+        addSection(model: any): void;
+        removeSection(model: any): void;
+      }
+
+      class ControlsStack extends ElementorModules.Module {
+        controlsView: any;
+        addControlView(controlView: any): void;
+        removeControlView(controlView: any): void;
+        getControlView(controlName: string): any;
+      }
+
+      class Preview extends ElementorModules.Module {
+        iframe: HTMLIFrameElement;
+        window: Window;
+        document: Document;
+        refresh(): void;
+        getCurrentUrl(): string;
+      }
+
+      namespace addSection {
+        class BaseAddSectionView extends ElementorModules.Module {
+          template: any;
+          addSection(): void;
+          onAddSection(): void;
+        }
+
+        class AddSectionView extends BaseAddSectionView {
+          isInline: boolean;
+        }
+
+        class IndependentAddSectionView extends BaseAddSectionView {
+          isIndependent: boolean;
+        }
+      }
+    }
+
+    // ===== Editor Utils System =====
+    namespace utils {
+      class ControlsCSSParser extends ElementorModules.Module {
+        parseCSS(css: string): object;
+        addStyleRules(styleRules: object): void;
       }
     }
 
