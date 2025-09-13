@@ -11,14 +11,19 @@ import {
   FrontendStretchedElementHandler,
   FrontendSwiperHandlerBase,
   FrontendCarouselHandlerBase,
+  FrontendStretchElementUtility,
 } from "./frontend-handler-interfaces";
 
 /**
  * Elementor frontend tools namespace
  */
 export interface ElementorFrontendTools {
-  /** Stretch element utility */
-  StretchElement: any;
+  /** Stretch element utility constructor */
+  StretchElement: new (
+    settings?: Partial<
+      import("./frontend-handler-interfaces").StretchElementSettings
+    >
+  ) => FrontendStretchElementUtility;
 }
 
 /**

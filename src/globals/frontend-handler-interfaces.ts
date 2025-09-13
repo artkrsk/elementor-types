@@ -270,3 +270,84 @@ export interface FrontendCarouselHandlerBase extends FrontendSwiperHandlerBase {
    */
   handleNavigation?(): void;
 }
+
+/**
+ * Stretch Element Configuration Settings
+ */
+export interface StretchElementSettings {
+  /** Element to stretch (jQuery object or element) */
+  element: JQuery | HTMLElement | null;
+  /** Direction for stretching */
+  direction: "left" | "right";
+  /** Selectors configuration */
+  selectors: {
+    /** Container selector (window or jQuery object) */
+    container: Window | JQuery | string;
+  };
+  /** Whether to consider scrollbar in calculations */
+  considerScrollbar: boolean;
+  /** CSS output method */
+  cssOutput: "inline" | "variables";
+  /** Optional margin to apply */
+  margin?: number;
+}
+
+/**
+ * Stretch Element Elements
+ */
+export interface StretchElementElements extends ModuleElements {
+  /** Main element to stretch */
+  $element: JQuery<HTMLElement>;
+}
+
+/**
+ * Stretch Element Utility Interface
+ * Handles full-width element stretching functionality
+ */
+export interface FrontendStretchElementUtility extends ViewModule {
+  /** Element references */
+  elements: StretchElementElements;
+
+  /**
+   * Get default settings for stretch element
+   */
+  getDefaultSettings(): StretchElementSettings;
+
+  /**
+   * Get default elements based on settings
+   */
+  getDefaultElements(): StretchElementElements;
+
+  /**
+   * Stretch the element to full container width
+   * Calculates positioning and width based on container and element position
+   */
+  stretch(): void;
+
+  /**
+   * Reset element to original dimensions and position
+   * Clears CSS properties applied by stretch()
+   */
+  reset(): void;
+
+  /**
+   * Apply CSS using CSS custom properties (variables)
+   * Alternative to inline styles for better performance
+   */
+  applyCssVariables(
+    $element: JQuery,
+    css: { width: string; left?: string; right?: string }
+  ): void;
+
+  /**
+   * Reset CSS custom properties
+   * Clears CSS variables applied by applyCssVariables()
+   */
+  resetCssVariables($element: JQuery): void;
+
+  /**
+   * Update settings for the stretch element
+   * Allows dynamic configuration changes
+   */
+  setSettings(key: string, value: any): this;
+}

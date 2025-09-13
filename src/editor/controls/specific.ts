@@ -44,17 +44,44 @@ export declare class Code extends ControlBaseDataView {
 }
 
 /**
- * Color picker control
+ * Color picker control with advanced color management
  */
 export declare class Color extends ControlBaseDataView {
-  colorPicker?: any;
+  colorPicker?: {
+    picker: any;
+    onChange: () => void;
+    onClear: () => void;
+    onAddButtonClick: () => void;
+    onPickerShow: () => void;
+    onPickerHide: () => void;
+  };
+  $pickerButton?: JQuery;
+
+  // UI elements
+  ui(): {
+    pickerContainer: JQuery;
+  } & ReturnType<ControlBaseDataView["ui"]>;
+
+  // Core functionality
+  applySavedValue(): void;
   initPicker(): void;
   onPickerChange(): void;
   onPickerClear(): void;
   onAddGlobalButtonClick(): void;
-  getCurrentValue(): any;
+  onPickerButtonClick(): void;
+
+  // UI enhancement methods
+  hidePickerOnPreviewClick(): void;
+  addTipsyToPickerButton(): void;
+  addEyedropper(): void;
+
+  // Global color support
+  getGlobalKey(): string;
+  getCurrentValue(): string;
   reRoute(isEnabled: boolean): void;
-  applySavedValue(): void;
+
+  // Lifecycle methods
+  onRender(): void;
   onDestroy(): void;
 }
 
@@ -80,7 +107,7 @@ export declare class Dimensions extends ControlBaseDataView {
  * Font control
  */
 export declare class Font extends ControlBaseDataView {
-  cache?: WeakMap<any, any>;
+  cache?: { [key: string]: any };
   childView?: any;
   getStyleId(): string;
   onFontChange(): void;
@@ -149,15 +176,46 @@ export declare class ImageDimensions extends ControlBaseDataView {
 }
 
 /**
- * Media picker control
+ * Media picker control with file upload and management
  */
-export declare class Media extends ControlBaseDataView {
-  ui(): object;
-  events(): object;
+export declare class Media extends ControlBaseMultiple {
+  mediaType?: string;
+
+  // UI elements
+  ui(): {
+    controlMedia: JQuery;
+    mediaImage: JQuery;
+    mediaVideo: JQuery;
+    frameOpeners: JQuery;
+    removeButton: JQuery;
+    promotions: JQuery;
+    promotions_dismiss: JQuery;
+    promotions_action: JQuery;
+    fileName: JQuery;
+    mediaInputImageSize: JQuery;
+  } & ReturnType<ControlBaseMultiple["ui"]>;
+
+  // Event handlers
+  events(): {
+    "click @ui.frameOpeners": "openFrame";
+    "click @ui.removeButton": "deleteImage";
+    "change @ui.mediaInputImageSize": "onMediaInputImageSizeChange";
+    "click @ui.promotions_dismiss": "onPromotionDismiss";
+    "click @ui.promotions_action": "onPromotionAction";
+  } & ReturnType<ControlBaseMultiple["events"]>;
+
+  // Media type management
+  getMediaType(): string;
+  getLibraryType(mediaType?: string): string;
+
+  // Core functionality
   onRender(): void;
   applySavedValue(): void;
-  openFrame(view: string): void;
+  openFrame(view?: string): void;
   select(): void;
+  deleteImage(event: Event): void;
+
+  // Frame event handlers
   onFrameOpen(): void;
   onFrameSelect(): void;
   onFrameClose(): void;
@@ -173,12 +231,24 @@ export declare class Notice extends ControlBaseView {
 }
 
 /**
- * Number input control
+ * Number input control with scrubbing behavior and validation
  */
 export declare class Number extends ControlBaseDataView {
+  // Behavior integration for mouse scrubbing
+  behaviors(): {
+    Scrubbing: {
+      behaviorClass: any;
+      scrubSettings: { intentTime: number };
+    };
+  } & ReturnType<ControlBaseDataView["behaviors"]>;
+
+  // Validation methods
+  registerValidators(): void;
+  validateValue(value: any): number | null;
+
+  // Event handlers
   onInputChange(): void;
   onRender(): void;
-  validateValue(value: any): any;
 }
 
 /**
@@ -228,19 +298,32 @@ export declare class Section extends ControlBaseView {
 }
 
 /**
- * Select dropdown control
+ * Select dropdown control with placeholder and option group support
  */
 export declare class Select extends ControlBaseDataView {
+  // UI elements
+  ui(): {
+    select: JQuery;
+  } & ReturnType<ControlBaseDataView["ui"]>;
+
+  // Core functionality
+  updatePlaceholder(): void;
+  getControlPlaceholder(): string;
+  onReady(): void;
+  onInputChange(): void;
   onRender(): void;
   onSelectChange(): void;
   applySavedValue(): void;
+
+  // Static methods for clipboard operations
+  static onPasteStyle(control: any, clipboardValue: any): boolean;
 }
 
 /**
  * Select2 enhanced dropdown control
  */
 export declare class Select2 extends ControlBaseDataView {
-  cache?: WeakMap<any, any>;
+  cache?: { [key: string]: any };
   getSelect2Placeholder(): string;
   getSelect2Options(): object;
   onRender(): void;
@@ -248,9 +331,28 @@ export declare class Select2 extends ControlBaseDataView {
 }
 
 /**
- * Slider control
+ * Slider control with units and multiple value support
  */
-export declare class Slider extends ControlBaseDataView {
+export declare class Slider extends ControlBaseUnits {
+  // UI elements
+  ui(): {
+    slider: JQuery;
+  } & ReturnType<ControlBaseUnits["ui"]>;
+
+  // Template helpers
+  templateHelpers(): {
+    isMultiple: boolean;
+  } & ReturnType<ControlBaseUnits["templateHelpers"]>;
+
+  // Core functionality
+  isMultiple(): boolean;
+  isCustomUnit(): boolean;
+  initSlider(): void;
+  destroySlider(): void;
+  getCurrentRange(): object;
+  getSize(): any;
+
+  // Event handlers
   onInputChange(): void;
   onSliderChange(): void;
   resetDimensions(): void;

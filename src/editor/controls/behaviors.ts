@@ -26,4 +26,20 @@ export declare namespace behaviors {
     onRender(): void;
     onDestroy(): void;
   }
+
+  /**
+   * Scrubbing behavior for numeric controls
+   * Allows changing values by dragging the mouse
+   */
+  class Scrubbing extends Module {
+    scrubSettings: {
+      intentTime: number;
+    };
+
+    initialize(): void;
+    onMouseDown(event: MouseEvent): void;
+    onMouseMove(event: MouseEvent): void;
+    onMouseUp(event: MouseEvent): void;
+    updateValue(delta: number): void;
+  }
 }

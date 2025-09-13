@@ -22,7 +22,7 @@ export interface ElementsHandler {
     HandlerClass: any, // typeof ElementorModules.frontend.handlers.Base,
     options: HandlerOptions
   ): void;
-  attachHandler(elementName: string, Handlers: any, skin?: string): void;
+  attachHandler(elementName: string, Handlers: any, skin?: string | null): void;
   getHandler(handlerName: string): Promise<any>; // Promise<typeof ElementorModules.frontend.handlers.Base>;
   getHandlers(handlerName?: string): any;
   runReadyTrigger(scope: HTMLElement | JQuery<HTMLElement>): void;
