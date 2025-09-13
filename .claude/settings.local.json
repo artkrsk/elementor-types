@@ -8,7 +8,10 @@
       "Bash(npx tsc:*)",
       "Bash(cat:*)",
       "Bash(find:*)",
-      "Bash(sed:*)"
+      "Bash(sed:*)",
+      "WebFetch(domain:github.com)",
+      "Bash(claude mcp:*)",
+      "Bash(npx task-master-ai:*)"
     ],
     "deny": [],
     "ask": []

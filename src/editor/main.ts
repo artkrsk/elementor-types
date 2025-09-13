@@ -6,6 +6,7 @@
 import type { HistoryManager } from "./history";
 import type { ElementorGlobals, ElementorIconsManager } from "./managers";
 import type { WidgetCache } from "./elements";
+import type { ElementorWindowModules } from "../globals/elementor-window";
 
 /**
  * Background click listener configuration
@@ -58,6 +59,9 @@ export interface ElementorEditor {
   loaded: boolean;
   previewLoadedOnce: boolean;
   activeBreakpointsUpdated: boolean;
+
+  // Editor modules
+  modules: ElementorWindowModules;
 
   // Helper objects
   helpers: any;
