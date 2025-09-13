@@ -1,6 +1,6 @@
 ---
 description: Comprehensive reference for Taskmaster MCP tools and CLI commands.
-applyTo: "**"
+applyTo: '**'
 ---
 
 # Taskmaster Tool & Command Reference
@@ -555,4 +555,4 @@ Environment variables are used **only** for sensitive API keys related to AI pro
 
 ---
 
-For details on how these commands fit into the development process, see the [Development Workflow Guide](mdc:.github/instructions/dev_workflow.instructions.md).
+For details on how these commands fit into the development process, see the [Development Workflow Guide](./dev_workflow.instructions.md).
