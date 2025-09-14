@@ -25,9 +25,23 @@ export interface ElementData {
  * Control view interface
  */
 export interface ControlView {
-  model: any;
+  /** Backbone model containing control configuration and data */
+  model: {
+    get(attribute: string): any;
+    set(attribute: string | object, value?: any): any;
+    attributes: Record<string, any>;
+  };
+  /** Container reference */
   container: any;
+  /** Native DOM element */
+  el: HTMLElement;
+  /** jQuery wrapped DOM element */
+  $el: JQuery<HTMLElement>;
+  /** Get current control value */
+  getControlValue(): any;
+  /** Re-render the control */
   render(): this;
+  /** Destroy the control */
   destroy(): void;
 }
 
