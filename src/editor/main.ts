@@ -7,6 +7,180 @@ import type { HistoryManager } from "./history";
 import type { ElementorGlobals, ElementorIconsManager } from "./managers";
 import type { WidgetCache } from "./elements";
 import type { ElementorWindowModules } from "../globals/elementor-window";
+import type { CommonElementSettings } from "./element-settings";
+import type { BackboneRadioChannel } from "../third-party";
+
+/**
+ * Element data structure
+ */
+export interface ElementData {
+  id: string;
+  elType: string;
+  settings: CommonElementSettings;
+  elements?: ElementData[];
+}
+
+/**
+ * Control view interface
+ */
+export interface ControlView {
+  model: any;
+  container: any;
+  render(): this;
+  destroy(): void;
+}
+
+/**
+ * Panel view interface
+ */
+export interface PanelView {
+  currentPageName: string;
+  getCurrentPageName(): string;
+  setPage(pageName: string): void;
+  getPages(): Record<string, any>;
+}
+
+/**
+ * Preview view interface
+ */
+export interface PreviewView {
+  addChildModel(model: any, options?: any): any;
+  addChildElement(data: ElementData, options?: any): any;
+}
+
+/**
+ * Container interface
+ */
+export interface EditorContainer {
+  id: string;
+  isEditable(): boolean;
+  getModel(): any;
+  getSettings(): CommonElementSettings;
+  renderUI(): void;
+}
+
+/**
+ * Helpers manager interface
+ */
+export interface HelpersManager {
+  urlActions: any;
+  historyDebounce: any;
+  heartbeat: any;
+
+  // Utility methods
+  scrollToElement(element: JQuery | HTMLElement): void;
+  isElementInViewport(element: JQuery | HTMLElement): boolean;
+
+  // String utilities
+  stringReplaceAll(str: string, search: string, replace: string): string;
+
+  // Device detection
+  isTouchDevice(): boolean;
+}
+
+/**
+ * Images manager interface
+ */
+export interface ImagesManager {
+  getImageUrl(image: any): string;
+  getLightboxImageUrl(image: any): string;
+}
+
+/**
+ * Presets factory interface
+ */
+export interface PresetsFactory {
+  getPresets(widgetType: string): any[];
+  applyPreset(preset: any, container: EditorContainer): void;
+}
+
+/**
+ * Templates manager interface
+ */
+export interface TemplatesManager {
+  getTemplates(): any[];
+  importTemplate(template: any): Promise<any>;
+  saveTemplate(options: any): Promise<any>;
+}
+
+/**
+ * Ajax manager interface
+ */
+export interface AjaxManager {
+  request(type: string, options: any): Promise<any>;
+  addRequest(type: string, callback: Function): void;
+}
+
+/**
+ * Conditions manager interface
+ */
+export interface ConditionsManager {
+  check(condition: any, values: any): boolean;
+}
+
+/**
+ * Dynamic tags manager interface
+ */
+export interface DynamicTagsManager {
+  parseTagsText(text: string, settings: any, parseCallback?: Function): string;
+  getTagDataContent(tagName: string, tagKey: string, tagSettings?: any): any;
+  createTag(tagType: string, tagName: string, settings: any): any;
+}
+
+/**
+ * Notifications manager interface
+ */
+export interface NotificationsManager {
+  showToast(options: {
+    message: string;
+    buttons?: any[];
+  }): void;
+}
+
+/**
+ * Introduction manager interface
+ */
+export interface IntroductionManager {
+  show(options: any): void;
+  isViewed(introductionKey: string): boolean;
+  setViewed(introductionKey: string): void;
+}
+
+/**
+ * Validator interface
+ */
+export interface ValidatorManager {
+  validateForm(form: any): boolean;
+  addCustomValidation(callback: Function): void;
+}
+
+/**
+ * Panel interface
+ */
+export interface EditorPanel {
+  currentPageName: string;
+  getCurrentPageName(): string;
+  setPage(pageName: string): void;
+  openEditor(model: any, view?: any): void;
+  closeEditor(): void;
+}
+
+/**
+ * Navigator interface
+ */
+export interface NavigatorManager {
+  elements: any;
+  getItems(): any[];
+  addItem(item: any): void;
+}
+
+/**
+ * Responsive bar interface
+ */
+export interface ResponsiveBar {
+  getCurrentDeviceMode(): string;
+  setDeviceMode(deviceMode: string): void;
+}
 
 /**
  * Background click listener configuration
@@ -20,13 +194,13 @@ export interface BackgroundClickListener {
  * Editor channels for communication
  */
 export interface EditorChannels {
-  editor: any; // Backbone.Radio.Channel
-  data: any; // Backbone.Radio.Channel
-  panelElements: any; // Backbone.Radio.Channel
-  dataEditMode: any; // Backbone.Radio.Channel
-  deviceMode: any; // Backbone.Radio.Channel
-  templates: any; // Backbone.Radio.Channel
-  responsivePreview: any; // Backbone.Radio.Channel
+  editor: BackboneRadioChannel;
+  data: BackboneRadioChannel;
+  panelElements: BackboneRadioChannel;
+  dataEditMode: BackboneRadioChannel;
+  deviceMode: BackboneRadioChannel;
+  templates: BackboneRadioChannel;
+  responsivePreview: BackboneRadioChannel;
 }
 
 /**
@@ -53,7 +227,7 @@ export interface ElementorEditor {
       [shapeType: string]: string;
     };
     elements: {
-      [elementType: string]: any;
+      [elementType: string]: ElementData;
     };
   };
   loaded: boolean;
@@ -64,12 +238,12 @@ export interface ElementorEditor {
   modules: ElementorWindowModules;
 
   // Helper objects
-  helpers: any;
-  imagesManager: any;
-  presetsFactory: any;
-  templates: any;
-  ajax: any;
-  conditions: any;
+  helpers: HelpersManager;
+  imagesManager: ImagesManager;
+  presetsFactory: PresetsFactory;
+  templates: TemplatesManager;
+  ajax: AjaxManager;
+  conditions: ConditionsManager;
 
   // Background click listeners
   backgroundClickListeners: {
@@ -82,9 +256,7 @@ export interface ElementorEditor {
   settings: {
     page: {
       model: {
-        attributes: {
-          [key: string]: any;
-        };
+        attributes: CommonElementSettings;
         on(event: string, callback: Function): void;
       };
     };
@@ -100,25 +272,34 @@ export interface ElementorEditor {
         isEditable(): boolean;
       };
     };
-    getCurrent(): any;
+    getCurrent(): {
+      id: string;
+      container: EditorContainer;
+      getContainer(): EditorContainer;
+    };
   };
 
   // UI Elements
   $previewContents: JQuery<HTMLElement>;
   $preview?: JQuery<HTMLElement>;
-  elements?: any; // Backbone collection
+  elements?: {
+    models: any[];
+    add(model: any): void;
+    remove(model: any): void;
+    reset(models?: any[]): void;
+  }; // Backbone collection
 
   // Panel and UI Components
-  panel: any;
-  navigator: any;
-  responsiveBar: any;
+  panel: EditorPanel;
+  navigator: NavigatorManager;
+  responsiveBar: ResponsiveBar;
 
   // Core managers
   history: HistoryManager;
-  dynamicTags: any;
-  notifications: any;
-  introduction: any;
-  validator: any;
+  dynamicTags: DynamicTagsManager;
+  notifications: NotificationsManager;
+  introduction: IntroductionManager;
+  validator: ValidatorManager;
   globals: ElementorGlobals;
   iconsManager: ElementorIconsManager;
 
@@ -126,18 +307,18 @@ export interface ElementorEditor {
   userCan(capability: string): boolean;
 
   // Core Methods - Element and Control Management
-  addControlView(controlID: string, ControlView: any): void;
-  getElementData(model: any): any;
-  getElementControls(modelElement: any): any;
-  mergeControlsSettings(controls: any): any;
-  getControlView(controlID: string): any;
+  addControlView(controlID: string, ControlViewClass: new(...args: any[]) => ControlView): void;
+  getElementData(model: any): ElementData;
+  getElementControls(modelElement: any): Record<string, any>;
+  mergeControlsSettings(controls: Record<string, any>): Record<string, any>;
+  getControlView(controlID: string): ControlView | null;
 
   // Core Methods - Views and Containers
-  getPanelView(): any;
-  getPreviewView(): any;
-  getPreviewContainer(): any;
-  getContainer(id: string): any;
-  getCurrentElement(): any;
+  getPanelView(): PanelView;
+  getPreviewView(): PreviewView;
+  getPreviewContainer(): EditorContainer;
+  getContainer(id: string): EditorContainer | null;
+  getCurrentElement(): any | null;
 
   // Core Methods - Initialization
   initComponents(): void;
@@ -151,16 +332,16 @@ export interface ElementorEditor {
   initClearPageDialog(): void;
 
   // Core Methods - Preview and Backend creation
-  createBackboneElementsCollection(json: any): any;
+  createBackboneElementsCollection(json: ElementData[]): any;
   createBackboneElementsModel(elementsCollection: any): any;
-  createPreviewView(targetElement: any, model: any, config?: any): any;
+  createPreviewView(targetElement: any, model: any, config?: any): PreviewView;
   renderPreview(preview: any): void;
 
   // Core Methods - Utilities
   checkEnvCompatibility(): boolean;
   toggleSortableState(state?: boolean): void;
   setAjax(): void;
-  createAjaxErrorMessage(xmlHttpRequest: any): string;
+  createAjaxErrorMessage(xmlHttpRequest: XMLHttpRequest): string;
   toggleDocumentCssFiles(document: any, state: boolean): void;
 
   // Lifecycle methods
@@ -171,8 +352,8 @@ export interface ElementorEditor {
   setPreferences(key: string, value: any): void;
   isPreviewMode(): boolean;
   reloadPreview(): void;
-  saveDocument(): Promise<any>;
-  loadDocument(): Promise<any>;
+  saveDocument(): Promise<{ success: boolean; data?: any; errors?: string[] }>;
+  loadDocument(): Promise<{ success: boolean; data?: any; errors?: string[] }>;
 
   // Event methods
   on(event: string, callback: Function): void;

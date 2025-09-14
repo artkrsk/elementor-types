@@ -90,7 +90,7 @@ export declare class Module {
    * // Access parent prototype methods
    * MyModule.__super__.getSettings.call(instance);
    */
-  static extend<T = any>(
+  static extend<T extends Module = Module>(
     properties: object
   ): typeof Module &
     (new (...args: any[]) => T) & {
@@ -248,7 +248,7 @@ export declare class ViewModule extends Module {
    * Creates a new class that inherits from this class
    * The returned class will have a __super__ property pointing to the parent prototype
    */
-  static extend<T = any>(
+  static extend<T extends Module = Module>(
     properties: object
   ): typeof ViewModule &
     (new (...args: any[]) => T) & {

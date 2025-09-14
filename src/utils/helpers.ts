@@ -21,12 +21,12 @@ export type ResponsiveValue<T> =
 /**
  * Generic element settings type with responsive support
  */
-export type ElementSettings<T = any> = {
+export type ElementSettings<T = Record<string, unknown>> = {
   [K in keyof T]: T[K] extends ResponsiveValue<infer U>
     ? ResponsiveValue<U>
     : T[K];
 } & {
-  [key: string]: any;
+  [key: string]: unknown;
 };
 
 /**
@@ -141,7 +141,7 @@ export type LinkValue = {
 /**
  * Repeater item type
  */
-export type RepeaterItem<T = any> = T & {
+export type RepeaterItem<T = Record<string, unknown>> = T & {
   _id: string;
 };
 

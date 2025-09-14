@@ -13,7 +13,9 @@
       "Bash(claude mcp:*)",
       "Bash(npx task-master-ai:*)",
       "mcp__task-master__get_task",
-      "mcp__task-master__set_task_status"
+      "mcp__task-master__set_task_status",
+      "Bash(npm run type-check:*)",
+      "mcp__task-master__add_task"
     ],
     "deny": [],
     "ask": []

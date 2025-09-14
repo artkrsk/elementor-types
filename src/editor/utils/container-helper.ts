@@ -6,6 +6,7 @@
  */
 
 import type { $e } from "../commands/base";
+import type { BackboneModel } from "../../third-party";
 
 // Declare global $e variable
 declare const $e: $e;
@@ -21,9 +22,9 @@ export interface Container {
   /** Document object */
   document: any;
   /** Container model (Backbone.Model) */
-  model: any;
+  model: BackboneModel;
   /** Container settings (Backbone.Model) */
-  settings: any;
+  settings: BackboneModel;
   /** Container view */
   view: any;
   /** Container parent */
@@ -218,8 +219,8 @@ export class ContainerHelper {
    */
   static canAcceptChildren(container: Container): boolean {
     // Check if container is not locked or has restrictions
-    const settings = container.settings || {};
-    return !settings._element_lock && !settings._disable_children;
+    const settings = container.settings;
+    return !settings?.get('_element_lock') && !settings?.get('_disable_children');
   }
 
   /**
@@ -229,8 +230,8 @@ export class ContainerHelper {
    * @returns Flex direction of the container
    */
   static getDirection(container: Container): FlexDirection {
-    const settings = container.settings || {};
-    return settings.flex_direction || this.DIRECTION_DEFAULT;
+    const settings = container.settings;
+    return settings?.get('flex_direction') || this.DIRECTION_DEFAULT;
   }
 
   /**
@@ -308,7 +309,7 @@ export class ContainerHelper {
     container: Container,
     deviceMode: string = "desktop"
   ): Record<string, any> {
-    const settings = container.settings || {};
+    const settings = container.settings?.attributes || {};
     const responsiveSettings: Record<string, any> = {};
 
     // Extract responsive settings for the specific device
