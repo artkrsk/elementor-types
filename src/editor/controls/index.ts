@@ -5,14 +5,51 @@
 
 export * from "./base";
 export * from "./simple";
-export * from "./layout";
-export * from "./advanced";
 export * from "./behaviors";
 export * from "./validation";
 export * from "./groups";
 export * from "./conditions";
 export * from "./factory";
-export * from "./window-controls";
+
+// Export layout controls with explicit naming to avoid conflicts
+export {
+	DimensionsControl,
+	SliderControl,
+	GapsControl,
+	BoxShadowControl,
+	BorderControl,
+	StructureControl,
+	PositionControl,
+	TransformControl
+} from "./layout";
+
+// Export advanced controls with explicit naming to avoid conflicts
+export {
+	RepeaterControl,
+	RepeaterRowControl,
+	FontControl,
+	WPWidgetControl,
+	DateTimeControl,
+	PopoverToggleControl,
+	VisualChoiceControl,
+	TaxonomyControl,
+	PostSelectControl
+} from "./advanced";
+
+// Export window controls with prefixed naming to avoid conflicts
+export {
+	ElementorWindowControls,
+	ControlBase as WindowControlBase,
+	ControlBaseData as WindowControlBaseData,
+	ColorControl as WindowColorControl,
+	MediaControl as WindowMediaControl,
+	DimensionsControl as WindowDimensionsControl,
+	NumberControl as WindowNumberControl,
+	SelectControl as WindowSelectControl,
+	SwitcherControl as WindowSwitcherControl,
+	RepeaterControl as WindowRepeaterControl,
+	UrlControl as WindowUrlControl
+} from "./window-controls";
 
 // Export input controls with specific naming to avoid conflicts
 export {
@@ -23,7 +60,7 @@ export {
 	EmailControl,
 	PasswordControl,
 	RangeControl,
-	DateTimeControl,
+	DateTimeControl as InputDateTimeControl,
 	SearchControl
 } from "./input";
 

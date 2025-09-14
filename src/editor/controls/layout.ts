@@ -50,6 +50,12 @@ export interface SliderControl extends ControlBaseUnitsItemView {
 	};
 
 	templateHelpers(): {
+		view: ControlBaseUnitsItemView;
+		data: {
+			_cid: string;
+			controlValue?: any;
+			[key: string]: any;
+		};
 		isMultiple: boolean;
 		[key: string]: any;
 	};

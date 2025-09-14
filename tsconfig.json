@@ -16,7 +16,7 @@
     "noEmit": false,
     "emitDeclarationOnly": false,
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
-    "types": ["jquery"]
+    "types": ["jquery", "node", "select2"]
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.spec.ts", "tasks/**"]

@@ -6,7 +6,7 @@
  */
 
 import type { Container } from '../container';
-import type { Model } from 'backbone';
+import type { Model, EventHandler, EventMap } from 'backbone';
 import type { CompositeView, Behavior } from '../../third-party/marionette';
 
 interface ControlModel extends Model {
@@ -86,7 +86,7 @@ interface ControlBaseView extends CompositeView<ControlModel> {
 	_parent?: ControlBaseView;
 	behaviors(): ControlBehaviors;
 	getBehavior(name: string): Behavior | undefined;
-	className?(): string;
+	className?: string;
 	templateHelpers(): ControlTemplateHelpers;
 	getTemplate(): any;
 	initialize(options: any): void;
@@ -99,8 +99,10 @@ interface ControlBaseView extends CompositeView<ControlModel> {
 	getControlInRouteArgs(path: string): Record<string, any>;
 	getControlPath(): string;
 	triggerMethod(eventName: string, ...args: any[]): any;
-	listenTo(obj: any, name: string, callback: Function): void;
-	stopListening(obj?: any, name?: string, callback?: Function): void;
+	listenTo(object: any, events: string, callback: EventHandler): this;
+	listenTo(object: any, eventMap: EventMap): this;
+	stopListening(object?: any, events?: string, callback?: EventHandler): this;
+	stopListening(object: any, eventMap: EventMap): this;
 	$(selector: string): JQuery;
 	render(): this;
 	getOption(optionName: string): any;

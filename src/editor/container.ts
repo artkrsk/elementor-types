@@ -8,22 +8,24 @@
 import type { Model } from 'backbone';
 import type { View, CompositeView } from '../third-party/marionette';
 
+// Forward declaration to fix circular reference issues
+
 export interface ContainerDocument {
 	id: string;
 	config?: any;
 	[key: string]: any;
 }
 
-export interface ContainerChildren extends Array<Container> {
-	recursiveChildren?: Container[];
-	recursiveEmpty?: () => Container[];
-	forEach(callback: (child: Container, index: number, array: Container[]) => void): void;
-	map<T>(callback: (child: Container, index: number, array: Container[]) => T): T[];
-	filter(callback: (child: Container, index: number, array: Container[]) => boolean): Container[];
-	find(callback: (child: Container, index: number, array: Container[]) => boolean): Container | undefined;
-	findRecursive(callback: (child: Container) => boolean): Container | undefined;
-	forEachRecursive(callback: (child: Container) => void): void;
-	some(callback: (child: Container, index: number, array: Container[]) => boolean): boolean;
+export interface ContainerChildren extends Array<any> {
+	recursiveChildren?: any[];
+	recursiveEmpty?: () => any[];
+	forEach(callback: (child: any, index: number, array: any[]) => void): void;
+	map<T>(callback: (child: any, index: number, array: any[]) => T): T[];
+	filter(callback: (child: any, index: number, array: any[]) => boolean): any[];
+	find(callback: (child: any, index: number, array: any[]) => boolean): any | undefined;
+	findRecursive(callback: (child: any) => boolean): any | undefined;
+	forEachRecursive(callback: (child: any) => void): void;
+	some(callback: (child: any, index: number, array: any[]) => boolean): boolean;
 }
 
 export interface ContainerPanel {
@@ -47,7 +49,7 @@ export interface ContainerDynamic extends Model {
 }
 
 export interface ContainerView extends View<Model> {
-	getContainer?(): Container;
+	getContainer?(): any;
 	$el: JQuery;
 	el: HTMLElement;
 	model: Model;
@@ -69,7 +71,7 @@ export interface Container {
 	model: Model;
 	settings: ContainerSettings;
 	view: ContainerView | CompositeView<Model> | View<Model>;
-	parent?: Container;
+	parent?: any;
 	children: ContainerChildren;
 	dynamic?: ContainerDynamic;
 	globals?: ContainerGlobals;
@@ -81,11 +83,11 @@ export interface Container {
 
 	// Methods
 	get(key: string): any;
-	lookup(): Container | undefined;
-	findChildrenRecursive(callback: (child: Container) => boolean): Container[];
-	forEachChildrenRecursive(callback: (child: Container) => void): void;
-	getParentAncestry(): Container[];
-	getAllAncestry(): Container[];
+	lookup(): any | undefined;
+	findChildrenRecursive(callback: (child: any) => boolean): any[];
+	forEachChildrenRecursive(callback: (child: any) => void): void;
+	getParentAncestry(): any[];
+	getAllAncestry(): any[];
 	getHierarchy(): string[];
 	getSetting(key: string): any;
 	setSetting(key: string, value: any): void;
@@ -115,15 +117,15 @@ export interface ContainerConstructor {
 		model?: Model;
 		settings?: Model;
 		view?: View<Model>;
-		parent?: Container;
-		children?: Container[];
+		parent?: any;
+		children?: any[];
 		label?: string;
 		controls?: Record<string, any>;
 		renderer?: any;
 		panel?: any;
 		document?: ContainerDocument;
 		[key: string]: any;
-	}): Container;
+	}): any;
 	TYPE_REPEATER: 'repeater-control';
 	TYPE_REPEATER_ITEM: 'repeater';
 }

@@ -39,7 +39,11 @@
       "mcp__task-master__expand_task",
       "mcp__task-master__add_subtask",
       "Bash(pnpm search:*)",
-      "Bash(pnpm add:*)"
+      "Bash(pnpm add:*)",
+      "Bash(mkdir:*)",
+      "Bash(rm:*)",
+      "mcp__task-master__update_subtask",
+      "mcp__task-master__analyze_project_complexity"
     ],
     "deny": [],
     "ask": []

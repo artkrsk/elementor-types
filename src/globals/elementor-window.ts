@@ -6,7 +6,6 @@
  */
 
 import type { ElementorWindowControls } from '../editor/controls/window-controls';
-import type { ElementorWindowElements } from '../editor/elements/window-elements';
 import type { ElementorWindowComponents } from '../editor/components/window-components';
 import type { ElementorWindowLayouts } from '../editor/layouts/window-layouts';
 import type { ElementorWindowViews } from '../editor/views/window-views';
@@ -69,7 +68,7 @@ export interface ElementorWindowModules {
    * Element modules including types, models, views, and components
    * Provides access to Widget, Section, Column, Container and other element types
    */
-  elements: ElementorWindowElements;
+  elements: any;
 
   /**
    * Layout modules for panel, pages, and UI structure
