@@ -5,6 +5,7 @@
  */
 
 import type { BackboneView } from "../third-party";
+import type { PanelManager } from "./main";
 
 /**
  * Hook callback function with better type constraints
@@ -214,7 +215,10 @@ export interface ElementorFilterHooks {
  */
 export interface ElementorActionHooks {
   // Panel actions
-  "panel/open_editor/document": (manager: any, model?: any, view?: BackboneView) => void;
+  "panel/open_editor/document": (manager: PanelManager, model?: any, view?: BackboneView) => void;
+  "panel/open_editor/section": (manager: PanelManager, model?: any, view?: BackboneView) => void;
+  "panel/open_editor/column": (manager: PanelManager, model?: any, view?: BackboneView) => void;
+  "panel/open_editor/container": (manager: PanelManager, model?: any, view?: BackboneView) => void;
 
   // Widget actions
   "panel/widgets/base/controls/wp_widget/loaded": (view: BackboneView) => void;
@@ -225,14 +229,17 @@ export interface ElementorActionHooks {
   // Frontend system actions
   "elementor/frontend/documents-manager/init-classes": (manager: any) => void;
 
-  // Index signatures for dynamic hooks
+  // Specific widget panel actions (using compatible signature)
+  "panel/open_editor/widget": (manager: PanelManager, model?: any, view?: BackboneView) => void;
+
+  // Index signatures for dynamic hooks (must come after specific signatures)
   [K: `panel/open_editor/${string}`]: (
-    manager: any,
+    manager: PanelManager,
     model?: any,
     view?: BackboneView
   ) => void;
   [K: `panel/open_editor/${string}/${string}`]: (
-    manager: any,
+    manager: PanelManager,
     model?: any,
     view?: BackboneView
   ) => void;

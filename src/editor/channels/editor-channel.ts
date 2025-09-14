@@ -18,6 +18,7 @@ export interface ElementView {
 
 /**
  * Changed model interface for edit settings events
+ * Enhanced with better typing for common change scenarios
  */
 export interface ChangedModel {
   /** Object containing the changed properties and their new values */
@@ -26,6 +27,40 @@ export interface ChangedModel {
   get(attribute: string): any;
   /** Previous attribute values */
   previous(attribute: string): any;
+  /** Check if specific attribute has changed */
+  hasChanged(attribute: string): boolean;
+  /** Get all changed attribute names */
+  changedAttributes(): Record<string, any> | false;
+}
+
+/**
+ * Device mode change details
+ */
+export interface DeviceChangeDetails {
+  previous: string;
+  current: string;
+}
+
+/**
+ * Document change details
+ */
+export interface DocumentChangeDetails {
+  documentId: string;
+  changeType: 'content' | 'settings' | 'structure';
+  affectedElements?: string[];
+}
+
+/**
+ * Element selection change details
+ */
+export interface ElementChangeDetails {
+  elementId: string;
+  elementType: string;
+  container: any;
+  previous?: {
+    elementId: string;
+    elementType: string;
+  };
 }
 
 /**
@@ -47,6 +82,11 @@ export interface EditorChannelEvents {
 
   // Settings change events
   'change:editSettings': (changedModel: ChangedModel, elementView: ElementView) => void;
+  'change': (changedModel: ChangedModel, elementView?: ElementView) => void;
+  'change:device': (deviceMode: string, details: DeviceChangeDetails) => void;
+  'change:element': (elementView: ElementView, details: ElementChangeDetails) => void;
+  'change:document': (document: any, details: DocumentChangeDetails) => void;
+  'change:selection': (elementView: ElementView | null, previous?: ElementView | null) => void;
 
   // Kit change events
   'kit:change:stretchContainer': () => void;
@@ -227,4 +267,80 @@ export interface ElementorEditorChannel extends BackboneRadioChannel {
    * @param callback - Optional specific callback to remove
    */
   stopReplying(reply?: string, callback?: Function): this;
+}
+
+// ============================================================================
+// Type Guards for Runtime Type Checking
+// ============================================================================
+
+/**
+ * Check if object is a ChangedModel
+ */
+export function isChangedModel(obj: any): obj is ChangedModel {
+  return (
+    obj !== null &&
+    typeof obj === 'object' &&
+    'changed' in obj &&
+    'get' in obj &&
+    'previous' in obj &&
+    typeof obj.get === 'function' &&
+    typeof obj.previous === 'function'
+  );
+}
+
+/**
+ * Check if object is an ElementView
+ */
+export function isElementView(obj: any): obj is ElementView {
+  return (
+    obj !== null &&
+    typeof obj === 'object' &&
+    'model' in obj &&
+    '$el' in obj &&
+    obj.$el &&
+    typeof obj.$el === 'object'
+  );
+}
+
+/**
+ * Check if object is DeviceChangeDetails
+ */
+export function isDeviceChangeDetails(obj: any): obj is DeviceChangeDetails {
+  return (
+    obj !== null &&
+    typeof obj === 'object' &&
+    'previous' in obj &&
+    'current' in obj &&
+    typeof obj.previous === 'string' &&
+    typeof obj.current === 'string'
+  );
+}
+
+/**
+ * Check if object is DocumentChangeDetails
+ */
+export function isDocumentChangeDetails(obj: any): obj is DocumentChangeDetails {
+  return (
+    obj !== null &&
+    typeof obj === 'object' &&
+    'documentId' in obj &&
+    'changeType' in obj &&
+    typeof obj.documentId === 'string' &&
+    ['content', 'settings', 'structure'].includes(obj.changeType)
+  );
+}
+
+/**
+ * Check if object is ElementChangeDetails
+ */
+export function isElementChangeDetails(obj: any): obj is ElementChangeDetails {
+  return (
+    obj !== null &&
+    typeof obj === 'object' &&
+    'elementId' in obj &&
+    'elementType' in obj &&
+    'container' in obj &&
+    typeof obj.elementId === 'string' &&
+    typeof obj.elementType === 'string'
+  );
 }

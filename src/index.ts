@@ -183,6 +183,18 @@ export {
   isTypographyValue,
 } from "./utils";
 
+// Re-export editor type guards
+export {
+  isPanelManager,
+  isWidgetModel,
+  isWidgetView,
+  isChangedModel,
+  isElementView,
+  isDeviceChangeDetails,
+  isDocumentChangeDetails,
+  isElementChangeDetails,
+} from "./editor";
+
 // Note: Frontend, Editor, Admin types are available via namespace imports
 // to avoid naming conflicts (e.g., both have Section classes)
 // Use: import { Frontend, Editor } from '@elementor/types'
