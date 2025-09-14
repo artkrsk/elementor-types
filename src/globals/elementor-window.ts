@@ -10,6 +10,8 @@ import type { ElementorWindowElements } from '../editor/elements/window-elements
 import type { ElementorWindowComponents } from '../editor/components/window-components';
 import type { ElementorWindowLayouts } from '../editor/layouts/window-layouts';
 import type { ElementorWindowViews } from '../editor/views/window-views';
+import type { ElementorHooks } from './hooks';
+import type { ElementorEditorChannel } from '../editor/channels/editor-channel';
 
 /**
  * Elementor Editor Modules Interface
@@ -195,9 +197,9 @@ export interface ElementorEditor {
   /** History manager */
   history: any;
 
-  /** Communication channels */
+  /** Communication channels with enhanced editor channel typing */
   channels: {
-    editor: any;
+    editor: ElementorEditorChannel;
     data: any;
     panelElements: any;
     dataEditMode: any;
@@ -235,15 +237,8 @@ export interface ElementorEditor {
   onStart(options?: any): void;
   onPreviewLoaded(): void;
 
-  /** Hooks system */
-  hooks: {
-    applyFilters(hook: string, value: any, ...args: any[]): any;
-    addFilter(hook: string, callback: Function, priority?: number): void;
-    removeFilter(hook: string, callback: Function): void;
-    doAction(hook: string, ...args: any[]): void;
-    addAction(hook: string, callback: Function, priority?: number): void;
-    removeAction(hook: string, callback: Function): void;
-  };
+  /** Enhanced hooks system with comprehensive typing */
+  hooks: ElementorHooks;
 }
 
 // Export interfaces for external use - no global declarations

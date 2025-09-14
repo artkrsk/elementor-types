@@ -9,6 +9,7 @@ export * from "./managers";
 export * from "./history";
 export * from "./hooks";
 export * from "./element-settings";
+export * from "./channels";
 
 // Editor namespace interfaces
 export * from "./namespace";
