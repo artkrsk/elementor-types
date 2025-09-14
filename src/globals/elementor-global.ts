@@ -6,7 +6,6 @@
 import type { ElementorFrontend } from "../frontend/main";
 import type { EditorChannels } from "../editor/main";
 import type { ElementorAjax } from "../utils/ajax";
-import type { ElementorCommon } from "../utils/common";
 import type { ElementorEditorModules } from "../utils/controls-modules";
 
 /**
