@@ -61,8 +61,8 @@ export interface SettingsManager {
   // Setting operations
   getSetting(name: string): any;
   setSetting(name: string, value: any): void;
-  getSettings(): { [key: string]: any };
-  setSettings(settings: { [key: string]: any }): void;
+  getSettings(): Record<string, any>;
+  setSettings(settings: Record<string, any>): void;
   resetSetting(name: string): void;
   resetAllSettings(): void;
 

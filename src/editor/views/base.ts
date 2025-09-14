@@ -430,7 +430,7 @@ export interface ViewState {
   loading: boolean;
 
   /** Custom state properties */
-  custom: { [key: string]: any };
+  custom: Record<string, any>;
 }
 
 /**

@@ -6,6 +6,7 @@
  */
 
 import type { ModuleElements } from "../core";
+import type { BackboneModel } from "../third-party";
 
 /**
  * Arguments object for container creation
@@ -13,8 +14,8 @@ import type { ModuleElements } from "../core";
 export interface ContainerArgs {
   type: string;
   id: string;
-  model: any; // Backbone.Model
-  settings: any; // Backbone.Model
+  model: BackboneModel;
+  settings: BackboneModel;
   view: any; // View instance
   parent: Container | false;
   label: string;
@@ -47,13 +48,13 @@ export interface Container {
   type: string;
   id: string;
   document: any;
-  model: any; // Backbone.Model
-  settings: any; // Backbone.Model
+  model: BackboneModel;
+  settings: BackboneModel;
   view: any; // View instance
   parent: Container | null;
   children: ChildrenArray;
-  dynamic: any; // Backbone.Model
-  globals: any; // Backbone.Model
+  dynamic: BackboneModel;
+  globals: BackboneModel;
   label: string;
   controls: Record<string, any>;
   repeaters: Record<string, any>;

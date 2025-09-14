@@ -20,9 +20,9 @@ export interface SvgIconOptions {
  */
 export interface SvgNodeOptions {
   /** Properties to set on the node */
-  props?: { [key: string]: any };
+  props?: Record<string, any>;
   /** Attributes to set on the node */
-  attrs?: { [key: string]: string | number };
+  attrs?: Record<string, string | number>;
 }
 
 /**

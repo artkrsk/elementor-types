@@ -107,7 +107,7 @@ export declare class Dimensions extends ControlBaseDataView {
  * Font control
  */
 export declare class Font extends ControlBaseDataView {
-  cache?: { [key: string]: any };
+  cache?: Record<string, any>;
   childView?: any;
   getStyleId(): string;
   onFontChange(): void;
@@ -323,7 +323,7 @@ export declare class Select extends ControlBaseDataView {
  * Select2 enhanced dropdown control
  */
 export declare class Select2 extends ControlBaseDataView {
-  cache?: { [key: string]: any };
+  cache?: Record<string, any>;
   getSelect2Placeholder(): string;
   getSelect2Options(): object;
   onRender(): void;

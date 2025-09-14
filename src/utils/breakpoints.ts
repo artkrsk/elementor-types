@@ -9,7 +9,7 @@ import { Module } from "../core";
  * Breakpoints management system
  */
 export declare class Breakpoints extends Module {
-  activeBreakpoints: { [key: string]: any };
+  activeBreakpoints: Record<string, any>;
 
   /**
    * Get list of active breakpoint names

@@ -8,6 +8,23 @@
  * - Data validation and transformation
  */
 
+/**
+ * API error interface
+ */
+export interface ApiError {
+  /** Error code */
+  code: string | number;
+
+  /** Error message */
+  message: string;
+
+  /** Additional error data */
+  data?: Record<string, unknown>;
+
+  /** Error stack trace (development) */
+  trace?: string;
+}
+
 import { Module } from "../core";
 import { CommandBase } from "../editor/commands";
 
@@ -145,16 +162,16 @@ export interface RequestOptions {
   timeout?: number;
 
   /** Success callback */
-  success?: (data: any) => void;
+  success?: <T>(data: T) => void;
 
   /** Error callback */
-  error?: (error: any) => void;
+  error?: (error: ApiError | XMLHttpRequest) => void;
 
   /** Complete callback */
   complete?: () => void;
 
   /** Before send callback */
-  beforeSend?: (xhr: any) => void;
+  beforeSend?: (xhr: XMLHttpRequest) => void;
 
   /** Cache options */
   cache?:
@@ -168,15 +185,21 @@ export interface RequestOptions {
 /**
  * Response interface
  */
-export interface ApiResponse<T = any> {
+export interface ApiResponse<T = unknown> {
   /** Response data */
   data: T;
 
-  /** Response status */
+  /** Request success status */
+  success: boolean;
+
+  /** Response status code */
   status: number;
 
   /** Response message */
   message?: string;
+
+  /** Error information */
+  errors?: ApiError[];
 
   /** Response metadata */
   meta?: {
@@ -336,7 +359,7 @@ export namespace Data {
   export type Manager = DataManager;
   export type Endpoint = DataEndpoint;
   export type Request = RequestOptions;
-  export type Response<T = any> = ApiResponse<T>;
+  export type Response<T = unknown> = ApiResponse<T>;
   export type Cache = CacheEntry;
   export type CacheManager = EditorCacheManager;
   export type Validator = DataValidator;

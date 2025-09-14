@@ -4,20 +4,113 @@
  * Based on analysis of actual usage patterns in the JavaScript codebase
  */
 
+import type { BackboneView } from "../third-party";
+
 /**
- * Hook callback function with flexible return types
+ * Hook callback function with better type constraints
  */
-export type HookCallback<T = any> = (...args: any[]) => T;
+export type HookCallback<T extends readonly unknown[] = readonly unknown[], R = unknown> = (...args: T) => R;
 
 /**
  * Filter callback that must return a value
  */
-export type FilterCallback<T = any> = (value: T, ...args: any[]) => T;
+export type FilterCallback<T = unknown, TArgs extends readonly unknown[] = readonly unknown[]> = (value: T, ...args: TArgs) => T;
 
 /**
  * Action callback that doesn't return a value
  */
-export type ActionCallback = (...args: any[]) => void;
+export type ActionCallback<TArgs extends readonly unknown[] = readonly unknown[]> = (...args: TArgs) => void;
+
+/**
+ * Control definition interface
+ */
+export interface ControlDefinition {
+  name: string;
+  label: string;
+  type: string;
+  default?: any;
+  condition?: Record<string, any>;
+  selectors?: Record<string, string>;
+  responsive?: boolean;
+  [key: string]: any;
+}
+
+/**
+ * Behavior definition interface
+ */
+export interface BehaviorDefinition {
+  name: string;
+  callback?: Function;
+  options?: Record<string, any>;
+}
+
+/**
+ * Context menu group interface
+ */
+export interface ContextMenuGroup {
+  name: string;
+  label: string;
+  actions: ContextMenuAction[];
+}
+
+/**
+ * Context menu action interface
+ */
+export interface ContextMenuAction {
+  name: string;
+  title: string;
+  icon?: string;
+  callback: Function;
+  isEnabled?: () => boolean;
+}
+
+/**
+ * Edit button interface
+ */
+export interface EditButton {
+  name: string;
+  title: string;
+  icon: string;
+  callback: Function;
+  isEnabled?: () => boolean;
+}
+
+/**
+ * Widget data interface
+ */
+export interface WidgetData {
+  name: string;
+  title: string;
+  icon: string;
+  categories?: string[];
+  keywords?: string[];
+  [key: string]: any;
+}
+
+/**
+ * Element view class interface
+ */
+export interface ElementViewClass {
+  new(...args: any[]): BackboneView;
+  extend(properties: Record<string, any>): ElementViewClass;
+}
+
+/**
+ * Element model class interface
+ */
+export interface ElementModelClass {
+  new(...args: any[]): any;
+  extend(properties: Record<string, any>): ElementModelClass;
+}
+
+/**
+ * Region view interface
+ */
+export interface RegionView {
+  name: string;
+  view: any;
+  options?: Record<string, any>;
+}
 
 /**
  * Hook priority (lower numbers run first)
@@ -30,81 +123,81 @@ export type HookPriority = number;
 export interface ElementorFilterHooks {
   // Widget and element filters
   "elements/widget/controls/common/default": (
-    controls: any[],
+    controls: ControlDefinition[],
     widgetType: string
-  ) => any[];
+  ) => ControlDefinition[];
   "elements/widget/controls/common-optimized/default": (
-    controls: any[],
+    controls: ControlDefinition[],
     widgetType: string
-  ) => any[];
+  ) => ControlDefinition[];
   "elements/widget/controls/common": (
-    controls: any[],
+    controls: ControlDefinition[],
     widgetType: string,
-    widgetData: any
-  ) => any[];
-  "elements/base/behaviors": (behaviors: any, view: any) => any;
-  "elements/widget/behaviors": (behaviors: any, view: any) => any;
-  "elements/section/behaviors": (behaviors: any, view: any) => any;
-  "elements/column/behaviors": (behaviors: any, view: any) => any;
-  "elements/container/behaviors": (behaviors: any, view: any) => any;
+    widgetData: WidgetData
+  ) => ControlDefinition[];
+  "elements/base/behaviors": (behaviors: BehaviorDefinition[], view: BackboneView) => BehaviorDefinition[];
+  "elements/widget/behaviors": (behaviors: BehaviorDefinition[], view: BackboneView) => BehaviorDefinition[];
+  "elements/section/behaviors": (behaviors: BehaviorDefinition[], view: BackboneView) => BehaviorDefinition[];
+  "elements/column/behaviors": (behaviors: BehaviorDefinition[], view: BackboneView) => BehaviorDefinition[];
+  "elements/container/behaviors": (behaviors: BehaviorDefinition[], view: BackboneView) => BehaviorDefinition[];
   "elements/base-section-container/behaviors": (
-    behaviors: any,
-    view: any
-  ) => any;
+    behaviors: BehaviorDefinition[],
+    view: BackboneView
+  ) => BehaviorDefinition[];
 
   // Context menu filters
-  "elements/context-menu/groups": (groups: any[], elementType: string) => any[];
-  "panel/element/contextMenuGroups": (groups: any[], view: any) => any[];
+  "elements/context-menu/groups": (groups: ContextMenuGroup[], elementType: string) => ContextMenuGroup[];
+  "panel/element/contextMenuGroups": (groups: ContextMenuGroup[], view: BackboneView) => ContextMenuGroup[];
 
   // Edit buttons and UI
-  "elements/edit-buttons": (buttons: any[]) => any[];
+  "elements/edit-buttons": (buttons: EditButton[]) => EditButton[];
 
   // Index signature for dynamic element-specific hooks
   [K: `elements/${string}/contextMenuGroups`]: (
-    groups: any[],
-    view: any
-  ) => any[];
-  [K: `elements/edit-buttons/${string}`]: (buttons: any[]) => any[];
+    groups: ContextMenuGroup[],
+    view: BackboneView
+  ) => ContextMenuGroup[];
+  [K: `elements/edit-buttons/${string}`]: (buttons: EditButton[]) => EditButton[];
 
   // Panel and layout
-  "panel/footer/behaviors": (behaviors: any, view: any) => any;
-  "panel/header/behaviors": (behaviors: any, view: any) => any;
-  "panel/category/behaviors": (behaviors: any, view: any) => any;
-  "panel/element/behaviors": (behaviors: any, view: any) => any;
-  "panel/elements/regionViews": (regionViews: any, context: any) => any;
-  "navigator/layout/behaviors": (behaviors: any, view: any) => any;
+  "panel/footer/behaviors": (behaviors: BehaviorDefinition[], view: BackboneView) => BehaviorDefinition[];
+  "panel/header/behaviors": (behaviors: BehaviorDefinition[], view: BackboneView) => BehaviorDefinition[];
+  "panel/category/behaviors": (behaviors: BehaviorDefinition[], view: BackboneView) => BehaviorDefinition[];
+  "panel/element/behaviors": (behaviors: BehaviorDefinition[], view: BackboneView) => BehaviorDefinition[];
+  "panel/elements/regionViews": (regionViews: RegionView[], context: any) => RegionView[];
+  "navigator/layout/behaviors": (behaviors: BehaviorDefinition[], view: BackboneView) => BehaviorDefinition[];
 
   // View and model filters
-  "element/view": (ViewClass: any, model: any, parent: any) => any;
-  "element/model": (ModelClass: any, attributes: any) => any;
-  "views/add-section/behaviors": (behaviors: any, view: any) => any;
+  "element/view": (ViewClass: ElementViewClass, model: any, parent: any) => ElementViewClass;
+  "element/model": (ModelClass: ElementModelClass, attributes: Record<string, any>) => ElementModelClass;
+  "views/add-section/behaviors": (behaviors: BehaviorDefinition[], view: BackboneView) => BehaviorDefinition[];
 
   // Template library
   "templates/source/is-remote": (isRemote: boolean, source: string) => boolean;
   "elementor/editor/template-library/template/classes": (
     classes: string[],
-    view: any
+    view: BackboneView
   ) => string[];
   "elementor/editor/template-library/template/behaviors": (
-    behaviors: any,
-    view: any
-  ) => any;
+    behaviors: BehaviorDefinition[],
+    view: BackboneView
+  ) => BehaviorDefinition[];
   "elementor/editor/template-library/template/action-button": (
     viewId: string,
-    templateData: any
+    templateData: Record<string, any>
   ) => string;
 
   // Controls and forms
-  "controls/base/behaviors": (behaviors: any, view: any) => any;
+  "controls/base/behaviors": (behaviors: BehaviorDefinition[], view: BackboneView) => BehaviorDefinition[];
 
   // Utility filters
   "elementor/social_icons/network_name": (
-    social: any,
-    iconsControl: any,
-    fallbackControl: any,
+    social: Record<string, any>,
+    iconsControl: ControlDefinition,
+    fallbackControl: ControlDefinition,
     toUpperCase: boolean,
     withIcon: boolean
-  ) => any;
+  ) => Record<string, any>;
   "editor/style/styleText": (cssText: string, context: any) => string;
 
   // Frontend filters
@@ -112,8 +205,8 @@ export interface ElementorFilterHooks {
     scrollTop: number
   ) => number;
 
-  // Generic string-based filters
-  [key: string]: (...args: any[]) => any;
+  // Generic string-based filters (must be compatible with specific hooks above)
+  [key: string]: ((...args: any[]) => any);
 }
 
 /**
@@ -121,10 +214,10 @@ export interface ElementorFilterHooks {
  */
 export interface ElementorActionHooks {
   // Panel actions
-  "panel/open_editor/document": (manager: any, model?: any, view?: any) => void;
+  "panel/open_editor/document": (manager: any, model?: any, view?: BackboneView) => void;
 
   // Widget actions
-  "panel/widgets/base/controls/wp_widget/loaded": (view: any) => void;
+  "panel/widgets/base/controls/wp_widget/loaded": (view: BackboneView) => void;
 
   // Frontend element ready actions
   "frontend/element_ready/global": (element: JQuery, $: JQueryStatic) => void;
@@ -136,14 +229,14 @@ export interface ElementorActionHooks {
   [K: `panel/open_editor/${string}`]: (
     manager: any,
     model?: any,
-    view?: any
+    view?: BackboneView
   ) => void;
   [K: `panel/open_editor/${string}/${string}`]: (
     manager: any,
-    model: any,
-    view: any
+    model?: any,
+    view?: BackboneView
   ) => void;
-  [K: `panel/widgets/${string}/controls/wp_widget/loaded`]: (view: any) => void;
+  [K: `panel/widgets/${string}/controls/wp_widget/loaded`]: (view: BackboneView) => void;
   [K: `frontend/element_ready/${string}`]: (
     element: JQuery,
     $: JQueryStatic
@@ -153,8 +246,8 @@ export interface ElementorActionHooks {
     $: JQueryStatic
   ) => void;
 
-  // Generic string-based actions
-  [key: string]: (...args: any[]) => void;
+  // Generic string-based actions (must be compatible with specific hooks above)
+  [key: string]: ((...args: any[]) => void);
 }
 
 /**
@@ -173,7 +266,7 @@ export interface ElementorHooks {
     ...args: any[]
   ): ReturnType<ElementorFilterHooks[K]>;
 
-  applyFilters<T = any>(filter: string, value: T, ...args: any[]): T;
+  applyFilters<T = unknown>(filter: string, value: T, ...args: unknown[]): T;
 
   /**
    * Add a filter callback
@@ -189,11 +282,11 @@ export interface ElementorHooks {
     context?: any
   ): void;
 
-  addFilter<T = any>(
+  addFilter<T = unknown>(
     filter: string,
     callback: FilterCallback<T>,
     priority?: HookPriority,
-    context?: any
+    context?: unknown
   ): void;
 
   /**
