@@ -10,7 +10,7 @@ import type { ElementorWindowElements } from '../editor/elements/window-elements
 import type { ElementorWindowComponents } from '../editor/components/window-components';
 import type { ElementorWindowLayouts } from '../editor/layouts/window-layouts';
 import type { ElementorWindowViews } from '../editor/views/window-views';
-import type { ElementorHooks } from './hooks';
+import type { ElementorHooks } from '../utils/elementor-hooks';
 import type { ElementorEditorChannel } from '../editor/channels/editor-channel';
 
 /**
@@ -176,6 +176,12 @@ export interface ElementorEditor {
   /** Whether active breakpoints have been updated */
   activeBreakpointsUpdated: boolean;
 
+  /**
+   * Hooks system for actions and filters
+   * WordPress-style hooks system for extending Elementor functionality
+   */
+  hooks: ElementorHooks;
+
   /** Helper utilities */
   helpers: any;
 
@@ -237,8 +243,6 @@ export interface ElementorEditor {
   onStart(options?: any): void;
   onPreviewLoaded(): void;
 
-  /** Enhanced hooks system with comprehensive typing */
-  hooks: ElementorHooks;
 }
 
 // Export interfaces for external use - no global declarations
