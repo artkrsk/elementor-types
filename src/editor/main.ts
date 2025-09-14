@@ -10,6 +10,7 @@ import type { ElementorWindowModules } from "../globals/elementor-window";
 import type { CommonElementSettings } from "./element-settings";
 import type { BackboneRadioChannel, BackboneView, BackboneModel } from "../third-party";
 import type { ElementorEditorChannel } from "./channels/editor-channel";
+import type { ElementorHooks } from "./hooks";
 
 /**
  * Element data structure
@@ -39,6 +40,8 @@ export interface ControlView {
   $el: JQuery<HTMLElement>;
   /** Get current control value */
   getControlValue(): any;
+  /** Set control value */
+  setValue(value: any): void;
   /** Re-render the control */
   render(): this;
   /** Destroy the control */
@@ -362,6 +365,9 @@ export interface ElementorEditor {
   validator: ValidatorManager;
   globals: ElementorGlobals;
   iconsManager: ElementorIconsManager;
+
+  // Hooks system
+  hooks: ElementorHooks;
 
   // Core Methods - User and Permissions
   userCan(capability: string): boolean;

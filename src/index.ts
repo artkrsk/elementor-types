@@ -86,6 +86,13 @@ export type {
   HistoryManager,
   ElementorGlobals,
   ElementorIconsManager,
+  ElementorHooks,
+  ElementorActionHooks,
+  ElementorFilterHooks,
+  HookCallback,
+  FilterCallback,
+  ActionCallback,
+  HookPriority,
 } from "./editor";
 
 // Global interfaces
@@ -129,13 +136,6 @@ export type {
   GlobalStyleRepeaterControl,
   RepeaterRowControl,
   SliderControl,
-  ElementorHooks,
-  ElementorHookConfig,
-  ElementorHookHandler,
-  ElementorActionCallback,
-  ElementorFilterCallback,
-  ElementorActionHooks,
-  ElementorFilterHooks,
   Hooks,
   Breakpoints,
   BreakpointConfig,

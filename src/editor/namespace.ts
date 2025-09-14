@@ -7,6 +7,7 @@
 
 import type { ModuleElements } from "../core";
 import type { BackboneModel } from "../third-party";
+import type { ControlsStackView } from './views/window-views';
 
 /**
  * Arguments object for container creation
@@ -142,26 +143,6 @@ export interface ElementorEditorElements {
   models: ElementorEditorElementModels;
 }
 
-/**
- * Controls stack view for editor panels
- */
-export interface ControlsStackView {
-  // Marionette.CompositeView properties and methods
-  classes: {
-    popover: string;
-  };
-  activeTab: any;
-  activeSection: any;
-  className(): string;
-  templateHelpers(): { elementData: any };
-  childViewOptions(): { elementSettingsModel: any };
-  ui(): Record<string, string>;
-  events(): Record<string, string>;
-  modelEvents: Record<string, string>;
-  behaviors: Record<string, any>;
-  onReloadButtonClick(): void;
-  onModelDestroy(): void;
-}
 
 /**
  * Editor views namespace
