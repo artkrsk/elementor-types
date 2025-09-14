@@ -9,6 +9,7 @@ import type { WidgetCache } from "./elements";
 import type { ElementorWindowModules } from "../globals/elementor-window";
 import type { CommonElementSettings } from "./element-settings";
 import type { BackboneRadioChannel } from "../third-party";
+import type { ElementorEditorChannel } from "./channels/editor-channel";
 
 /**
  * Element data structure
@@ -194,7 +195,7 @@ export interface BackgroundClickListener {
  * Editor channels for communication
  */
 export interface EditorChannels {
-  editor: BackboneRadioChannel;
+  editor: ElementorEditorChannel;
   data: BackboneRadioChannel;
   panelElements: BackboneRadioChannel;
   dataEditMode: BackboneRadioChannel;
