@@ -4,6 +4,7 @@
  */
 
 export * from "./base";
+export * from "./base/index";
 export * from "./panel";
 
 // Document Commands (exported under namespace to avoid conflicts)
