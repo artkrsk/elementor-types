@@ -4,6 +4,7 @@
  */
 
 export * from "./backbone";
+export * from "./marionette";
 export * from "./swiper";
 export * from "./jquery";
 export * from "./video";

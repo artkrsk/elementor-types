@@ -1,0 +1,111 @@
+lockfileVersion: '9.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+importers:
+
+  .:
+    devDependencies:
+      '@types/backbone':
+        specifier: ^1.4.23
+        version: 1.4.23
+      '@types/jquery':
+        specifier: ^3.5.29
+        version: 3.5.33
+      backbone:
+        specifier: ^1.6.1
+        version: 1.6.1
+      backbone.marionette:
+        specifier: ^4.1.3
+        version: 4.1.3(backbone@1.6.1)(underscore@1.13.7)
+      backbone.radio:
+        specifier: ^2.0.0
+        version: 2.0.0(backbone@1.6.1)(underscore@1.13.7)
+      swiper:
+        specifier: ^12.0.1
+        version: 12.0.1
+      typescript:
+        specifier: ^5.2.0
+        version: 5.9.2
+      underscore:
+        specifier: ^1.13.7
+        version: 1.13.7
+
+packages:
+
+  '@types/backbone@1.4.23':
+    resolution: {integrity: sha512-B/hN/DAJdWFOusEkEoa5xgfVuxJJPOR/6JQ2uwURPDyKL24PuC76IR6EcSRJ6lvGWtxHRQYMJQhJYm6KpMDtGQ==}
+
+  '@types/jquery@3.5.33':
+    resolution: {integrity: sha512-SeyVJXlCZpEki5F0ghuYe+L+PprQta6nRZqhONt9F13dWBtR/ftoaIbdRQ7cis7womE+X2LKhsDdDtkkDhJS6g==}
+
+  '@types/sizzle@2.3.10':
+    resolution: {integrity: sha512-TC0dmN0K8YcWEAEfiPi5gJP14eJe30TTGjkvek3iM/1NdHHsdCA/Td6GvNndMOo/iSnIsZ4HuuhrYPDAmbxzww==}
+
+  '@types/underscore@1.13.0':
+    resolution: {integrity: sha512-L6LBgy1f0EFQZ+7uSA57+n2g/s4Qs5r06Vwrwn0/nuK1de+adz00NWaztRQ30aEqw5qOaWbPI8u2cGQ52lj6VA==}
+
+  backbone.marionette@4.1.3:
+    resolution: {integrity: sha512-8alY/p90UCMzOetMzVUl7+Y7riQktbKa44FKoehlToBUOzfTJqeDIJ62QxddE/H0zIvG9Iw2mMqRvqxvYRwOog==}
+    peerDependencies:
+      backbone: ^1.3.3
+      underscore: ^1.8.3
+
+  backbone.radio@2.0.0:
+    resolution: {integrity: sha512-SHdSh2OaWqalbYi1sXvbTtnRFym5AV9loybNi2Q1iHkU2vveQDlWsmDn9l8onmfR6ZkemuYgHLgtfAYKfyfBZg==}
+    peerDependencies:
+      backbone: ^1.3.3
+      underscore: ^1.8.3
+
+  backbone@1.6.1:
+    resolution: {integrity: sha512-YQzWxOrIgL6BoFnZjThVN99smKYhyEXXFyJJ2lsF1wJLyo4t+QjmkLrH8/fN22FZ4ykF70Xq7PgTugJVR4zS9Q==}
+
+  swiper@12.0.1:
+    resolution: {integrity: sha512-Fi+gNw/tfc4hsGowQU5tRC/f1HFknkh4Vz8PaDI4JTinLUMTwhZyaovcH/va+iXq98BNUHN5ok0c2lEI82Fsgw==}
+    engines: {node: '>= 4.7.0'}
+
+  typescript@5.9.2:
+    resolution: {integrity: sha512-CWBzXQrc/qOkhidw1OzBTQuYRbfyxDXJMVJ1XNwUHGROVmuaeiEm3OslpZ1RV96d7SKKjZKrSJu3+t/xlw3R9A==}
+    engines: {node: '>=14.17'}
+    hasBin: true
+
+  underscore@1.13.7:
+    resolution: {integrity: sha512-GMXzWtsc57XAtguZgaQViUOzs0KTkk8ojr3/xAxXLITqf/3EMwxC0inyETfDFjH/Krbhuep0HNbbjI9i/q3F3g==}
+
+snapshots:
+
+  '@types/backbone@1.4.23':
+    dependencies:
+      '@types/jquery': 3.5.33
+      '@types/underscore': 1.13.0
+
+  '@types/jquery@3.5.33':
+    dependencies:
+      '@types/sizzle': 2.3.10
+
+  '@types/sizzle@2.3.10': {}
+
+  '@types/underscore@1.13.0': {}
+
+  backbone.marionette@4.1.3(backbone@1.6.1)(underscore@1.13.7):
+    dependencies:
+      backbone: 1.6.1
+      backbone.radio: 2.0.0(backbone@1.6.1)(underscore@1.13.7)
+      underscore: 1.13.7
+
+  backbone.radio@2.0.0(backbone@1.6.1)(underscore@1.13.7):
+    dependencies:
+      backbone: 1.6.1
+      underscore: 1.13.7
+
+  backbone@1.6.1:
+    dependencies:
+      underscore: 1.13.7
+
+  swiper@12.0.1: {}
+
+  typescript@5.9.2: {}
+
+  underscore@1.13.7: {}
