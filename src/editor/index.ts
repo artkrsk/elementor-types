@@ -38,5 +38,20 @@ export * as Layouts from "./layouts";
 export * as BrowserImport from "./browser-import";
 export * as Components from "./components";
 
+// Re-export type guards for better accessibility
+export {
+  isPanelManager,
+  isWidgetModel,
+  isWidgetView,
+} from "./main";
+
+export {
+  isChangedModel,
+  isElementView,
+  isDeviceChangeDetails,
+  isDocumentChangeDetails,
+  isElementChangeDetails,
+} from "./channels/editor-channel";
+
 // Placeholder for additional editor types
 export {};

@@ -8,7 +8,7 @@ import type { ElementorGlobals, ElementorIconsManager } from "./managers";
 import type { WidgetCache } from "./elements";
 import type { ElementorWindowModules } from "../globals/elementor-window";
 import type { CommonElementSettings } from "./element-settings";
-import type { BackboneRadioChannel } from "../third-party";
+import type { BackboneRadioChannel, BackboneView, BackboneModel } from "../third-party";
 import type { ElementorEditorChannel } from "./channels/editor-channel";
 
 /**
@@ -39,6 +39,51 @@ export interface PanelView {
   getCurrentPageName(): string;
   setPage(pageName: string): void;
   getPages(): Record<string, any>;
+}
+
+/**
+ * Panel manager interface for hooks
+ */
+export interface PanelManager {
+  currentView: PanelView | null;
+  getCurrentPageName(): string;
+  setPage(pageName: string, options?: any): void;
+  openEditor(model: any, view?: any): void;
+  closeEditor(): void;
+  getContent(): any;
+}
+
+/**
+ * Widget model interface for hooks
+ */
+export interface WidgetModel extends BackboneModel {
+  id: string;
+  attributes: {
+    id: string;
+    elType: string;
+    widgetType: string;
+    settings: Record<string, any>;
+    [key: string]: any;
+  };
+  get(attribute: string): any;
+  set(attribute: string, value: any): this;
+  set(attributes: Record<string, any>, options?: any): this;
+  getSettings(): Record<string, any>;
+  getSetting(key: string): any;
+}
+
+/**
+ * Widget view interface for hooks
+ */
+export interface WidgetView extends BackboneView {
+  model: WidgetModel;
+  $el: JQuery<HTMLElement>;
+  getContainer(): EditorContainer;
+  render(): this;
+  isEditable(): boolean;
+  getEditModel(): WidgetModel;
+  getChildType(): string;
+  getChildView(): any;
 }
 
 /**
@@ -387,4 +432,65 @@ export interface ElementorEditor {
   // Event methods
   on(event: string, callback: Function): void;
   off(event: string, callback: Function): void;
+}
+
+// ============================================================================
+// Type Guards for Main Editor Interfaces
+// ============================================================================
+
+/**
+ * Check if object is a PanelManager
+ */
+export function isPanelManager(obj: any): obj is PanelManager {
+  return (
+    obj !== null &&
+    typeof obj === 'object' &&
+    'getCurrentPageName' in obj &&
+    'setPage' in obj &&
+    'openEditor' in obj &&
+    typeof obj.getCurrentPageName === 'function' &&
+    typeof obj.setPage === 'function' &&
+    typeof obj.openEditor === 'function'
+  );
+}
+
+/**
+ * Check if object is a WidgetModel
+ */
+export function isWidgetModel(obj: any): obj is WidgetModel {
+  return (
+    obj !== null &&
+    typeof obj === 'object' &&
+    'id' in obj &&
+    'attributes' in obj &&
+    'get' in obj &&
+    'set' in obj &&
+    'getSettings' in obj &&
+    typeof obj.get === 'function' &&
+    typeof obj.set === 'function' &&
+    typeof obj.getSettings === 'function' &&
+    obj.attributes &&
+    typeof obj.attributes === 'object' &&
+    'elType' in obj.attributes &&
+    'widgetType' in obj.attributes
+  );
+}
+
+/**
+ * Check if object is a WidgetView
+ */
+export function isWidgetView(obj: any): obj is WidgetView {
+  return (
+    obj !== null &&
+    typeof obj === 'object' &&
+    'model' in obj &&
+    '$el' in obj &&
+    'getContainer' in obj &&
+    'render' in obj &&
+    'isEditable' in obj &&
+    typeof obj.getContainer === 'function' &&
+    typeof obj.render === 'function' &&
+    typeof obj.isEditable === 'function' &&
+    isWidgetModel(obj.model)
+  );
 }

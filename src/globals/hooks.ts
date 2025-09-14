@@ -49,6 +49,10 @@ export interface ElementorActionHooks {
   'panel/open_editor/widget': (panel: any, model: any, view: any) => void;
   'panel/open_editor/section': (panel: any, model: any, view: any) => void;
   'panel/open_editor/column': (panel: any, model: any, view: any) => void;
+  'panel/open_editor/container': (panel: any, model: any, view: any) => void;
+
+  // Widget-specific panel actions with better typing
+  [K: `panel/open_editor/widget/${string}`]: (panel: any, model: any, view: any) => void;
   [K: `panel/open_editor/${string}`]: (panel: any, model?: any, view?: any) => void;
 
   // Generic action hooks
