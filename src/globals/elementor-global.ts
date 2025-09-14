@@ -132,6 +132,9 @@ export interface ElementorMain extends ElementorFrontend {
   // Device mode (editor-specific extensions)
   changeDeviceMode?(deviceMode: string): void;
 
+  // Control registration (editor-specific)
+  addControlView(controlID: string, ControlView: new (...args: any[]) => any): void;
+
   // Promotions and notices
   promotion?: {
     dialog?: {
@@ -159,10 +162,10 @@ export function isElementorEditor(
  */
 declare global {
   interface Window {
-    elementor: ElementorMain;
-    elementorFrontend: ElementorFrontend;
-    elementorCommon: ElementorCommon;
-    elementorDevTools: {
+    elementor?: ElementorMain;
+    elementorFrontend?: ElementorFrontend;
+    elementorCommon?: ElementorCommon;
+    elementorDevTools?: {
       deprecation: {
         deprecated(oldMethod: string, version: string, newMethod: string): void;
       };

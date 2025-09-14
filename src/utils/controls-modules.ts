@@ -202,6 +202,9 @@ export interface ElementorControlsModule {
   /** Slider control */
   Slider: new (...args: any[]) => SliderControl;
 
+  /** URL control */
+  Url: new (...args: any[]) => ControlBaseDataView;
+
   /** Base control classes */
   BaseControl?: new (...args: any[]) => ControlBaseView;
   BaseDataControl?: new (...args: any[]) => ControlBaseDataView;
