@@ -44,7 +44,9 @@
       "Bash(rm:*)",
       "mcp__task-master__update_subtask",
       "mcp__task-master__analyze_project_complexity",
-      "Bash(xargs:*)"
+      "Bash(xargs:*)",
+      "mcp__task-master__remove_dependency",
+      "mcp__task-master__add_dependency"
     ],
     "deny": [],
     "ask": []
