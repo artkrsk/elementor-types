@@ -4,6 +4,7 @@
  */
 
 import type { BackboneRadioChannel } from "../../third-party";
+import type { ControlView } from "../main";
 
 /**
  * Element view interface for channel events
@@ -82,7 +83,7 @@ export interface EditorChannelEvents {
 
   // Settings change events
   'change:editSettings': (changedModel: ChangedModel, elementView: ElementView) => void;
-  'change': (changedModel: ChangedModel, elementView?: ElementView) => void;
+  'change': (controlView: ControlView, elementView?: ElementView) => void;
   'change:device': (deviceMode: string, details: DeviceChangeDetails) => void;
   'change:element': (elementView: ElementView, details: ElementChangeDetails) => void;
   'change:document': (document: any, details: DocumentChangeDetails) => void;
