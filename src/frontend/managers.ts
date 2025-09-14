@@ -33,9 +33,9 @@ export interface ElementsHandler {
 }
 
 /**
- * Documents manager interface
+ * Documents manager interface (legacy - see documents-manager.ts for new implementation)
  */
-export interface DocumentsManager extends ViewModule {
+export interface LegacyDocumentsManager extends ViewModule {
   documents: {
     [documentId: string]: any; // ElementorModules.frontend.Document;
   };

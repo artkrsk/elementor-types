@@ -4,6 +4,9 @@
  */
 
 export * from "./base";
+export * from "./base-swiper";
+export * from "./base-carousel";
+export * from "./stretched-element";
 export * from "./swiper";
 export * from "./widgets";
 export * from "./container";

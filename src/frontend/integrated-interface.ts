@@ -5,7 +5,7 @@
 
 import type { ViewModule } from "../core";
 import type { ElementorFrontendConfig } from "./config";
-import type { ElementsHandler, DocumentsManager } from "./managers";
+import type { ElementsHandler, LegacyDocumentsManager as DocumentsManager } from "./managers";
 import type { ElementorFrontend as BaseElementorFrontend } from "./main";
 import type {
   ElementorBreakpoints,

@@ -49,7 +49,7 @@
         "description": "Align frontend handlers with original Elementor structure and implement element-specific handlers",
         "details": "Reorganize src/frontend/handlers/ to match Elementor's handler structure. Implement base handler classes and element-specific handlers (Button, Heading, Image, Video, etc.) with proper inheritance, lifecycle methods, event binding, and settings processing that mirrors the original implementations.",
         "testStrategy": "Validate handler hierarchy and methods match original Elementor frontend handlers",
-        "status": "pending",
+        "status": "done",
         "dependencies": [],
         "priority": "high",
         "subtasks": [],
@@ -70,10 +70,65 @@
         "description": "Comprehensively restructure the editor control system to match original Elementor control architecture",
         "details": "Reorganize src/editor/controls/ to mirror Elementor's control structure. Implement base control classes (BaseControl, BaseData, BaseMultiple, BaseUnits), all control types (Color, Typography, Dimensions, Media, etc.), control registration and factory system, control views and behaviors, and validation systems that match the original implementations exactly.",
         "testStrategy": "Validate all control types and their inheritance hierarchy match original Elementor editor controls",
-        "status": "pending",
+        "status": "done",
         "dependencies": [],
         "priority": "high",
-        "subtasks": [],
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Create base control classes",
+            "description": "Implement base control classes: BaseControl, BaseData, BaseMultiple, BaseUnits",
+            "details": "Create src/editor/controls/base/, base-data/, base-multiple/, base-units/ matching the original Elementor control base classes with proper inheritance and lifecycle methods",
+            "status": "done",
+            "dependencies": [],
+            "parentTaskId": 4
+          },
+          {
+            "id": 2,
+            "title": "Implement simple control types",
+            "description": "Create simple control types: Hidden, Button, Notice, Tab, Section",
+            "details": "Implement controls that don't require complex data handling: hidden.ts, button.ts, notice.ts, tab.ts, section.ts",
+            "status": "done",
+            "dependencies": [],
+            "parentTaskId": 4
+          },
+          {
+            "id": 3,
+            "title": "Implement input control types",
+            "description": "Create input control types: Number, Select, Select2, Switcher, Choose, Code, Wysiwyg",
+            "details": "Implement text input and selection controls with proper value handling and validation",
+            "status": "done",
+            "dependencies": [],
+            "parentTaskId": 4
+          },
+          {
+            "id": 4,
+            "title": "Implement visual control types",
+            "description": "Create visual control types: Color, Icon, Icons, Media, Gallery, ImageDimensions",
+            "details": "Implement controls for visual elements including color pickers, icon selectors, media library integration, and gallery management",
+            "status": "done",
+            "dependencies": [],
+            "parentTaskId": 4
+          },
+          {
+            "id": 5,
+            "title": "Implement layout control types",
+            "description": "Create layout control types: Dimensions, Slider, Gaps, BoxShadow, Structure",
+            "details": "Implement controls for layout management including dimensions with units, slider ranges, spacing gaps, box shadow configuration, and structural layout options",
+            "status": "done",
+            "dependencies": [],
+            "parentTaskId": 4
+          },
+          {
+            "id": 6,
+            "title": "Implement advanced control types",
+            "description": "Create advanced control types: Repeater, RepeaterRow, PopoverToggle, DateTime, Font, URL, WPWidget, VisualChoice",
+            "details": "Implement complex controls including repeater fields with dynamic rows, popover toggles, date/time pickers, font selection, URL inputs with link options, WordPress widget integration, and visual choice selectors",
+            "status": "done",
+            "dependencies": [],
+            "parentTaskId": 4
+          }
+        ],
         "tag": "master",
         "metadata": {
           "moveHistory": [
@@ -94,7 +149,44 @@
         "status": "pending",
         "dependencies": [],
         "priority": "high",
-        "subtasks": [],
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Create element base classes",
+            "description": "Implement element base classes and manager",
+            "details": "Create src/editor/elements/manager.ts and base element classes including ElementBase, Widget, Section, Column with proper model/view/collection patterns",
+            "status": "pending",
+            "dependencies": [],
+            "parentTaskId": 5
+          },
+          {
+            "id": 2,
+            "title": "Implement element models",
+            "description": "Create element model classes with data binding",
+            "details": "Implement BaseElementModel, WidgetModel, SectionModel, ColumnModel with Backbone.Model inheritance, settings management, and change tracking",
+            "status": "pending",
+            "dependencies": [],
+            "parentTaskId": 5
+          },
+          {
+            "id": 3,
+            "title": "Implement element views",
+            "description": "Create element view classes with rendering and event handling",
+            "details": "Implement BaseElementView, WidgetView, SectionView, ColumnView with Marionette.View patterns, template rendering, and DOM event management",
+            "status": "pending",
+            "dependencies": [],
+            "parentTaskId": 5
+          },
+          {
+            "id": 4,
+            "title": "Create element collections",
+            "description": "Implement element collection classes",
+            "details": "Create ElementsCollection, WidgetsCollection, SectionsCollection with Backbone.Collection patterns for managing multiple elements",
+            "status": "pending",
+            "dependencies": [],
+            "parentTaskId": 5
+          }
+        ],
         "tag": "master",
         "metadata": {
           "moveHistory": [
@@ -235,7 +327,7 @@
     ],
     "metadata": {
       "created": "2025-09-13T07:52:06.524Z",
-      "updated": "2025-09-14T10:11:52.377Z",
+      "updated": "2025-09-14T16:14:28.709Z",
       "description": "Comprehensive TypeScript coverage improvement tasks based on detailed analysis - expanded from 15 to 28 tasks covering critical gaps in Core, Frontend, Editor, and Utility systems. Major progress: 9/28 tasks completed including all critical foundation tasks."
     }
   }

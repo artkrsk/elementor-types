@@ -407,31 +407,7 @@ export declare class GlobalHandler extends EnhancedBase {
   playAnimations(): void;
 }
 
-/**
- * Stretched Element Handler
- * Full-width stretching functionality
- */
-export declare class StretchedElementHandler extends EnhancedBase {
-  stretchElement: HTMLElement;
-
-  getDefaultSettings(): HandlerSettings & {
-    selectors: {
-      container: string;
-    };
-  };
-
-  // Stretch functionality
-  onInit(): void;
-  bindEvents(): void;
-
-  // Stretching
-  stretch(): void;
-  reset(): void;
-
-  // Responsive
-  handleResize(): void;
-  isStretchingEnabled(): boolean;
-}
+// StretchedElementHandler moved to dedicated stretched-element.ts file
 
 /**
  * Widget handler factory for creating instances
@@ -477,7 +453,7 @@ export interface ElementorWidgetHandlers {
   // Layout widgets
   column: ColumnHandler;
   "handles-position": HandlesPositionHandler;
-  "stretched-element": StretchedElementHandler;
+  "stretched-element": any; // See stretched-element.ts
 
   // Global
   global: GlobalHandler;

@@ -1,0 +1,11 @@
+# Task ID: 8
+# Title: Restructure App System (Kit Library)
+# Status: pending
+# Dependencies: None
+# Priority: medium
+# Description: Align app-specific types with original Elementor app system structure
+# Details:
+Create src/app/ to match Elementor's app system structure. Implement app modules, app utilities and helpers, Kit Library system, template management, and all app-specific functionality that mirrors the original Elementor app architecture.
+
+# Test Strategy:
+Validate app system interfaces match original Elementor app functionality
