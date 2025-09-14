@@ -14,6 +14,7 @@ import type {
   Events,
   UrlActions,
 } from "./utils";
+import type { ElementorHooks } from "../utils/elementor-hooks";
 
 /**
  * Main Elementor Frontend interface
@@ -41,23 +42,7 @@ export interface ElementorFrontend {
     events: Events;
     urlActions: UrlActions;
   };
-  hooks: {
-    addAction(
-      action: string,
-      callback: Function,
-      priority?: number,
-      context?: any
-    ): void;
-    doAction(action: string, ...args: any[]): void;
-    removeAction(action: string, callback?: Function): void;
-    addFilter(
-      filter: string,
-      callback: Function,
-      priority?: number,
-      context?: any
-    ): void;
-    applyFilters(filter: string, value: any, ...args: any[]): any;
-  };
+  hooks: ElementorHooks;
   elementsHandler: ElementsHandler;
   documentsManager: DocumentsManager;
 
