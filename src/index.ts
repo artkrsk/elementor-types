@@ -89,7 +89,14 @@ export type {
 } from "./editor";
 
 // Global interfaces
-export type { ElementorModules } from "./globals";
+export type {
+  ElementorModules,
+  ElementorMain,
+  ElementorWindowModules,
+  FrontendHandlerBase,
+  FrontendHandlerSettings,
+  FrontendHandlerElements
+} from "./globals";
 
 // Utility types
 export type {
