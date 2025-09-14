@@ -7,6 +7,8 @@
 export * from "./main";
 export * from "./managers";
 export * from "./history";
+export * from "./hooks";
+export * from "./element-settings";
 
 // Editor namespace interfaces
 export * from "./namespace";

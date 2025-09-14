@@ -11,6 +11,7 @@
 
 import { ViewModule } from "../core";
 import { SwiperOptions } from "../third-party";
+import type { CommonElementSettings } from "../editor/element-settings";
 
 // Import the comprehensive handler interfaces from enhanced-base
 import type { HandlerSettings, HandlerElements } from "./handlers/enhanced-base";
@@ -135,9 +136,19 @@ export interface HandlerBase {
   removeEditorListeners(): void;
 
   /**
+   * Get editor listeners array
+   */
+  getEditorListeners(): EditorListener[];
+
+  /**
    * Get model CID
    */
   getModelCID(): string;
+
+  /**
+   * Get handler ID
+   */
+  getID(): string;
 
   /**
    * Get widget type
@@ -157,7 +168,9 @@ export interface HandlerBase {
   /**
    * Get element settings
    */
-  getElementSettings(setting?: string): any;
+  getElementSettings(): CommonElementSettings;
+  getElementSettings<K extends keyof CommonElementSettings>(setting: K): CommonElementSettings[K];
+  getElementSettings(setting: string): any;
 
   /**
    * Get current device setting

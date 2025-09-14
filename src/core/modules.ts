@@ -4,9 +4,36 @@
  */
 
 /**
+ * Common selector settings pattern
+ */
+export interface SelectorSettings {
+  selectors: {
+    [key: string]: string;
+  };
+}
+
+/**
+ * Common class settings pattern
+ */
+export interface ClassSettings {
+  classes: {
+    [key: string]: string;
+  };
+}
+
+/**
+ * Combined settings interface for modules with selectors and classes
+ */
+export interface ElementSettings extends SelectorSettings, ClassSettings {
+  [key: string]: any;
+}
+
+/**
  * Settings object for modules
  */
 export interface ModuleSettings {
+  selectors?: { [key: string]: string };
+  classes?: { [key: string]: string };
   [key: string]: any;
 }
 
@@ -179,10 +206,6 @@ export declare class Module {
    */
   __construct(...args: any[]): void;
 
-  /**
-   * Extend the module class
-   */
-  static extend(properties: object): typeof Module;
 
   /**
    * Get element viewport percentage
