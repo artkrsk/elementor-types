@@ -230,4 +230,34 @@ export declare class ElementModel extends BaseElementModel {
    * Get element icon
    */
   getIcon(): string;
+
+  /**
+   * Get element visibility status
+   */
+  getVisibility(): boolean;
+
+  /**
+   * Toggle element visibility
+   */
+  toggleVisibility(): void;
+
+  /**
+   * Get active controls for the element
+   */
+  getActiveControls(): any;
+
+  /**
+   * Check if element has active controls
+   */
+  hasActiveControls(): boolean;
+
+  /**
+   * Get element view type
+   */
+  getViewType(): string;
+
+  /**
+   * Check if element should render when leaving
+   */
+  shouldRenderOnLeave(): boolean;
 }

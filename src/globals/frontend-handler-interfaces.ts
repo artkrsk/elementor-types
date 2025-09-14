@@ -304,7 +304,7 @@ export interface StretchElementElements extends ModuleElements {
  * Stretch Element Utility Interface
  * Handles full-width element stretching functionality
  */
-export interface FrontendStretchElementUtility extends ViewModule {
+export interface FrontendStretchElementUtility extends Omit<ViewModule, 'getDefaultSettings' | 'setSettings'> {
   /** Element references */
   elements: StretchElementElements;
 
