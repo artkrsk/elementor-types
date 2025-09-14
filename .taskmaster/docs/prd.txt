@@ -1,170 +1,264 @@
-# Elementor TypeScript Types Library - Complete Coverage PRD
+# Elementor Types Structure Alignment PRD
 
 ## Project Overview
-The goal is to provide comprehensive TypeScript type definitions for the entire Elementor JavaScript codebase, enabling developers to build Elementor plugins and extensions with full type safety and IntelliSense support.
+Restructure the @arts/elementor-types package to achieve 99% structural alignment with the original Elementor WordPress plugin JavaScript codebase. This will improve type accuracy, developer experience, and maintainability by mirroring the actual implementation patterns.
 
 ## Current State Analysis
-The existing TypeScript types library covers basic core functionality but is missing significant portions of the Elementor codebase. The JavaScript implementation in `elementor-dev-js/` provides the reference for what needs to be typed.
+The current types package has good coverage but deviates from Elementor's actual JS structure in several key areas:
+- File organization doesn't match core/assets/dev-js/ structure
+- Missing key modules and namespaces present in original codebase
+- Some interfaces don't reflect actual implementation details
+- Module hierarchy could better mirror the original architecture
 
-## Scope & Requirements
+## Goals
+1. **File Structure Alignment**: Mirror the exact file and folder structure of Elementor's core JavaScript files
+2. **Module Architecture Match**: Ensure module exports and dependencies match the original codebase
+3. **Interface Accuracy**: Align TypeScript interfaces with actual JavaScript implementations
+4. **Namespace Consistency**: Match namespace organization and naming conventions
+5. **API Surface Completeness**: Cover 99% of public APIs exposed by original codebase
 
-### 1. Admin Module Types Implementation
-**Priority: High**
-- Implement complete admin module interfaces covering all admin-related functionality
-- Beta tester component types (`admin/beta-tester/`)
-- Floating elements system types (`admin/floating-elements/`)
-- New template dialog types (`admin/new-template/`)
-- Admin feedback system interfaces
-- Maintenance mode functionality types
-- Gutenberg integration interfaces
-- Menu handler types
+## Success Metrics
+- File structure matches elementor/core/app/, elementor/assets/dev-js/
+- All public classes and interfaces have TypeScript equivalents
+- Module dependencies mirror original imports/exports
+- Zero breaking changes for existing consumers
+- Comprehensive coverage of frontend, editor, and admin functionality
 
-### 2. Elements System Enhancement
-**Priority: Critical**
-- Complete the ElementsManager interface to match `editor/elements/manager.js`
-- Implement element type registration system with proper generics
-- Add element collections and models interfaces
-- Create comprehensive element views type system
-- Implement element type validators and error handling
-- Add support for custom element types
+## Target Architecture
 
-### 3. Editor Components Expansion
-**Priority: High**
-- Template library component system with full CRUD operations
-- Icons manager component with icon registry
-- Dynamic tags component with tag resolution
-- Settings component with configuration management
-- Document components including save/history systems
-- Browser import component with file parsers
-- Selection component for element selection management
-- Validator component for content validation
+### Core Structure (based on Elementor's assets/dev-js/)
+```
+src/
+├── common/               # Common utilities across contexts
+│   ├── utils/           # General utilities
+│   ├── helpers/         # Helper functions
+│   └── config/          # Configuration interfaces
+├── frontend/            # Frontend-specific types
+│   ├── handlers/        # Element handlers
+│   ├── utils/           # Frontend utilities
+│   ├── modules/         # Frontend modules
+│   └── config/          # Frontend configuration
+├── editor/              # Editor-specific types
+│   ├── components/      # Editor UI components
+│   ├── controls/        # Control system
+│   ├── elements/        # Element system
+│   ├── modules/         # Editor modules
+│   ├── utils/           # Editor utilities
+│   ├── views/           # Backbone views
+│   ├── models/          # Backbone models
+│   ├── collections/     # Backbone collections
+│   └── regions/         # Layout regions
+├── admin/               # Admin interface types
+│   ├── modules/         # Admin modules
+│   └── utils/           # Admin utilities
+├── modules/             # Shared modules
+│   ├── imports/         # Import system
+│   └── web-cli/         # Web CLI functionality
+└── app/                 # App-specific types (Kit Library, etc.)
+    ├── modules/         # App modules
+    └── utils/           # App utilities
+```
 
-### 4. Command System Enhancement
-**Priority: High**
-- Expand command base classes with proper inheritance
-- Implement document operation commands
-- Add panel manipulation commands
-- Create element manipulation command interfaces
-- Implement command history and undo/redo system
-- Add command validation and error handling
+### Key Module Categories
 
-### 5. Frontend Widget Handlers
-**Priority: Medium**
-- Specific widget handler interfaces for common widgets (Accordion, Tabs, etc.)
-- Handler registration and lifecycle management
-- Widget configuration and state management
-- Event handling system for widgets
-- Responsive behavior handling
-- Animation and transition support
+#### 1. Common/Core Modules
+- **Utils**: DOM manipulation, device detection, environment helpers
+- **Config**: Global configuration objects and settings
+- **Helpers**: Shared utility functions and type guards
+- **Base Classes**: Foundation classes for modules and components
 
-### 6. Container System Enhancement
-**Priority: Critical**
-- Complete Container interface matching `editor/container/container.js`
-- Container panel integration
-- Container model with data binding
-- Container hierarchy and relationships
-- Container rendering and lifecycle
+#### 2. Frontend System
+- **Handlers**: Element-specific behavior handlers (Button, Image, Video, etc.)
+- **Modules**: Frontend initialization, breakpoints, device handling
+- **Utils**: Frontend-specific utilities (lightbox, share buttons, etc.)
+- **Config**: Frontend configuration and settings management
 
-### 7. Document System Implementation
-**Priority: High**
-- Document component base classes
-- Document helpers and utilities
-- Element-document relationships
-- Global document state management
-- Document save and auto-save functionality
-- Document history and versioning
+#### 3. Editor System
+- **Controls**: Complete control system (Color, Typography, Media, etc.)
+- **Elements**: Element types (Widget, Section, Column, Container)
+- **Components**: UI components (Panel, Navigator, History, etc.)
+- **Views**: Backbone view classes for UI rendering
+- **Models**: Data models for elements and settings
+- **Utils**: Editor utilities (presets, icons, dynamic tags)
 
-### 8. Controls System Enhancement
-**Priority: Medium**
-- Complete all control types (box-shadow, dimensions, gaps, etc.)
-- Control behaviors and interactions
-- Control validation and sanitization
-- Control groups and repeaters
-- Conditional control display logic
+#### 4. Admin Interface
+- **Modules**: Admin-specific functionality
+- **Utils**: Admin utilities and helpers
+- **Config**: Admin configuration interfaces
 
-### 9. Frontend System Completion
-**Priority: Medium**
-- Frontend document management
-- Elements handlers manager enhancement
-- Frontend utilities and helpers
-- Responsive breakpoint handling
-- Performance optimization types
-
-### 10. Utilities and Helpers
-**Priority: Low**
-- Advanced utility functions
-- Event system enhancements
-- Hook system improvements
-- Notification system types
-- React integration helpers
+#### 5. App System (Kit Library, etc.)
+- **Modules**: App-specific modules
+- **Utils**: App utilities and helpers
 
 ## Technical Requirements
 
-### Type Safety
-- All interfaces must provide complete type safety
-- Use TypeScript generics where appropriate for flexibility
-- Implement proper inheritance hierarchies
-- Ensure backward compatibility with existing implementations
+### File Organization
+1. **Mirror Original Structure**: Each TypeScript file should correspond to a JavaScript file in the original codebase
+2. **Preserve Naming**: Use identical file and directory names where possible
+3. **Maintain Dependencies**: Import/export relationships should match original code
+4. **Namespace Alignment**: TypeScript namespaces should mirror JavaScript module organization
 
-### Documentation
-- Comprehensive JSDoc comments for all public interfaces
-- Usage examples for complex systems
-- Migration guides for breaking changes
-- API reference documentation
+### Interface Design
+1. **Implementation Accuracy**: Interfaces should reflect actual method signatures and properties
+2. **Backbone Integration**: Properly type Backbone.js patterns used throughout Elementor
+3. **jQuery Integration**: Maintain proper jQuery typing for DOM manipulation
+4. **Event System**: Accurately type the event system and hooks
+5. **Configuration Objects**: Match all configuration object structures
 
-### Testing
-- Type-only tests to verify interface completeness
-- Integration tests with actual Elementor codebase
-- Validation against JavaScript implementation
-- Performance testing for type checking
+### Module System
+1. **AMD Pattern**: Reflect the AMD module pattern used in original codebase
+2. **Dependency Injection**: Mirror dependency injection patterns
+3. **Module Registry**: Align with Elementor's module registry system
+4. **Lifecycle Methods**: Match initialization and lifecycle patterns
 
-### Code Organization
-- Maintain existing namespace structure
-- Use barrel exports for clean API surface
-- Implement proper module boundaries
-- Follow established naming conventions
+### Compatibility
+1. **Zero Breaking Changes**: Existing type consumers should continue working
+2. **Gradual Migration**: Provide deprecation notices for outdated interfaces
+3. **Backward Compatibility**: Maintain compatibility with previous versions
+4. **Extension Points**: Preserve all extension and customization points
 
 ## Implementation Strategy
 
-### Phase 1: Core Infrastructure (Critical Path)
-1. Elements system enhancement
-2. Container system completion
-3. Editor base interface expansion
-4. Command system framework
+### Phase 1: Structure Analysis and Planning
+- Deep analysis of Elementor's JavaScript codebase structure
+- Map current types to original implementations
+- Identify gaps and misalignments
+- Create detailed file-by-file migration plan
 
-### Phase 2: Component Systems
-1. Document system implementation
-2. Admin module types
-3. Editor components expansion
-4. Controls system enhancement
+### Phase 2: Core Foundation
+- Restructure common utilities and base classes
+- Align configuration object interfaces
+- Establish proper module hierarchy
+- Update namespace organization
 
-### Phase 3: Frontend & Utilities
-1. Frontend widget handlers
-2. Frontend system completion
-3. Utilities and helpers
-4. Performance optimizations
+### Phase 3: Frontend System
+- Restructure handler system to match original
+- Align frontend modules and utilities
+- Update configuration interfaces
+- Ensure proper event system typing
 
-## Success Criteria
-- 100% coverage of Elementor JavaScript API surface
-- Zero TypeScript errors when using the library
-- Complete IntelliSense support in IDEs
-- Successful integration with real Elementor projects
-- Performance parity with untyped JavaScript usage
+### Phase 4: Editor System
+- Comprehensive control system restructuring
+- Element system alignment
+- UI component type alignment
+- View/model/collection proper typing
 
-## Timeline Estimation
-- Phase 1: 2-3 weeks (foundation work)
-- Phase 2: 3-4 weeks (component implementation)
-- Phase 3: 1-2 weeks (completion and polish)
-- Total: 6-9 weeks for complete implementation
+### Phase 5: Admin and App Systems
+- Admin interface type alignment
+- App-specific module typing
+- Kit library and template system
+- Final integration and testing
 
-## Dependencies
-- Access to latest Elementor JavaScript codebase
-- TypeScript 5.0+ for advanced type features
-- Development environment with Elementor for testing
-- Documentation tools for API reference generation
+### Phase 6: Integration and Validation
+- Cross-reference all types with original implementations
+- Validate module dependencies and imports
+- Ensure comprehensive coverage
+- Performance and compatibility testing
+
+## Detailed Module Specifications
+
+### Common System
+**Target Files**: utils/, helpers/, config/
+- Device detection and responsive utilities
+- DOM manipulation helpers
+- Environment detection (editor vs frontend)
+- Global configuration interfaces
+- Shared type guards and utilities
+
+### Frontend Handlers
+**Target Files**: frontend/handlers/
+- Base handler class alignment
+- Element-specific handlers (Button, Heading, Image, Video, etc.)
+- Handler registration and lifecycle
+- Event binding and DOM manipulation
+- Settings processing and responsive handling
+
+### Control System
+**Target Files**: editor/controls/
+- Base control classes (BaseControl, BaseData, BaseMultiple, BaseUnits)
+- All control types (Color, Typography, Dimensions, Media, etc.)
+- Control registration and factory system
+- Control views and behaviors
+- Validation and dependency systems
+
+### Element System
+**Target Files**: editor/elements/
+- Base element classes
+- Element types (Widget, Section, Column, Container)
+- Element models and collections
+- Element views and rendering
+- Settings processing and inheritance
+
+### UI Components
+**Target Files**: editor/components/
+- Panel system (left panel, right panel, etc.)
+- Navigator and structure view
+- History and undo/redo system
+- Template library integration
+- Dynamic content system
+
+## Quality Assurance
+
+### Validation Criteria
+1. **Structural Match**: 95%+ file structure alignment with original codebase
+2. **API Coverage**: 99%+ coverage of public APIs and interfaces
+3. **Type Accuracy**: All interfaces match actual implementation signatures
+4. **Module Dependencies**: Import/export relationships mirror original code
+5. **Backward Compatibility**: Zero breaking changes for existing consumers
+
+### Testing Strategy
+1. **Type Checking**: Comprehensive TypeScript compilation testing
+2. **Consumer Testing**: Validate with existing projects using the types
+3. **Integration Testing**: Test with actual Elementor JavaScript code
+4. **Documentation Review**: Ensure all public APIs are properly documented
+5. **Performance Testing**: Verify no performance impact from type changes
+
+## Timeline and Milestones
+
+### Week 1: Analysis and Foundation
+- Complete codebase analysis and mapping
+- Restructure common utilities and base classes
+- Establish new file organization
+
+### Week 2: Frontend and Handlers
+- Implement frontend system restructuring
+- Align all handler types with original implementations
+- Update frontend configuration interfaces
+
+### Week 3: Editor Core Systems
+- Restructure control system comprehensively
+- Align element system with original architecture
+- Update UI component interfaces
+
+### Week 4: Admin, App, and Integration
+- Complete admin and app system alignment
+- Final integration and cross-validation
+- Comprehensive testing and documentation
 
 ## Risk Mitigation
-- Regular validation against JavaScript implementation
-- Incremental implementation with testing at each step
-- Fallback interfaces for complex dynamic behaviors
-- Community feedback integration for real-world usage
+
+### Breaking Changes
+- Maintain all existing exports with deprecation notices
+- Provide migration guide for any necessary changes
+- Use semantic versioning for any breaking changes
+
+### Implementation Complexity
+- Break down into atomic, testable changes
+- Maintain comprehensive test coverage
+- Regular validation against original codebase
+
+### Performance Impact
+- Monitor bundle size impact of structural changes
+- Optimize type definitions for compilation speed
+- Ensure minimal runtime impact
+
+## Success Definition
+The project is successful when:
+1. File structure mirrors Elementor's JavaScript organization
+2. 99% of public APIs have accurate TypeScript representations
+3. All module dependencies and relationships are properly typed
+4. Zero breaking changes for existing type consumers
+5. Comprehensive documentation and examples provided
+6. Full backward compatibility maintained
+
+This restructuring will create the most accurate and comprehensive TypeScript definitions for Elementor, improving developer experience and ensuring long-term maintainability.
