@@ -506,11 +506,198 @@
         "dependencies": [],
         "priority": "medium",
         "subtasks": []
+      },
+      {
+        "id": 31,
+        "title": "Fix window.elementor.ajax types",
+        "description": "Implement comprehensive type definitions for window.elementor.ajax core AJAX functionality",
+        "details": "Create complete AJAX interface including request/response types, configuration options, callback types, error handling, and retry mechanisms. Support different request methods and data formats.",
+        "testStrategy": "Verify types work with actual Elementor AJAX usage patterns and provide proper IntelliSense",
+        "status": "done",
+        "dependencies": [],
+        "priority": "high",
+        "subtasks": []
+      },
+      {
+        "id": 32,
+        "title": "Fix window.elementor.ajax.addRequest types",
+        "description": "Implement type definitions for the AJAX request management and queueing system",
+        "details": "Define complete interface for addRequest method including request configuration, callback types, and queue management functionality.",
+        "testStrategy": "Test with real addRequest usage patterns and verify proper type inference",
+        "status": "done",
+        "dependencies": [],
+        "priority": "high",
+        "subtasks": []
+      },
+      {
+        "id": 33,
+        "title": "Fix window.elementorCommon types",
+        "description": "Implement comprehensive type definitions for window.elementorCommon utilities namespace",
+        "details": "Create complete interface for common utilities and shared functionality including event system integration and utility methods.",
+        "testStrategy": "Verify types provide proper IntelliSense for common utility functions",
+        "status": "done",
+        "dependencies": [],
+        "priority": "high",
+        "subtasks": []
+      },
+      {
+        "id": 34,
+        "title": "Fix window.elementorCommon.dialogsManager types",
+        "description": "Implement type definitions for the dialog management system",
+        "details": "Define complete dialog manager interface with widget creation, management, lifecycle, and event system integration.",
+        "testStrategy": "Test with dialog creation and management workflows",
+        "status": "done",
+        "dependencies": [],
+        "priority": "high",
+        "subtasks": []
+      },
+      {
+        "id": 35,
+        "title": "Fix window.elementorCommon.dialogsManager.createWidget types",
+        "description": "Implement type definitions for dialog widget creation functionality",
+        "details": "Define createWidget method interface including configuration options, widget types, and creation callbacks.",
+        "testStrategy": "Verify widget creation patterns and configuration options",
+        "status": "done",
+        "dependencies": [],
+        "priority": "medium",
+        "subtasks": []
+      },
+      {
+        "id": 36,
+        "title": "Fix window.elementor.breakpoints types",
+        "description": "Implement comprehensive type definitions for responsive breakpoints management",
+        "details": "Define breakpoint configuration, device-specific definitions, and responsive configuration helpers.",
+        "testStrategy": "Test with responsive breakpoint management workflows",
+        "status": "done",
+        "dependencies": [],
+        "priority": "high",
+        "subtasks": []
+      },
+      {
+        "id": 37,
+        "title": "Fix window.elementor.breakpoints.getActiveBreakpointsList types",
+        "description": "Implement type definitions for active breakpoints retrieval method",
+        "details": "Define getActiveBreakpointsList method with proper return types for active breakpoints list.",
+        "testStrategy": "Verify return type accuracy for active breakpoints list",
+        "status": "done",
+        "dependencies": [],
+        "priority": "medium",
+        "subtasks": []
+      },
+      {
+        "id": 38,
+        "title": "Fix window.elementor.addControlView types",
+        "description": "Implement type definitions for control view registration system",
+        "details": "Define control view registration interface, base class definitions, and configuration/validation types.",
+        "testStrategy": "Test control view registration patterns and configuration",
+        "status": "done",
+        "dependencies": [],
+        "priority": "high",
+        "subtasks": []
+      },
+      {
+        "id": 39,
+        "title": "Fix window.elementor.modules.controls namespace types",
+        "description": "Implement comprehensive type definitions for controls module namespace",
+        "details": "Define complete controls module namespace structure with proper inheritance and integration patterns.",
+        "testStrategy": "Verify namespace structure and control module access patterns",
+        "status": "done",
+        "dependencies": [],
+        "priority": "high",
+        "subtasks": []
+      },
+      {
+        "id": 40,
+        "title": "Fix window.elementor.modules.controls.Dimensions types",
+        "description": "Implement type definitions for Dimensions control implementation",
+        "details": "Define Dimensions control class with proper value types, validation, and interaction methods.",
+        "testStrategy": "Test dimensions control usage patterns and value handling",
+        "status": "done",
+        "dependencies": [],
+        "priority": "medium",
+        "subtasks": []
+      },
+      {
+        "id": 41,
+        "title": "Fix window.elementor.modules.controls.Gaps types",
+        "description": "Implement type definitions for Gaps control for spacing management",
+        "details": "Define Gaps control class with spacing configuration, responsive values, and interaction methods.",
+        "testStrategy": "Test gap control spacing patterns and responsive behavior",
+        "status": "done",
+        "dependencies": [],
+        "priority": "medium",
+        "subtasks": []
+      },
+      {
+        "id": 42,
+        "title": "Fix window.elementor.modules.controls['Global-style-repeater'] types",
+        "description": "Implement type definitions for Global style repeater control",
+        "details": "Define Global-style-repeater control with global styles integration, repeater functionality, and style management.",
+        "testStrategy": "Test global style repeater patterns and style synchronization",
+        "status": "done",
+        "dependencies": [],
+        "priority": "medium",
+        "subtasks": []
+      },
+      {
+        "id": 43,
+        "title": "Fix window.elementor.modules.controls.RepeaterRow types",
+        "description": "Implement type definitions for RepeaterRow control management",
+        "details": "Define RepeaterRow control class with row management, data binding, and interaction methods.",
+        "testStrategy": "Test repeater row functionality and data management",
+        "status": "done",
+        "dependencies": [],
+        "priority": "medium",
+        "subtasks": []
+      },
+      {
+        "id": 44,
+        "title": "Fix window.elementor.modules.controls.Slider types",
+        "description": "Implement type definitions for Slider control implementation",
+        "details": "Define Slider control class with value ranges, step configuration, and interaction methods.",
+        "testStrategy": "Test slider control value handling and range configuration",
+        "status": "done",
+        "dependencies": [],
+        "priority": "medium",
+        "subtasks": []
+      },
+      {
+        "id": 45,
+        "title": "Fix window.elementor.$preview types",
+        "description": "Implement type definitions for jQuery preview object integration",
+        "details": "Define jQuery integration for preview functionality including manipulation methods, event handling, and editor integration.",
+        "testStrategy": "Test jQuery preview integration and manipulation methods",
+        "status": "done",
+        "dependencies": [],
+        "priority": "medium",
+        "subtasks": []
+      },
+      {
+        "id": 46,
+        "title": "Fix window.elementor.hooks types",
+        "description": "Implement comprehensive type definitions for window.elementor.hooks system",
+        "details": "Create complete hooks interface with addAction, doAction, addFilter, applyFilters methods. Include comprehensive documentation, usage examples, and common hook name types.",
+        "testStrategy": "Verify hooks provide proper IntelliSense and type safety for action/filter operations",
+        "status": "done",
+        "dependencies": [],
+        "priority": "high",
+        "subtasks": []
+      },
+      {
+        "id": 47,
+        "title": "Fix window.elementor.hooks.addAction types",
+        "description": "Enhance type definitions specifically for window.elementor.hooks.addAction method",
+        "details": "Improve addAction method with comprehensive parameter types, return type, and detailed documentation with usage examples for different scenarios.",
+        "testStrategy": "Test addAction method type inference and parameter validation",
+        "status": "done",
+        "dependencies": [],
+        "priority": "high",
+        "subtasks": []
       }
     ],
     "metadata": {
       "created": "2025-09-13T07:52:06.524Z",
-      "updated": "2025-09-14T08:45:59.585Z",
+      "updated": "2025-09-14T09:56:57.155Z",
       "description": "Comprehensive TypeScript coverage improvement tasks based on detailed analysis - expanded from 15 to 28 tasks covering critical gaps in Core, Frontend, Editor, and Utility systems. Major progress: 9/28 tasks completed including all critical foundation tasks."
     }
   }

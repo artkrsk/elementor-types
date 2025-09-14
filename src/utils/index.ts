@@ -3,6 +3,11 @@
  * Barrel export for all utility types and functions
  */
 
+export * from "./ajax";
+export * from "./common";
+export * from "./control-registration";
+export * from "./controls-modules";
+export * from "./elementor-hooks";
 export * from "./breakpoints";
 export * from "./events";
 export * from "./hooks";

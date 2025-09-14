@@ -5,6 +5,9 @@
 
 import type { ElementorFrontend } from "../frontend/main";
 import type { EditorChannels } from "../editor/main";
+import type { ElementorAjax } from "../utils/ajax";
+import type { ElementorCommon } from "../utils/common";
+import type { ElementorEditorModules } from "../utils/controls-modules";
 
 /**
  * Complete Elementor Main Interface
@@ -24,9 +27,13 @@ export interface ElementorMain extends ElementorFrontend {
   imagesManager?: any;
   presetsFactory?: any;
   templates?: any;
-  ajax?: any;
+  ajax?: ElementorAjax;
   conditions?: any;
   history?: any;
+
+
+  // Editor modules system
+  modules?: ElementorEditorModules;
 
   // Editor modules and settings
   settings?: {
@@ -52,7 +59,37 @@ export interface ElementorMain extends ElementorFrontend {
   };
 
   // UI Elements (editor-specific, different from frontend elements)
+
+  /**
+   * jQuery object for preview contents container
+   * Contains the actual document content being edited
+   */
   $previewContents?: JQuery<HTMLElement>;
+
+  /**
+   * jQuery object for the preview frame/container
+   * Main preview element that displays the page being edited
+   * Provides full jQuery API for DOM manipulation and event handling
+   *
+   * @example
+   * ```typescript
+   * // Access preview element
+   * const $preview = elementor.$preview;
+   *
+   * // Add event listeners
+   * $preview?.on('load', () => {
+   *   console.log('Preview loaded');
+   * });
+   *
+   * // Manipulate preview content
+   * $preview?.contents().find('.elementor-element').addClass('highlight');
+   *
+   * // Check if preview is ready
+   * if ($preview?.length) {
+   *   // Preview is available
+   * }
+   * ```
+   */
   $preview?: JQuery<HTMLElement>;
 
   // Editor navigation
@@ -124,33 +161,7 @@ declare global {
   interface Window {
     elementor: ElementorMain;
     elementorFrontend: ElementorFrontend;
-    elementorCommon: {
-      ajax: {
-        addRequest(
-          action: string,
-          options: {
-            data?: object;
-            success?: Function;
-            error?: Function;
-          }
-        ): void;
-      };
-      dialogsManager: {
-        createWidget(type: string, options: object): any;
-      };
-      config: {
-        experimentalFeatures: {
-          container?: boolean;
-          [feature: string]: boolean | undefined;
-        };
-      };
-      debug: {
-        enabled: boolean;
-        log(...args: any[]): void;
-        warn(...args: any[]): void;
-        error(...args: any[]): void;
-      };
-    };
+    elementorCommon: ElementorCommon;
     elementorDevTools: {
       deprecation: {
         deprecated(oldMethod: string, version: string, newMethod: string): void;

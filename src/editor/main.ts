@@ -308,6 +308,34 @@ export interface ElementorEditor {
   userCan(capability: string): boolean;
 
   // Core Methods - Element and Control Management
+  /**
+   * Register a custom control view
+   *
+   * Allows registration of custom control types that extend the base control system.
+   * The control view will be available for use in widgets and sections.
+   *
+   * @param controlID - Unique identifier for the control type
+   * @param ControlViewClass - Control view constructor that extends ControlBaseView
+   *
+   * @example
+   * ```typescript
+   * // Register a custom color picker control
+   * elementor.addControlView('my_color_picker', class extends ControlBaseView {
+   *   getControlValue() {
+   *     return this.$el.find('.color-input').val();
+   *   }
+   *
+   *   onRender() {
+   *     super.onRender();
+   *     this.initColorPicker();
+   *   }
+   *
+   *   private initColorPicker() {
+   *     // Custom color picker initialization
+   *   }
+   * });
+   * ```
+   */
   addControlView(controlID: string, ControlViewClass: new(...args: any[]) => ControlView): void;
   getElementData(model: any): ElementData;
   getElementControls(modelElement: any): Record<string, any>;

@@ -1,6 +1,7 @@
 /**
  * Hooks System
  * Advanced action and filter hooks for Elementor with priority management and middleware
+ * Provides WordPress-style hooks system for extending Elementor functionality
  */
 
 import { Module } from "../core";
