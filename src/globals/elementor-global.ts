@@ -157,20 +157,4 @@ export function isElementorEditor(
   );
 }
 
-/**
- * Window interface extension for Elementor
- */
-declare global {
-  interface Window {
-    elementor?: ElementorMain;
-    elementorFrontend?: ElementorFrontend;
-    elementorCommon?: ElementorCommon;
-    elementorDevTools?: {
-      deprecation: {
-        deprecated(oldMethod: string, version: string, newMethod: string): void;
-      };
-    };
-  }
-}
-
-export {};
+// Global declarations removed - import types manually in your projects
