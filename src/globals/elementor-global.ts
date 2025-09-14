@@ -4,8 +4,7 @@
  */
 
 import type { ElementorFrontend } from "../frontend/main";
-import type { ElementorEditor } from "../editor/main";
-import type { EditorChannels } from "../editor/channels";
+import type { EditorChannels } from "../editor/main";
 
 /**
  * Complete Elementor Main Interface
