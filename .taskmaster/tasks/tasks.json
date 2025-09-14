@@ -693,11 +693,88 @@
         "dependencies": [],
         "priority": "high",
         "subtasks": []
+      },
+      {
+        "id": 48,
+        "title": "Fix missing ElementorMain export",
+        "description": "Add missing export for ElementorMain interface to globals index and main package exports",
+        "details": "ElementorMain is defined in elementor-global.ts but not exported through the globals index, making it unavailable to package users. Need to add export to globals/index.ts.",
+        "testStrategy": "Verify ElementorMain can be imported from @arts/elementor-types package",
+        "status": "done",
+        "dependencies": [],
+        "priority": "high",
+        "subtasks": []
+      },
+      {
+        "id": 49,
+        "title": "Audit and fix all missing exports",
+        "description": "Review all interface definitions and ensure they are properly exported from main index",
+        "status": "done",
+        "dependencies": [],
+        "priority": "medium",
+        "details": "Perform comprehensive audit of all interfaces to identify other missing exports that should be available to package users. Add any missing exports to appropriate index files.",
+        "testStrategy": "Check that all major interfaces are importable from package root",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Fix ElementorMain export",
+            "description": "Add ElementorMain to direct exports from globals",
+            "status": "done",
+            "dependencies": [],
+            "details": "",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Fix ElementorWindowModules export",
+            "description": "Add ElementorWindowModules to direct exports",
+            "status": "done",
+            "dependencies": [],
+            "details": "",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Fix FrontendHandlerBase export",
+            "description": "Add FrontendHandlerBase to direct exports",
+            "status": "done",
+            "dependencies": [],
+            "details": "",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Fix FrontendHandlerSettings export",
+            "description": "Add FrontendHandlerSettings to direct exports",
+            "status": "done",
+            "dependencies": [],
+            "details": "",
+            "testStrategy": ""
+          },
+          {
+            "id": 5,
+            "title": "Fix FrontendHandlerElements export",
+            "description": "Add FrontendHandlerElements to direct exports",
+            "status": "done",
+            "dependencies": [],
+            "details": "",
+            "testStrategy": ""
+          },
+          {
+            "id": 6,
+            "title": "Verify exports with type checking",
+            "description": "Ensure all exports can be properly imported from package root with correct types",
+            "status": "done",
+            "dependencies": [],
+            "details": "",
+            "testStrategy": ""
+          }
+        ]
       }
     ],
     "metadata": {
       "created": "2025-09-13T07:52:06.524Z",
-      "updated": "2025-09-14T09:56:57.155Z",
+      "updated": "2025-09-14T10:11:52.377Z",
       "description": "Comprehensive TypeScript coverage improvement tasks based on detailed analysis - expanded from 15 to 28 tasks covering critical gaps in Core, Frontend, Editor, and Utility systems. Major progress: 9/28 tasks completed including all critical foundation tasks."
     }
   }
