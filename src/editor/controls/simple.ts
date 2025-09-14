@@ -140,57 +140,57 @@ export interface InfoControl extends ControlBaseView {
 
 // Control Constructors
 export interface ButtonControlConstructor {
-	new (options?: any): ButtonControl;
+	new (options?: any): any;
 	extend(proto: any, staticProps?: any): ButtonControlConstructor;
 }
 
 export interface CodeControlConstructor {
-	new (options?: any): CodeControl;
+	new (options?: any): any;
 	extend(proto: any, staticProps?: any): CodeControlConstructor;
 }
 
 export interface HiddenControlConstructor {
-	new (options?: any): HiddenControl;
+	new (options?: any): any;
 	extend(proto: any, staticProps?: any): HiddenControlConstructor;
 }
 
 export interface AlertControlConstructor {
-	new (options?: any): AlertControl;
+	new (options?: any): any;
 	extend(proto: any, staticProps?: any): AlertControlConstructor;
 }
 
 export interface HtmlControlConstructor {
-	new (options?: any): HtmlControl;
+	new (options?: any): any;
 	extend(proto: any, staticProps?: any): HtmlControlConstructor;
 }
 
 export interface RawHtmlControlConstructor {
-	new (options?: any): RawHtmlControl;
+	new (options?: any): any;
 	extend(proto: any, staticProps?: any): RawHtmlControlConstructor;
 }
 
 export interface HeadingControlConstructor {
-	new (options?: any): HeadingControl;
+	new (options?: any): any;
 	extend(proto: any, staticProps?: any): HeadingControlConstructor;
 }
 
 export interface DividerControlConstructor {
-	new (options?: any): DividerControl;
+	new (options?: any): any;
 	extend(proto: any, staticProps?: any): DividerControlConstructor;
 }
 
 export interface DeprecatedControlConstructor {
-	new (options?: any): DeprecatedControl;
+	new (options?: any): any;
 	extend(proto: any, staticProps?: any): DeprecatedControlConstructor;
 }
 
 export interface NoticeControlConstructor {
-	new (options?: any): NoticeControl;
+	new (options?: any): any;
 	extend(proto: any, staticProps?: any): NoticeControlConstructor;
 }
 
 export interface InfoControlConstructor {
-	new (options?: any): InfoControl;
+	new (options?: any): any;
 	extend(proto: any, staticProps?: any): InfoControlConstructor;
 }
 

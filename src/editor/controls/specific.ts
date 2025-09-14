@@ -8,12 +8,14 @@ import type {
   ControlBaseDataView,
   ControlBaseMultiple,
   ControlBaseUnits,
+  ControlUIElements,
 } from "./base";
+import type { Select2 as Select2Instance, Options as Select2Options } from "select2";
 
 /**
  * Box shadow control
  */
-export declare class BoxShadow extends ControlBaseDataView {
+export interface BoxShadow extends ControlBaseDataView {
   onColorChanged(): void;
   updateCSSVar(styleItem: any, key: string, value: any): void;
   applyValueFromSettings(): void;
@@ -22,21 +24,21 @@ export declare class BoxShadow extends ControlBaseDataView {
 /**
  * Button control
  */
-export declare class Button extends ControlBaseView {
+export interface Button extends ControlBaseView {
   onButtonClick(event: Event): void;
 }
 
 /**
  * Choose control (radio-like selection)
  */
-export declare class Choose extends ControlBaseDataView {
+export interface Choose extends ControlBaseDataView {
   applySavedValue(): void;
 }
 
 /**
  * Code editor control
  */
-export declare class Code extends ControlBaseDataView {
+export interface Code extends ControlBaseDataView {
   editor?: any;
   onRender(): void;
   applySavedValue(): void;
@@ -46,7 +48,7 @@ export declare class Code extends ControlBaseDataView {
 /**
  * Color picker control with advanced color management
  */
-export declare class Color extends ControlBaseDataView {
+export interface Color extends ControlBaseDataView {
   colorPicker?: {
     picker: any;
     onChange: () => void;
@@ -58,9 +60,9 @@ export declare class Color extends ControlBaseDataView {
   $pickerButton?: JQuery;
 
   // UI elements
-  ui(): {
+  ui(): ControlUIElements & {
     pickerContainer: JQuery;
-  } & ReturnType<ControlBaseDataView["ui"]>;
+  };
 
   // Core functionality
   applySavedValue(): void;
@@ -88,7 +90,7 @@ export declare class Color extends ControlBaseDataView {
 /**
  * Date/time picker control
  */
-export declare class DateTime extends ControlBaseDataView {
+export interface DateTime extends ControlBaseDataView {
   onInputChange(): void;
   onRender(): void;
 }
@@ -96,7 +98,7 @@ export declare class DateTime extends ControlBaseDataView {
 /**
  * Dimensions control (padding, margin, etc.)
  */
-export declare class Dimensions extends ControlBaseDataView {
+export interface Dimensions extends ControlBaseDataView {
   onInputChange(): void;
   onLinkedInputChange(): void;
   getCurrentValue(): any;
@@ -106,7 +108,7 @@ export declare class Dimensions extends ControlBaseDataView {
 /**
  * Font control
  */
-export declare class Font extends ControlBaseDataView {
+export interface Font extends ControlBaseDataView {
   cache?: Record<string, any>;
   childView?: any;
   getStyleId(): string;
@@ -119,7 +121,7 @@ export declare class Font extends ControlBaseDataView {
 /**
  * Gallery control
  */
-export declare class Gallery extends ControlBaseDataView {
+export interface Gallery extends ControlBaseDataView {
   attachments?: any;
   library?: any;
   onButtonClick(): void;
@@ -131,7 +133,7 @@ export declare class Gallery extends ControlBaseDataView {
 /**
  * Gaps control for grid layouts
  */
-export declare class Gaps extends ControlBaseDataView {
+export interface Gaps extends ControlBaseDataView {
   onInputChange(): void;
   getCurrentValue(): any;
   applySavedValue(): void;
@@ -140,12 +142,12 @@ export declare class Gaps extends ControlBaseDataView {
 /**
  * Hidden control
  */
-export declare class Hidden extends ControlBaseDataView {}
+export interface Hidden extends ControlBaseDataView {}
 
 /**
  * Icon picker control
  */
-export declare class Icon extends ControlBaseDataView {
+export interface Icon extends ControlBaseDataView {
   onRender(): void;
   onIconPickerSelect(): void;
   getControlValue(): any;
@@ -154,7 +156,7 @@ export declare class Icon extends ControlBaseDataView {
 /**
  * Icons control (multiple icons)
  */
-export declare class Icons extends ControlBaseMultiple {
+export interface Icons extends ControlBaseMultiple {
   childView: any;
   onRender(): void;
   getChildView(): any;
@@ -166,7 +168,7 @@ export declare class Icons extends ControlBaseMultiple {
 /**
  * Image dimensions control
  */
-export declare class ImageDimensions extends ControlBaseDataView {
+export interface ImageDimensions extends ControlBaseDataView {
   onApplyImageSize(): void;
   onImageDimensionChange(): void;
   onCustomImageDimensionChange(): void;
@@ -178,7 +180,7 @@ export declare class ImageDimensions extends ControlBaseDataView {
 /**
  * Media picker control with file upload and management
  */
-export declare class Media extends ControlBaseMultiple {
+export interface Media extends ControlBaseMultiple {
   mediaType?: string;
 
   // UI elements
@@ -193,7 +195,7 @@ export declare class Media extends ControlBaseMultiple {
     promotions_action: JQuery;
     fileName: JQuery;
     mediaInputImageSize: JQuery;
-  } & ReturnType<ControlBaseMultiple["ui"]>;
+  } & ControlUIElements;
 
   // Event handlers
   events(): {
@@ -202,7 +204,7 @@ export declare class Media extends ControlBaseMultiple {
     "change @ui.mediaInputImageSize": "onMediaInputImageSizeChange";
     "click @ui.promotions_dismiss": "onPromotionDismiss";
     "click @ui.promotions_action": "onPromotionAction";
-  } & ReturnType<ControlBaseMultiple["events"]>;
+  } & Record<string, string>;
 
   // Media type management
   getMediaType(): string;
@@ -226,21 +228,21 @@ export declare class Media extends ControlBaseMultiple {
 /**
  * Notice control (informational display)
  */
-export declare class Notice extends ControlBaseView {
+export interface Notice extends ControlBaseView {
   onRender(): void;
 }
 
 /**
  * Number input control with scrubbing behavior and validation
  */
-export declare class Number extends ControlBaseDataView {
+export interface Number extends ControlBaseDataView {
   // Behavior integration for mouse scrubbing
   behaviors(): {
     Scrubbing: {
       behaviorClass: any;
       scrubSettings: { intentTime: number };
     };
-  } & ReturnType<ControlBaseDataView["behaviors"]>;
+  } & Record<string, any>;
 
   // Validation methods
   registerValidators(): void;
@@ -254,7 +256,7 @@ export declare class Number extends ControlBaseDataView {
 /**
  * Popover toggle control
  */
-export declare class PopoverToggle extends Choose {
+export interface PopoverToggle extends Choose {
   onRender(): void;
   onChildControlValueChange(): void;
   onChooseSelect(): void;
@@ -264,9 +266,16 @@ export declare class PopoverToggle extends Choose {
 /**
  * Repeater control for dynamic content
  */
-export declare class Repeater extends ControlBaseDataView {
+export interface Repeater extends ControlBaseDataView {
   childView?: any;
-  templateHelpers(): object;
+  templateHelpers(): {
+    view: ControlBaseDataView;
+    data: {
+      _cid: string;
+      controlValue?: any;
+      [key: string]: any;
+    };
+  };
   getChildView(): any;
   getChildViewOptions(model: any): object;
   updateElementModel(value: any): void;
@@ -279,9 +288,9 @@ export declare class Repeater extends ControlBaseDataView {
 /**
  * Repeater row control
  */
-export declare class RepeaterRow extends ControlBaseDataView {
-  className(): string;
-  tagName(): string;
+export interface RepeaterRow extends ControlBaseDataView {
+  className?: string;
+  tagName: string;
   controlViews?: object;
   onRowDuplicate(): void;
   onRowRemove(): void;
@@ -293,18 +302,18 @@ export declare class RepeaterRow extends ControlBaseDataView {
 /**
  * Section control (control grouping)
  */
-export declare class Section extends ControlBaseView {
+export interface Section extends ControlBaseView {
   onRender(): void;
 }
 
 /**
  * Select dropdown control with placeholder and option group support
  */
-export declare class Select extends ControlBaseDataView {
+export interface Select extends ControlBaseDataView {
   // UI elements
   ui(): {
     select: JQuery;
-  } & ReturnType<ControlBaseDataView["ui"]>;
+  } & ControlUIElements;
 
   // Core functionality
   updatePlaceholder(): void;
@@ -315,34 +324,49 @@ export declare class Select extends ControlBaseDataView {
   onSelectChange(): void;
   applySavedValue(): void;
 
-  // Static methods for clipboard operations
-  static onPasteStyle(control: any, clipboardValue: any): boolean;
+  // Note: onPasteStyle is a static method on the constructor
 }
 
 /**
  * Select2 enhanced dropdown control
  */
-export declare class Select2 extends ControlBaseDataView {
+export interface Select2 extends ControlBaseDataView {
   cache?: Record<string, any>;
+  select2Instance?: Select2Instance;
+
   getSelect2Placeholder(): string;
-  getSelect2Options(): object;
+  getSelect2Options(): Partial<Select2Options>;
   onRender(): void;
   onDestroy(): void;
+  applySavedValue(): void;
+  onSelect2Select(event: any): void;
+  onSelect2Open(): void;
+  onSelect2Close(): void;
 }
+
+// Export alias for compatibility
+export type Select2Control = Select2;
 
 /**
  * Slider control with units and multiple value support
  */
-export declare class Slider extends ControlBaseUnits {
+export interface Slider extends ControlBaseUnits {
   // UI elements
   ui(): {
     slider: JQuery;
-  } & ReturnType<ControlBaseUnits["ui"]>;
+  } & ControlUIElements;
 
   // Template helpers
   templateHelpers(): {
     isMultiple: boolean;
-  } & ReturnType<ControlBaseUnits["templateHelpers"]>;
+  } & {
+    view: ControlBaseView;
+    data: {
+      _cid: string;
+      controlValue?: any;
+      [key: string]: any;
+    };
+  };
 
   // Core functionality
   isMultiple(): boolean;
@@ -363,7 +387,7 @@ export declare class Slider extends ControlBaseUnits {
 /**
  * Structure control for layout selection
  */
-export declare class Structure extends ControlBaseView {
+export interface Structure extends ControlBaseView {
   currentPreset?: any;
   onPresetSelected(event: Event): void;
   onRender(): void;
@@ -372,7 +396,7 @@ export declare class Structure extends ControlBaseView {
 /**
  * Switcher control (toggle)
  */
-export declare class Switcher extends ControlBaseDataView {
+export interface Switcher extends ControlBaseDataView {
   onSwitcherChange(): void;
   applySavedValue(): void;
 }
@@ -380,14 +404,14 @@ export declare class Switcher extends ControlBaseDataView {
 /**
  * Tab control
  */
-export declare class Tab extends ControlBaseView {
+export interface Tab extends ControlBaseView {
   onRender(): void;
 }
 
 /**
  * URL control
  */
-export declare class URL extends ControlBaseMultiple {
+export interface URL extends ControlBaseMultiple {
   onRender(): void;
   onInputChange(): void;
   updateElementModel(value: any): void;
@@ -396,7 +420,7 @@ export declare class URL extends ControlBaseMultiple {
 /**
  * Visual choice control
  */
-export declare class VisualChoice extends ControlBaseDataView {
+export interface VisualChoice extends ControlBaseDataView {
   onChoiceSelect(event: Event): void;
   applySavedValue(): void;
 }
@@ -404,7 +428,7 @@ export declare class VisualChoice extends ControlBaseDataView {
 /**
  * WordPress widget control
  */
-export declare class WpWidget extends ControlBaseDataView {
+export interface WpWidget extends ControlBaseDataView {
   onFormUpdate(): void;
   onRender(): void;
   applySavedValue(): void;
@@ -413,7 +437,7 @@ export declare class WpWidget extends ControlBaseDataView {
 /**
  * WYSIWYG editor control
  */
-export declare class WYSIWYG extends ControlBaseDataView {
+export interface WYSIWYG extends ControlBaseDataView {
   editor?: any;
   onRender(): void;
   onDestroy(): void;
@@ -424,7 +448,7 @@ export declare class WYSIWYG extends ControlBaseDataView {
 /**
  * Text shadow control (extends box shadow functionality)
  */
-export declare class TextShadow extends BoxShadow {
+export interface TextShadow extends BoxShadow {
   // Inherits from BoxShadow with text-specific enhancements
   onTextShadowChange(): void;
   updateTextShadowPreview(): void;
@@ -433,7 +457,7 @@ export declare class TextShadow extends BoxShadow {
 /**
  * Border control for element borders
  */
-export declare class Border extends ControlBaseDataView {
+export interface Border extends ControlBaseDataView {
   // Border style properties
   borderTypes: string[];
   currentBorderType: string;
@@ -463,7 +487,7 @@ export declare class Border extends ControlBaseDataView {
 /**
  * Typography control for text styling
  */
-export declare class Typography extends ControlBaseDataView {
+export interface Typography extends ControlBaseDataView {
   // Font management
   fonts: string[];
   googleFonts: string[];
@@ -515,7 +539,7 @@ export declare class Typography extends ControlBaseDataView {
 /**
  * Background control for element backgrounds
  */
-export declare class Background extends ControlBaseDataView {
+export interface Background extends ControlBaseDataView {
   // Background types
   backgroundTypes: string[];
   currentBackgroundType: string;
@@ -582,7 +606,7 @@ export declare class Background extends ControlBaseDataView {
 /**
  * Animation control for element animations
  */
-export declare class Animation extends ControlBaseDataView {
+export interface Animation extends ControlBaseDataView {
   // Animation properties
   animationType: string;
   animationDuration: number;
@@ -630,7 +654,7 @@ export declare class Animation extends ControlBaseDataView {
 /**
  * Transform control for CSS transforms
  */
-export declare class Transform extends ControlBaseDataView {
+export interface Transform extends ControlBaseDataView {
   // Transform properties
   translateX: number;
   translateY: number;
@@ -686,7 +710,7 @@ export declare class Transform extends ControlBaseDataView {
 /**
  * Filter control for CSS filters
  */
-export declare class Filter extends ControlBaseDataView {
+export interface Filter extends ControlBaseDataView {
   // Filter properties
   blur: number;
   brightness: number;

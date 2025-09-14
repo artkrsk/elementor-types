@@ -24,8 +24,10 @@ export interface RepeaterControl extends ControlBaseDataView {
 
 	events(): Record<string, string>;
 	templateHelpers(): {
+		view: ControlBaseDataView;
 		itemActions: any;
 		data: {
+			_cid: string;
 			controlValue: any[];
 			[key: string]: any;
 		};

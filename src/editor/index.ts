@@ -14,8 +14,8 @@ export * from "./channels";
 // Editor namespace interfaces
 export * from "./namespace";
 
-// Component subsystems
-export * from "./controls";
+// Component subsystems - use namespace to avoid conflicts
+export * as Controls from "./controls";
 
 // Panel system
 export * as Panel from "./panel";
@@ -37,6 +37,9 @@ export * as Elements from "./elements";
 export * as Layouts from "./layouts";
 export * as BrowserImport from "./browser-import";
 export * as Components from "./components";
+
+// Element types are available via: Editor.Elements.ElementModel, Editor.Elements.Models.ElementModel, etc.
+// Direct re-exports would cause import conflicts due to namespace structure
 
 // Re-export type guards for better accessibility
 export {

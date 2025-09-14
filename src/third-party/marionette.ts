@@ -5,7 +5,7 @@
  * Used by Elementor controls and views
  */
 
-import type { Model, Collection, View as BackboneView } from 'backbone';
+import type { Model, Collection, View as BackboneView, EventsHash, _Result } from 'backbone';
 
 declare global {
 	namespace Marionette {
@@ -18,7 +18,7 @@ declare global {
 
 		interface View<TModel extends Model = Model> extends BackboneView<TModel> {
 			ui?: any;
-			events?: Record<string, string> | (() => Record<string, string>);
+			events: _Result<EventsHash>;
 			templateHelpers?: () => any;
 			behaviors?: () => any;
 			onRender?(): void;

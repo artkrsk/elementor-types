@@ -96,6 +96,10 @@ export type {
   HookPriority,
 } from "./editor";
 
+// Element system (Task 5 completed - comprehensive element types)
+// Available via: Editor.Elements.ElementModel, Editor.Elements.Models.ElementModel
+// Or: import type { Editor } from '@arts/elementor-types'; type MyModel = Editor.Elements.ElementModel;
+
 // Global interfaces
 export type {
   ElementorModules,
@@ -218,7 +222,14 @@ export {
  *
  * @example Direct imports for specific types
  * ```typescript
- * import type { ElementorModules, ElementorFrontend } from '@elementor/types';
+ * import type {
+ *   ElementorModules,
+ *   ElementorFrontend,
+ *   ElementModel,
+ *   WidgetModel,
+ *   BaseElementView,
+ *   ElementsCollection
+ * } from '@elementor/types';
  * import { isResponsiveValue, isMediaValue } from '@elementor/types';
  * ```
  *
@@ -226,7 +237,12 @@ export {
  * ```typescript
  * import type { Editor } from '@elementor/types';
  *
- * type MyElement = Editor.Elements.Widget;
+ * // Using the comprehensive element system (Task 5 completed)
+ * type MyWidgetModel = Editor.Elements.WidgetModel;
+ * type MyWidgetView = Editor.Elements.WidgetView;
+ * type MyElementsCollection = Editor.Elements.ElementsCollection;
+ *
+ * // Using controls system
  * type MyControl = Editor.Controls.Select;
  * ```
  */
