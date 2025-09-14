@@ -43,6 +43,7 @@
 // Namespace exports for grouped functionality
 // ============================================================================
 export * as Core from "./core";
+export * as Modules from "./modules";
 export * as Frontend from "./frontend";
 export * as Editor from "./editor";
 export * as Admin from "./admin";

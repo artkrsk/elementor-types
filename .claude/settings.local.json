@@ -22,7 +22,20 @@
       "mcp__task-master-ai__add_task",
       "mcp__task-master-ai__next_task",
       "mcp__task-master-ai__set_task_status",
-      "mcp__task-master-ai__update_task"
+      "mcp__task-master-ai__update_task",
+      "mcp__task-master__add_tag",
+      "mcp__task-master__use_tag",
+      "Bash(touch:*)",
+      "mcp__task-master__parse_prd",
+      "mcp__task-master__models",
+      "mcp__task-master__get_tasks",
+      "mcp__task-master__next_task",
+      "Bash(tree:*)",
+      "mcp__task-master__update_task",
+      "mcp__task-master__copy_tag",
+      "mcp__task-master__remove_task",
+      "mcp__task-master__move_task",
+      "mcp__task-master__delete_tag"
     ],
     "deny": [],
     "ask": []
