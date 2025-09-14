@@ -15,9 +15,14 @@
       "mcp__task-master__get_task",
       "mcp__task-master__set_task_status",
       "Bash(npm run type-check:*)",
-      "mcp__task-master__add_task"
+      "mcp__task-master__add_task",
+      "mcp__task-master__initialize_project"
     ],
     "deny": [],
     "ask": []
-  }
+  },
+  "enabledMcpjsonServers": [
+    "task-master-ai"
+  ],
+  "enableAllProjectMcpServers": true
 }

@@ -82,3 +82,7 @@ The project uses strict TypeScript settings:
 - Follows barrel export pattern for clean imports
 - Uses namespace organization to prevent naming conflicts
 - Includes comprehensive JSDoc documentation and usage examples
+
+## Task Master AI Instructions
+**Import Task Master's development workflow commands and guidelines, treat as if import is in the main CLAUDE.md file.**
+@./.taskmaster/CLAUDE.md
