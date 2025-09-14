@@ -7,6 +7,7 @@
 
 import type { Model } from 'backbone';
 import type { View, CompositeView } from '../third-party/marionette';
+import type { ChildrenArray } from './container/model';
 
 // Forward declaration to fix circular reference issues
 
@@ -17,15 +18,15 @@ export interface ContainerDocument {
 }
 
 export interface ContainerChildren extends Array<any> {
+	// ChildrenArray methods
+	clear(): void;
+	findRecursive(callback: (container: any) => any): any | false;
+	forEachRecursive(callback: (container: any) => void): void;
+	someRecursive(callback: (container: any) => boolean): boolean;
+
+	// Additional container-specific methods
 	recursiveChildren?: any[];
 	recursiveEmpty?: () => any[];
-	forEach(callback: (child: any, index: number, array: any[]) => void): void;
-	map<T>(callback: (child: any, index: number, array: any[]) => T): T[];
-	filter(callback: (child: any, index: number, array: any[]) => boolean): any[];
-	find(callback: (child: any, index: number, array: any[]) => boolean): any | undefined;
-	findRecursive(callback: (child: any) => boolean): any | undefined;
-	forEachRecursive(callback: (child: any) => void): void;
-	some(callback: (child: any, index: number, array: any[]) => boolean): boolean;
 }
 
 export interface ContainerPanel {

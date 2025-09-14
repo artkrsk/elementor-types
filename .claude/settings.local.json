@@ -43,7 +43,8 @@
       "Bash(mkdir:*)",
       "Bash(rm:*)",
       "mcp__task-master__update_subtask",
-      "mcp__task-master__analyze_project_complexity"
+      "mcp__task-master__analyze_project_complexity",
+      "Bash(xargs:*)"
     ],
     "deny": [],
     "ask": []
