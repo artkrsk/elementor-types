@@ -1017,10 +1017,38 @@
         "description": "Complete all missing editor controls for 99% coverage (22 files)",
         "details": "Implement missing editor controls including accordion, background controls, base-multiple, base-units, base-tabs, and specialized control variations. Current coverage: 14/36 files (39%). Need to add 22 more files to achieve complete editor control coverage matching original Elementor JS structure.",
         "testStrategy": "",
-        "status": "in-progress",
+        "status": "done",
         "dependencies": [],
         "priority": "high",
-        "subtasks": []
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Base Control Classes",
+            "description": "Implement missing base control classes (base-multiple, base-units, base-tabs)",
+            "details": "Complete base-multiple, base-units, and base-tabs control foundation classes",
+            "status": "done",
+            "dependencies": [],
+            "parentTaskId": 25
+          },
+          {
+            "id": 2,
+            "title": "Background Controls",
+            "description": "Implement background-related controls (background, background-slideshow, etc.)",
+            "details": "Complete background control types for slideshow, video, and advanced background options",
+            "status": "done",
+            "dependencies": [],
+            "parentTaskId": 25
+          },
+          {
+            "id": 3,
+            "title": "Widget Controls",
+            "description": "Implement widget-specific controls and specialized control types",
+            "details": "Complete remaining widget controls and specialized control variations",
+            "status": "done",
+            "dependencies": [],
+            "parentTaskId": 25
+          }
+        ]
       },
       {
         "id": 26,
@@ -1028,10 +1056,29 @@
         "description": "Complete all missing editor elements for 99% coverage (18 files)",
         "details": "Implement missing editor elements including specific element types, element behaviors, model extensions, and element type variations. Current coverage: 17/35 files (49%). Need to add 18 more files to achieve complete editor element coverage matching original Elementor JS structure.",
         "testStrategy": "",
-        "status": "pending",
+        "status": "in-progress",
         "dependencies": [],
         "priority": "high",
-        "subtasks": []
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Element Types",
+            "description": "Implement missing element type classes",
+            "details": "Complete specific element types and their implementations",
+            "status": "in-progress",
+            "dependencies": [],
+            "parentTaskId": 26
+          },
+          {
+            "id": 2,
+            "title": "Element Views",
+            "description": "Implement missing element view classes",
+            "details": "Complete element view implementations and behaviors",
+            "status": "pending",
+            "dependencies": [],
+            "parentTaskId": 26
+          }
+        ]
       },
       {
         "id": 27,
@@ -1069,7 +1116,7 @@
     ],
     "metadata": {
       "created": "2025-09-13T07:52:06.524Z",
-      "updated": "2025-09-15T05:08:12.702Z",
+      "updated": "2025-09-15T05:24:17.682Z",
       "description": "RESTRUCTURED FOR 99% COVERAGE: Added 7 critical new tasks (12-18) based on coverage analysis. Priority order: Document System (40+ files), Components System (100+ files), Data/Globals (20+ files), Container Model completion, Regions System (30+ files). Deferred admin/app tasks to focus on core editor systems. Current coverage estimate: ~35% → target 99%."
     }
   },
