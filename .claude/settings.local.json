@@ -46,7 +46,8 @@
       "mcp__task-master__analyze_project_complexity",
       "Bash(xargs:*)",
       "mcp__task-master__remove_dependency",
-      "mcp__task-master__add_dependency"
+      "mcp__task-master__add_dependency",
+      "Bash(time pnpm run build)"
     ],
     "deny": [],
     "ask": []

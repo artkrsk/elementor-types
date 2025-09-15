@@ -101,12 +101,10 @@ export interface ElementorModules {
 	[key: string]: any;
 }
 
-// Global module registry interface
-declare global {
-	interface Window {
-		elementorModules: ElementorModules;
-	}
-}
+/**
+ * Window interface for elementorModules
+ * Note: Users should extend Window interface in their own projects if needed
+ */
 
 // Export the main modules interface
 export type { ElementorModules as default };
