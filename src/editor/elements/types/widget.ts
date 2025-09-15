@@ -5,7 +5,7 @@
  * Specific implementation for widget elements
  */
 
-import type { BaseElement } from './base';
+import type { BaseElementModel } from '../models/base-element-model';
 
 /**
  * Widget configuration
@@ -23,7 +23,7 @@ export interface WidgetConfig {
  * Widget Element Type
  * Specific element type for widgets
  */
-export interface WidgetElement extends BaseElement {
+export interface WidgetElement extends BaseElementModel {
 	/**
 	 * Get widget configuration
 	 */
