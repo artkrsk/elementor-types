@@ -5,7 +5,7 @@
  * Control for entrance animations
  */
 
-import type { ControlSelect } from './simple';
+import type { Select } from './specific';
 
 /**
  * Animation options
@@ -34,7 +34,7 @@ export interface AnimationOptions {
  * Animation Control
  * Select control for entrance animations
  */
-export interface AnimationControl extends ControlSelect {
+export interface AnimationControl extends Select {
 	/**
 	 * Get animation options
 	 */
