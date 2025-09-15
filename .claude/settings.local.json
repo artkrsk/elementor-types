@@ -52,7 +52,9 @@
       "mcp__task-master-ai__get_tasks",
       "mcp__task-master-ai__get_task",
       "Read(//private/tmp/**)",
-      "Read(//tmp/**)"
+      "Read(//tmp/**)",
+      "mcp__task-master-ai__expand_task",
+      "mcp__task-master-ai__add_subtask"
     ],
     "deny": [],
     "ask": []
