@@ -1,0 +1,11 @@
+# Task ID: 27
+# Title: Complete Utils Systems
+# Status: pending
+# Dependencies: None
+# Priority: medium
+# Description: Complete all missing utility systems for 99% coverage (19 files)
+# Details:
+Implement missing editor utils (8 files) and frontend utils (11 files) including specialized utilities, helper functions, and supporting tools. This completes all utility coverage to match original Elementor JS structure.
+
+# Test Strategy:
+

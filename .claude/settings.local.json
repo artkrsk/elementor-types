@@ -47,7 +47,8 @@
       "Bash(xargs:*)",
       "mcp__task-master__remove_dependency",
       "mcp__task-master__add_dependency",
-      "Bash(time pnpm run build)"
+      "Bash(time pnpm run build)",
+      "Bash(comm:*)"
     ],
     "deny": [],
     "ask": []
