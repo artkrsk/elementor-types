@@ -1,6 +1,6 @@
 # Task ID: 31
 # Title: Component Hooks
-# Status: pending
+# Status: done
 # Dependencies: None
 # Priority: high
 # Description: Complete component-level hooks (template library, browser import, etc.)

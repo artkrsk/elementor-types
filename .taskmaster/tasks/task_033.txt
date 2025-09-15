@@ -1,6 +1,6 @@
 # Task ID: 33
 # Title: Editor Hooks
-# Status: pending
+# Status: done
 # Dependencies: None
 # Priority: high
 # Description: Complete editor-level hooks (global hooks, element hooks, control hooks)
