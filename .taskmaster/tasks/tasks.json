@@ -1125,7 +1125,7 @@
         "description": "Complete all remaining scattered components for 99% coverage (120 files)",
         "details": "Implement all remaining scattered individual files across all systems including specialized components, edge case handlers, and small utilities. This represents the final push to achieve 99% file coverage matching the complete Elementor JS codebase structure.",
         "testStrategy": "",
-        "status": "in-progress",
+        "status": "done",
         "dependencies": [],
         "priority": "medium",
         "subtasks": [
@@ -1182,6 +1182,69 @@
         "description": "Verify each TypeScript file matches corresponding JavaScript file exactly",
         "details": "Compare each .ts file against corresponding .js file for method signatures, property types, and API accuracy. Ensure 100% consistency between TypeScript definitions and original Elementor JavaScript implementations for ultimate accuracy.",
         "testStrategy": "",
+        "status": "done",
+        "dependencies": [],
+        "priority": "high",
+        "subtasks": []
+      },
+      {
+        "id": 30,
+        "title": "Document Hooks Expansion",
+        "description": "Complete all missing document hooks for comprehensive coverage",
+        "details": "Implement all missing document UI hooks, data hooks, and hook variations. Current hook coverage: 10/55 files (18%). Document hooks are critical for editor functionality and represent the largest gap in our coverage.",
+        "testStrategy": "",
+        "status": "in-progress",
+        "dependencies": [],
+        "priority": "medium",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Document UI Hooks",
+            "description": "Complete all document UI hooks (settings, delete, create, etc.)",
+            "details": "Implement all UI hooks for document operations including settings hooks, delete hooks, create hooks, and other UI-related hooks",
+            "status": "done",
+            "dependencies": [],
+            "parentTaskId": 30
+          },
+          {
+            "id": 2,
+            "title": "Document Data Hooks",
+            "description": "Complete all document data hooks (settings, move, delete operations)",
+            "details": "Implement all data hooks for document operations including settings data hooks, move data hooks, delete data hooks, and other data-related hooks",
+            "status": "in-progress",
+            "dependencies": [],
+            "parentTaskId": 30
+          }
+        ]
+      },
+      {
+        "id": 31,
+        "title": "Component Hooks",
+        "description": "Complete component-level hooks (template library, browser import, etc.)",
+        "details": "Implement template library hooks, browser import hooks, component UI hooks, and other component-level hook systems for comprehensive functionality.",
+        "testStrategy": "",
+        "status": "pending",
+        "dependencies": [],
+        "priority": "high",
+        "subtasks": []
+      },
+      {
+        "id": 32,
+        "title": "Regional Hooks",
+        "description": "Complete regional hooks (panel hooks, navigator hooks, regions hooks)",
+        "details": "Implement panel hooks, navigator hooks, responsive bar hooks, and other region-level hook systems for complete regional functionality.",
+        "testStrategy": "",
+        "status": "pending",
+        "dependencies": [],
+        "priority": "high",
+        "subtasks": []
+      },
+      {
+        "id": 33,
+        "title": "Editor Hooks",
+        "description": "Complete editor-level hooks (global hooks, element hooks, control hooks)",
+        "details": "Implement global editor hooks, element-level hooks, control hooks, and other editor-wide hook systems for comprehensive editor functionality.",
+        "testStrategy": "",
         "status": "pending",
         "dependencies": [],
         "priority": "high",
@@ -1190,7 +1253,7 @@
     ],
     "metadata": {
       "created": "2025-09-13T07:52:06.524Z",
-      "updated": "2025-09-15T06:36:24.944Z",
+      "updated": "2025-09-15T07:12:10.336Z",
       "description": "RESTRUCTURED FOR 99% COVERAGE: Added 7 critical new tasks (12-18) based on coverage analysis. Priority order: Document System (40+ files), Components System (100+ files), Data/Globals (20+ files), Container Model completion, Regions System (30+ files). Deferred admin/app tasks to focus on core editor systems. Current coverage estimate: ~35% → target 99%."
     }
   },
