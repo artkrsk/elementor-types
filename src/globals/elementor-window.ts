@@ -11,6 +11,8 @@ import type { ElementorWindowLayouts } from '../editor/layouts/window-layouts';
 import type { ElementorWindowViews } from '../editor/views/window-views';
 import type { ElementorHooks } from '../utils/elementor-hooks';
 import type { ElementorEditorChannel } from '../editor/channels/editor-channel';
+import type { AddControlViewFunction, ControlViewConstructor } from '../utils/control-registration';
+import type { Breakpoints } from '../utils/breakpoints';
 
 /**
  * Elementor Editor Modules Interface
@@ -190,11 +192,37 @@ export interface ElementorEditor {
   /** Presets factory */
   presetsFactory: any;
 
+  /**
+   * Breakpoints system - Enhanced based on real usage patterns
+   * Used for responsive design and device management
+   */
+  breakpoints: Breakpoints;
+
   /** Template manager */
   templates: any;
 
-  /** Ajax utilities */
-  ajax: any;
+  /** Ajax utilities - Enhanced based on real usage patterns */
+  ajax: {
+    /**
+     * Add AJAX request - Used extensively in real projects
+     * Pattern: window.elementor.ajax.addRequest(action, options)
+     */
+    addRequest(action: string, options: {
+      /** Request data payload */
+      data?: Record<string, any>;
+      /** Success callback */
+      success?: (response: any) => void;
+      /** Error callback */
+      error?: (error: any) => void;
+      /** Complete callback */
+      complete?: () => void;
+      /** Custom AJAX options */
+      [key: string]: any;
+    }): Promise<any>;
+
+    /** Other AJAX methods */
+    [key: string]: any;
+  };
 
   /** Control conditions */
   conditions: any;
@@ -222,8 +250,11 @@ export interface ElementorEditor {
   /** Check if user has capability */
   userCan(capability: string): boolean;
 
-  /** Add control view */
-  addControlView(controlID: string, ControlView: any): void;
+  /**
+   * Add control view - Enhanced typing based on real usage patterns
+   * Used extensively in custom control development
+   */
+  addControlView: AddControlViewFunction;
 
   /** Check environment compatibility */
   checkEnvCompatibility(): boolean;

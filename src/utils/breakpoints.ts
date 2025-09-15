@@ -12,9 +12,17 @@ export declare class Breakpoints extends Module {
   activeBreakpoints: Record<string, any>;
 
   /**
-   * Get list of active breakpoint names
+   * Get list of active breakpoint names - Enhanced for real usage patterns
+   * Used extensively with options for ordering and desktop inclusion
    */
-  getActiveBreakpointsList(): string[];
+  getActiveBreakpointsList(options?: {
+    /** Order from large to small (default: false) */
+    largeToSmall?: boolean;
+    /** Include desktop breakpoint (default: false) */
+    withDesktop?: boolean;
+    /** Include specific device types */
+    includeTypes?: string[];
+  }): string[];
 
   /**
    * Get breakpoint pixel values
