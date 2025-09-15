@@ -37,6 +37,10 @@ export * as Elements from "./elements";
 export * as Layouts from "./layouts";
 export * as BrowserImport from "./browser-import";
 export * as Components from "./components";
+export * as Regions from "./regions";
+
+// Hook system - comprehensive editor hooks
+export * as Hooks from "./hooks";
 
 // Element types are available via: Editor.Elements.ElementModel, Editor.Elements.Models.ElementModel, etc.
 // Direct re-exports would cause import conflicts due to namespace structure

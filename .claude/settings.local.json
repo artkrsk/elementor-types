@@ -48,7 +48,9 @@
       "mcp__task-master__remove_dependency",
       "mcp__task-master__add_dependency",
       "Bash(time pnpm run build)",
-      "Bash(comm:*)"
+      "Bash(comm:*)",
+      "mcp__task-master-ai__get_tasks",
+      "mcp__task-master-ai__get_task"
     ],
     "deny": [],
     "ask": []
