@@ -39,8 +39,14 @@ export * as BrowserImport from "./browser-import";
 export * as Components from "./components";
 export * as Regions from "./regions";
 
+// Command system base classes
+export * as CommandBases from "./command-bases";
+
 // Hook system - comprehensive editor hooks
 export * as Hooks from "./hooks";
+
+// Component base class
+export * from "./component-base";
 
 // Element types are available via: Editor.Elements.ElementModel, Editor.Elements.Models.ElementModel, etc.
 // Direct re-exports would cause import conflicts due to namespace structure

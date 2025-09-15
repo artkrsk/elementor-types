@@ -50,7 +50,9 @@
       "Bash(time pnpm run build)",
       "Bash(comm:*)",
       "mcp__task-master-ai__get_tasks",
-      "mcp__task-master-ai__get_task"
+      "mcp__task-master-ai__get_task",
+      "Read(//private/tmp/**)",
+      "Read(//tmp/**)"
     ],
     "deny": [],
     "ask": []
