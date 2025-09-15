@@ -1128,7 +1128,53 @@
         "status": "in-progress",
         "dependencies": [],
         "priority": "medium",
-        "subtasks": []
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Control Behaviors & Extensions",
+            "description": "Implement control behaviors, extensions, and specialized control components (~30 files)",
+            "details": "Complete control behaviors, control extensions, specialized control components, and control-related helper systems",
+            "status": "done",
+            "dependencies": [],
+            "parentTaskId": 28
+          },
+          {
+            "id": 2,
+            "title": "Element Behaviors & Variations",
+            "description": "Implement element behaviors, variations, and specialized element components (~25 files)",
+            "details": "Complete element behaviors, element variations, specialized element types, and element-related helper systems",
+            "status": "done",
+            "dependencies": [],
+            "parentTaskId": 28
+          },
+          {
+            "id": 3,
+            "title": "Component Extensions & Helpers",
+            "description": "Implement component extensions, helpers, and supporting systems (~25 files)",
+            "details": "Complete component extensions, helper functions, supporting utilities, and component-related tools",
+            "status": "done",
+            "dependencies": [],
+            "parentTaskId": 28
+          },
+          {
+            "id": 4,
+            "title": "Specialized Components & Edge Cases",
+            "description": "Implement specialized components and edge case handlers (~25 files)",
+            "details": "Complete specialized components, edge case handlers, unusual component types, and niche functionality",
+            "status": "done",
+            "dependencies": [],
+            "parentTaskId": 28
+          },
+          {
+            "id": 5,
+            "title": "Final Scattered Components",
+            "description": "Implement final scattered components and complete coverage (~15 files)",
+            "details": "Complete all remaining scattered individual files to achieve 99% comprehensive coverage matching Elementor JS",
+            "status": "done",
+            "dependencies": [],
+            "parentTaskId": 28
+          }
+        ]
       },
       {
         "id": 29,
@@ -1144,7 +1190,7 @@
     ],
     "metadata": {
       "created": "2025-09-13T07:52:06.524Z",
-      "updated": "2025-09-15T06:20:07.979Z",
+      "updated": "2025-09-15T06:36:24.944Z",
       "description": "RESTRUCTURED FOR 99% COVERAGE: Added 7 critical new tasks (12-18) based on coverage analysis. Priority order: Document System (40+ files), Components System (100+ files), Data/Globals (20+ files), Container Model completion, Regions System (30+ files). Deferred admin/app tasks to focus on core editor systems. Current coverage estimate: ~35% → target 99%."
     }
   },
