@@ -1,6 +1,6 @@
 # Task ID: 26
 # Title: Complete Editor Elements System
-# Status: in-progress
+# Status: done
 # Dependencies: None
 # Priority: high
 # Description: Complete all missing editor elements for 99% coverage (18 files)
@@ -11,13 +11,13 @@ Implement missing editor elements including specific element types, element beha
 
 
 # Subtasks:
-## 1. Element Types [pending]
+## 1. Element Types [done]
 ### Dependencies: None
 ### Description: Implement missing element type classes
 ### Details:
 Complete specific element types and their implementations
 
-## 2. Element Views [pending]
+## 2. Element Views [done]
 ### Dependencies: None
 ### Description: Implement missing element view classes
 ### Details:

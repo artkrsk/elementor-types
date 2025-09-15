@@ -1,6 +1,6 @@
 # Task ID: 27
 # Title: Complete Utils Systems
-# Status: pending
+# Status: in-progress
 # Dependencies: None
 # Priority: medium
 # Description: Complete all missing utility systems for 99% coverage (19 files)
@@ -8,4 +8,24 @@
 Implement missing editor utils (8 files) and frontend utils (11 files) including specialized utilities, helper functions, and supporting tools. This completes all utility coverage to match original Elementor JS structure.
 
 # Test Strategy:
+
+
+# Subtasks:
+## 1. Editor Helper Utils [pending]
+### Dependencies: None
+### Description: Implement editor helper utilities (helpers, is-instanceof, module, notice-bar)
+### Details:
+Complete general helper functions, type checking utilities, editor module utilities, and notice bar functionality
+
+## 2. Editor Integration Utils [pending]
+### Dependencies: None
+### Description: Implement editor integration utilities (jquery-html5-dnd, serialize-object, localized-store)
+### Details:
+Complete HTML5 drag and drop, form serialization, and localization storage utilities
+
+## 3. Frontend Utils [pending]
+### Dependencies: None
+### Description: Implement missing frontend utilities (anchor-scroll-margin, controls, e-icons, manager, utils)
+### Details:
+Complete frontend utility functions including anchor scrolling, control utilities, icon management, and general frontend tools
 
