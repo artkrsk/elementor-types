@@ -1,0 +1,25 @@
+# Task ID: 30
+# Title: Document Hooks Expansion
+# Status: in-progress
+# Dependencies: None
+# Priority: medium
+# Description: Complete all missing document hooks for comprehensive coverage
+# Details:
+Implement all missing document UI hooks, data hooks, and hook variations. Current hook coverage: 10/55 files (18%). Document hooks are critical for editor functionality and represent the largest gap in our coverage.
+
+# Test Strategy:
+
+
+# Subtasks:
+## 1. Document UI Hooks [in-progress]
+### Dependencies: None
+### Description: Complete all document UI hooks (settings, delete, create, etc.)
+### Details:
+Implement all UI hooks for document operations including settings hooks, delete hooks, create hooks, and other UI-related hooks
+
+## 2. Document Data Hooks [pending]
+### Dependencies: None
+### Description: Complete all document data hooks (settings, move, delete operations)
+### Details:
+Implement all data hooks for document operations including settings data hooks, move data hooks, delete data hooks, and other data-related hooks
+
