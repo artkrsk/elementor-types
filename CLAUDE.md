@@ -21,14 +21,15 @@ This is `@arts/elementor-types`, a TypeScript definitions package for the Elemen
 ## Architecture
 
 ### Module Organization
-The package is organized into six main namespaces:
+The package is organized into eight main namespaces:
 
 - **Core** (`src/core/`) - Base module system classes and interfaces
+- **Modules** (`src/modules/`) - Additional module implementations and imports
 - **Frontend** (`src/frontend/`) - Frontend handlers, managers, and configurations
 - **Editor** (`src/editor/`) - Editor components, controls, commands, and data system
 - **Admin** (`src/admin/`) - Admin interface types
 - **Utils** (`src/utils/`) - Utility types, helpers, guards, and advanced types
-- **ThirdParty** (`src/third-party/`) - External library integrations (jQuery, Swiper, WordPress)
+- **ThirdParty** (`src/third-party/`) - External library integrations (jQuery, Swiper, WordPress, Backbone, Marionette, Select2, Video)
 - **Globals** (`src/globals/`) - Global window declarations and module definitions
 
 ### Export Strategy
@@ -64,15 +65,21 @@ The package uses a dual export strategy:
 
 The project uses strict TypeScript settings:
 - Target: ES2020
-- Module: ESNext  
+- Module: ESNext
 - Declaration generation enabled
 - Strict mode enabled
+- Includes DOM and DOM.Iterable libraries
+- Types: jquery, node, select2
 - Excludes test files and tasks directory
 
 ## Dependencies
 
 - **Peer Dependencies**: @types/jquery, swiper
-- **Development**: TypeScript 5.2+, jQuery types, Swiper types
+- **Development Dependencies**:
+  - TypeScript 5.2+
+  - @types/jquery, @types/backbone, @types/select2, @types/node
+  - backbone, backbone.marionette, backbone.radio, underscore
+  - swiper
 - No runtime dependencies (types-only package)
 
 ## Development Notes
