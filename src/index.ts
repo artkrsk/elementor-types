@@ -94,6 +94,7 @@ export type {
   FilterCallback,
   ActionCallback,
   HookPriority,
+  $e,
 } from "./editor";
 
 // Element system (Task 5 completed - comprehensive element types)
