@@ -66,5 +66,8 @@ export {
   isElementChangeDetails,
 } from "./channels/editor-channel";
 
+// Command system - $e global
+export { $e } from "./commands/base";
+
 // Placeholder for additional editor types
 export {};
