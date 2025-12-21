@@ -96,8 +96,34 @@ export interface ElementorFrontend {
   ): void;
   debounce(func: Function, wait: number): Function;
 
-  // Event methods
+  // Event methods (inherited from Module pattern)
   on(eventName: string, callback: Function): void;
   off(eventName: string, callback?: Function): void;
   trigger(eventName: string, ...args: any[]): void;
+
+  // Initialization methods
+  /** Initialize dialogs manager for lightbox and popups */
+  initDialogsManager(): void;
+  /** Initialize components when DOM is ready (utils like lightbox, swiper) */
+  initOnReadyComponents(): void;
+  /** Initialize element-related functionality on ready */
+  initOnReadyElements(): void;
+  /** Initialize module handlers */
+  initModules(): void;
+
+  // Lifecycle hooks
+  /** Called when document is fully loaded */
+  onDocumentLoaded(): void;
+
+  // Utility methods
+  /** Add user agent CSS classes to body */
+  addUserAgentClasses(): void;
+  /** Mute jQuery migrate deprecation warnings */
+  muteMigrationTraces(): void;
+
+  /**
+   * @deprecated since 2.5.0, use `elementorModules.frontend.handlers.Base` instead
+   * Legacy Module getter for backwards compatibility
+   */
+  readonly Module: any;
 }
