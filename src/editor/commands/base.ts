@@ -80,6 +80,8 @@ export interface $e {
     CommandInternalBase: typeof CommandInternalBase;
     CommandData: typeof CommandData;
     editor: typeof editor;
+    ComponentBase: typeof import('../../core/component-base').ComponentBase;
+    hookUI: import('../../core/hook-ui-base').HookUI;
   };
 
   components: ComponentRegistry;

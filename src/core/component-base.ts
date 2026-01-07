@@ -42,9 +42,19 @@ export interface ComponentBase extends Module {
 	defaultCommandsInternal?(): any;
 
 	/**
+	 * Get default hooks
+	 */
+	defaultHooks?(): any;
+
+	/**
 	 * Import commands from module
 	 */
 	importCommands(commandsModule: any): any;
+
+	/**
+	 * Import hooks from module
+	 */
+	importHooks(hooksModule: any): any;
 
 	/**
 	 * Register component
