@@ -8,16 +8,35 @@
 import type { Module } from '../../core/modules';
 
 /**
+ * Helper type for Backbone/Marionette extendable constructors
+ * All Elementor controls support .extend() for creating subclasses
+ */
+type ExtendableConstructor<T> = (new (...args: any[]) => T) & {
+  extend(proto: any, staticProps?: any): ExtendableConstructor<T>;
+};
+
+/**
  * Base control interface - foundation for all controls
+ * Extends Module and includes ControlView requirements
  */
 export interface ControlBase extends Module {
   /** Control model */
   model: {
     get(key: string): any;
-    set(key: string, value: any): void;
+    set(key: string | object, value?: any): any;
     toJSON(): Record<string, any>;
     cid: string;
+    attributes: Record<string, any>;
   };
+
+  /** Container reference */
+  container: any;
+
+  /** Native DOM element */
+  el: HTMLElement;
+
+  /** jQuery wrapped DOM element */
+  $el: JQuery<HTMLElement>;
 
   /** UI elements */
   ui: Record<string, any>;
@@ -42,6 +61,18 @@ export interface ControlBase extends Module {
 
   /** Event handlers */
   events(): Record<string, string>;
+
+  /** Get current control value */
+  getControlValue(): any;
+
+  /** Set control value */
+  setValue(value: any): void;
+
+  /** Re-render the control */
+  render(): this;
+
+  /** Destroy the control */
+  destroy(): void;
 }
 
 /**
@@ -227,118 +258,116 @@ export interface UrlControl extends ControlBaseData {
  */
 export interface ElementorWindowControls {
   /** Animation control */
-  Animation: new (...args: any[]) => SelectControl;
+  Animation: ExtendableConstructor<SelectControl>;
 
   /** Base control */
-  Base: new (...args: any[]) => ControlBase;
+  Base: ExtendableConstructor<ControlBase>;
 
   /** Base data control */
-  BaseData: new (...args: any[]) => ControlBaseData;
+  BaseData: ExtendableConstructor<ControlBaseData>;
 
   /** Base multiple control */
-  BaseMultiple: new (...args: any[]) => ControlBaseData;
+  BaseMultiple: ExtendableConstructor<ControlBaseData>;
 
   /** Box shadow control */
-  Box_shadow: new (...args: any[]) => ControlBaseData;
+  Box_shadow: ExtendableConstructor<ControlBaseData>;
 
   /** Button control */
-  Button: new (...args: any[]) => ControlBase;
+  Button: ExtendableConstructor<ControlBase>;
 
   /** Choose control */
-  Choose: new (...args: any[]) => ControlBaseData;
+  Choose: ExtendableConstructor<ControlBaseData>;
 
   /** Visual choice control */
-  Visual_choice: new (...args: any[]) => ControlBaseData;
+  Visual_choice: ExtendableConstructor<ControlBaseData>;
 
   /** Code control */
-  Code: new (...args: any[]) => ControlBaseData;
+  Code: ExtendableConstructor<ControlBaseData>;
 
   /** Color control */
-  Color: new (...args: any[]) => ColorControl;
+  Color: ExtendableConstructor<ColorControl>;
 
   /** Date time control */
-  Date_time: new (...args: any[]) => ControlBaseData;
+  Date_time: ExtendableConstructor<ControlBaseData>;
 
   /** Dimensions control */
-  Dimensions: new (...args: any[]) => DimensionsControl;
+  Dimensions: ExtendableConstructor<DimensionsControl>;
 
   /** Exit animation control */
-  Exit_animation: new (...args: any[]) => SelectControl;
+  Exit_animation: ExtendableConstructor<SelectControl>;
 
   /** Font control */
-  Font: new (...args: any[]) => SelectControl;
+  Font: ExtendableConstructor<SelectControl>;
 
   /** Gaps control */
-  Gaps: new (...args: any[]) => DimensionsControl;
+  Gaps: ExtendableConstructor<DimensionsControl>;
 
   /** Gallery control */
-  Gallery: new (...args: any[]) => MediaControl;
+  Gallery: ExtendableConstructor<MediaControl>;
 
   /** Hidden control */
-  Hidden: new (...args: any[]) => ControlBase;
+  Hidden: ExtendableConstructor<ControlBase>;
 
   /** Hover animation control */
-  Hover_animation: new (...args: any[]) => SelectControl;
+  Hover_animation: ExtendableConstructor<SelectControl>;
 
   /** Icon control */
-  Icon: new (...args: any[]) => ControlBaseData;
+  Icon: ExtendableConstructor<ControlBaseData>;
 
   /** Icons control */
-  Icons: new (...args: any[]) => ControlBaseData;
+  Icons: ExtendableConstructor<ControlBaseData>;
 
   /** Image dimensions control */
-  Image_dimensions: new (...args: any[]) => DimensionsControl;
+  Image_dimensions: ExtendableConstructor<DimensionsControl>;
 
   /** Media control */
-  Media: new (...args: any[]) => MediaControl;
+  Media: ExtendableConstructor<MediaControl>;
 
   /** Notice control */
-  Notice: new (...args: any[]) => ControlBase;
+  Notice: ExtendableConstructor<ControlBase>;
 
   /** Number control */
-  Number: new (...args: any[]) => NumberControl;
+  Number: ExtendableConstructor<NumberControl>;
 
   /** Popover toggle control */
-  Popover_toggle: new (...args: any[]) => ControlBaseData;
+  Popover_toggle: ExtendableConstructor<ControlBaseData>;
 
   /** Repeater control */
-  Repeater: new (...args: any[]) => RepeaterControl;
+  Repeater: ExtendableConstructor<RepeaterControl>;
 
   /** Repeater row control */
-  RepeaterRow: new (...args: any[]) => ControlBaseData;
+  RepeaterRow: ExtendableConstructor<ControlBaseData>;
 
   /** Section control */
-  Section: new (...args: any[]) => ControlBase;
+  Section: ExtendableConstructor<ControlBase>;
 
   /** Select control */
-  Select: new (...args: any[]) => SelectControl;
+  Select: ExtendableConstructor<SelectControl>;
 
   /** Select2 control */
-  Select2: new (...args: any[]) => SelectControl;
+  Select2: ExtendableConstructor<SelectControl>;
 
   /** Slider control */
-  Slider: new (...args: any[]) => NumberControl;
+  Slider: ExtendableConstructor<NumberControl>;
 
   /** Structure control */
-  Structure: new (...args: any[]) => ControlBaseData;
+  Structure: ExtendableConstructor<ControlBaseData>;
 
   /** Switcher control */
-  Switcher: new (...args: any[]) => SwitcherControl;
+  Switcher: ExtendableConstructor<SwitcherControl>;
 
   /** Tab control */
-  Tab: new (...args: any[]) => ControlBase;
+  Tab: ExtendableConstructor<ControlBase>;
 
   /** Text shadow control */
-  Text_shadow: new (...args: any[]) => ControlBaseData;
+  Text_shadow: ExtendableConstructor<ControlBaseData>;
 
   /** URL control */
-  Url: (new (...args: any[]) => UrlControl) & {
-    extend(properties: Record<string, any>): new (...args: any[]) => UrlControl;
-  };
+  Url: ExtendableConstructor<UrlControl>;
 
   /** WordPress widget control */
-  Wp_widget: new (...args: any[]) => ControlBaseData;
+  Wp_widget: ExtendableConstructor<ControlBaseData>;
 
   /** WYSIWYG control */
-  Wysiwyg: new (...args: any[]) => ControlBaseData;
+  Wysiwyg: ExtendableConstructor<ControlBaseData>;
 }

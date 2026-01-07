@@ -11,6 +11,7 @@ import type { CommonElementSettings } from "./element-settings";
 import type { BackboneRadioChannel, BackboneView, BackboneModel } from "../third-party";
 import type { ElementorEditorChannel } from "./channels/editor-channel";
 import type { ElementorHooks } from "./hooks";
+import type { Breakpoints } from "../utils/breakpoints";
 
 /**
  * Element data structure
@@ -365,6 +366,7 @@ export interface ElementorEditor {
   validator: ValidatorManager;
   globals: ElementorGlobals;
   iconsManager: ElementorIconsManager;
+  breakpoints: Breakpoints;
 
   // Hooks system
   hooks: ElementorHooks;
