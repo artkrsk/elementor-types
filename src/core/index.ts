@@ -7,6 +7,7 @@ export * from "./modules";
 export * from "./utils";
 export * from "./command-base";
 export * from "./component-base";
+export * from "./hook-ui-base";
 
 // Re-export for convenience
 export type {
