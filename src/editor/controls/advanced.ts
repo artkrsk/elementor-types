@@ -86,12 +86,12 @@ export interface FontControl extends Select2Control {
 	$previewContainer: JQuery | null;
 	typeStopDetection: {
 		idle: number;
-		timeOut: NodeJS.Timeout | null;
+		timeOut: ReturnType<typeof setTimeout> | null;
 		action(): void;
 	};
 	scrollStopDetection: {
 		idle: number;
-		timeOut: NodeJS.Timeout | null;
+		timeOut: ReturnType<typeof setTimeout> | null;
 		onScroll(): void;
 	};
 
