@@ -80,6 +80,12 @@ export interface DialogOptions {
   /** Dialog content (HTML string or jQuery element) */
   content?: string | JQuery;
 
+  /** Header message for alert/confirm dialogs */
+  headerMessage?: string;
+
+  /** Main message content (HTML string or jQuery element) */
+  message?: string | JQuery;
+
   /** Dialog width */
   width?: number | string;
 
@@ -104,11 +110,26 @@ export interface DialogOptions {
   /** Close dialog on background click */
   closeOnBackgroundClick?: boolean;
 
+  /** Hide behavior settings */
+  hide?: {
+    auto?: boolean;
+    autoDelay?: number;
+    onClick?: boolean;
+    onOutsideClick?: boolean;
+    onOutsideContextMenu?: boolean;
+    onBackgroundClick?: boolean;
+    onEscKeyPress?: boolean;
+    ignore?: string;
+  };
+
   /** Dialog position */
   position?: {
+    element?: string;
     my?: string;
     at?: string;
-    of?: string | Element | JQuery;
+    of?: string | Element | JQuery | Window;
+    enable?: boolean;
+    autoRefresh?: boolean;
   };
 
   /** Dialog buttons */
@@ -119,17 +140,63 @@ export interface DialogOptions {
     close?: boolean;
   }>;
 
+  /** Button text labels for confirm/alert dialogs */
+  strings?: {
+    confirm?: string;
+    cancel?: string;
+  };
+
   /** Event callbacks */
   onOpen?: () => void;
   onClose?: () => void;
   onResize?: () => void;
   onDrag?: () => void;
+  onShow?: (params?: any) => void;
+  onHide?: (params?: any) => void;
+  onInit?: (params?: any) => void;
+  onReady?: (params?: any) => void;
+  onConfirm?: () => void;
+  onCancel?: () => void;
 
   /** Custom CSS classes */
   className?: string;
 
+  /** Container selector or element */
+  container?: string | JQuery;
+
+  /** Prevent body scroll when dialog is open */
+  preventScroll?: boolean;
+
+  /** iframe reference */
+  iframe?: JQuery | null;
+
+  /** Show close button */
+  closeButton?: boolean;
+
+  /** Show/hide effects */
+  effects?: {
+    show?: string | Function;
+    hide?: string | Function;
+  };
+
   /** Additional widget-specific options */
   widget?: Record<string, any>;
+}
+
+/**
+ * Dialog Widget Elements
+ */
+export interface DialogElements {
+  widget: JQuery;
+  content: JQuery;
+  header?: JQuery;
+  message?: JQuery;
+  footer?: JQuery;
+  closeButton?: JQuery;
+  window?: JQuery;
+  body?: JQuery;
+  container?: JQuery;
+  buttonsWrapper?: JQuery;
 }
 
 /**
@@ -146,13 +213,13 @@ export interface DialogWidget {
   options: DialogOptions;
 
   /** Show the dialog */
-  show(): void;
+  show(): DialogWidget;
 
   /** Hide the dialog */
-  hide(): void;
+  hide(): DialogWidget;
 
   /** Destroy the dialog */
-  destroy(): void;
+  destroy(): DialogWidget;
 
   /** Check if dialog is visible */
   isVisible(): boolean;
@@ -161,22 +228,45 @@ export interface DialogWidget {
   getContent(): JQuery;
 
   /** Set dialog content */
-  setContent(content: string | JQuery): void;
+  setContent(content: string | JQuery): DialogWidget;
 
-  /** Get dialog element */
-  getElements(): {
-    widget: JQuery;
-    content: JQuery;
-    header?: JQuery;
-    footer?: JQuery;
-    closeButton?: JQuery;
-  };
+  /** Get all dialog elements or a specific element by key */
+  getElements(): DialogElements;
+  getElements(item: string): JQuery;
+
+  /** Get all settings or a specific setting */
+  getSettings(): any;
+  getSettings(setting: string): any;
+
+  /** Set header message */
+  setHeaderMessage(message: string): DialogWidget;
+
+  /** Set main message */
+  setMessage(message: string | JQuery): DialogWidget;
+
+  /** Update dialog settings */
+  setSettings(key: string, value: any): DialogWidget;
+
+  /** Set dialog ID */
+  setID(id: string): DialogWidget;
 
   /** Refresh dialog layout */
   refresh(): void;
 
   /** Set dialog position */
   setPosition(position: DialogOptions['position']): void;
+
+  /** Refresh position */
+  refreshPosition(): void;
+
+  /** Event system */
+  on(eventName: string, callback: Function): DialogWidget;
+  off(eventName: string, callback?: Function): DialogWidget;
+  trigger(eventName: string, params?: any): DialogWidget;
+
+  /** Dynamic callback properties (can be set after creation) */
+  onConfirm?: () => void;
+  onCancel?: () => void;
 }
 
 /**
