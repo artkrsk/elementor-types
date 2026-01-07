@@ -172,7 +172,11 @@ export interface TemplatesManager {
  */
 export interface AjaxManager {
   request(type: string, options: any): Promise<any>;
-  addRequest(type: string, callback: Function): void;
+  addRequest(action: string, config?: {
+    data?: Record<string, any>;
+    success?: (response: any) => void;
+    error?: (error: any) => void;
+  }): void;
 }
 
 /**
