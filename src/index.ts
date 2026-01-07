@@ -111,6 +111,20 @@ export type {
   FrontendHandlerElements
 } from "./globals";
 
+// Hook system types
+export type {
+  HookArgs,
+  HookUIBase,
+  HookUIAfter,
+  HookUIBefore,
+} from "./core";
+
+// Container types
+export type {
+  Container,
+  ContainerDocument,
+} from "./editor";
+
 // Utility types
 export type {
   ElementorAjax,

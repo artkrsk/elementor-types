@@ -11,6 +11,17 @@ export * from "./hooks";
 export * from "./element-settings";
 export * from "./channels";
 
+// Container - explicit re-exports to avoid conflicts with namespace exports
+export type {
+  Container,
+  ContainerDocument,
+  ContainerChildren,
+  ContainerView,
+  ContainerConstructor,
+  ContainerGlobals,
+  ContainerDynamic,
+} from "./container";
+
 // Editor namespace interfaces
 export * from "./namespace";
 
