@@ -4,11 +4,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is `@arts/elementor-types`, a TypeScript definitions package for the Elementor WordPress page builder. It provides comprehensive type definitions for frontend handlers, editor interfaces, core modules, and utility functions.
+This is `@artemsemkin/elementor-types`, a TypeScript definitions package for the Elementor WordPress page builder. It provides comprehensive type definitions for frontend handlers, editor interfaces, core modules, and utility functions.
 
 ## Commands
 
 ### Build and Development
+
 - `pnpm run build` - Compile TypeScript to dist/ directory
 - `pnpm run dev` - Watch mode compilation
 - `pnpm run clean` - Remove dist/ directory
@@ -16,11 +17,13 @@ This is `@arts/elementor-types`, a TypeScript definitions package for the Elemen
 - `pnpm run lint` - Run TypeScript strict mode type checking
 
 ### Package Management
+
 - `pnpm run prepack` - Clean and build before publishing
 
 ## Architecture
 
 ### Module Organization
+
 The package is organized into eight main namespaces:
 
 - **Core** (`src/core/`) - Base module system classes and interfaces
@@ -33,16 +36,21 @@ The package is organized into eight main namespaces:
 - **Globals** (`src/globals/`) - Global window declarations and module definitions
 
 ### Export Strategy
+
 The package uses a dual export strategy:
 
 1. **Namespace exports** - Grouped functionality to avoid naming conflicts
+
    ```typescript
-   import type { Frontend, Editor, Core } from '@arts/elementor-types';
+   import type { Frontend, Editor, Core } from "@artemsemkin/elementor-types";
    ```
 
 2. **Direct exports** - Commonly used types for convenience
    ```typescript
-   import type { ElementorFrontend, ElementorEditor } from '@arts/elementor-types';
+   import type {
+     ElementorFrontend,
+     ElementorEditor,
+   } from "@artemsemkin/elementor-types";
    ```
 
 ### Key Architectural Patterns
@@ -64,6 +72,7 @@ The package uses a dual export strategy:
 ## TypeScript Configuration
 
 The project uses strict TypeScript settings:
+
 - Target: ES2020
 - Module: ESNext
 - Declaration generation enabled
@@ -89,7 +98,3 @@ The project uses strict TypeScript settings:
 - Follows barrel export pattern for clean imports
 - Uses namespace organization to prevent naming conflicts
 - Includes comprehensive JSDoc documentation and usage examples
-
-## Task Master AI Instructions
-**Import Task Master's development workflow commands and guidelines, treat as if import is in the main CLAUDE.md file.**
-@./.taskmaster/CLAUDE.md
