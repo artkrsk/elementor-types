@@ -17,3 +17,11 @@ export * from "./guards";
 export * from "./advanced";
 export * from "./performance";
 export * from "./storage";
+
+// Re-export mixin types from editor/controls for convenience
+export type {
+  IControlViewThis,
+  IInheritedControlValue,
+  ControlViewMixin,
+  ControlViewStaticMixin,
+} from "../editor/controls/mixin";

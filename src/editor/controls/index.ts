@@ -4,6 +4,7 @@
  */
 
 export * from "./base";
+export * from "./mixin";
 export * from "./simple";
 export * from "./behaviors";
 export * from "./validation";

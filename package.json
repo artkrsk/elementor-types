@@ -1,9 +1,17 @@
 {
-  "name": "@arts/elementor-types",
+  "name": "@artemsemkin/elementor-types",
   "version": "1.0.1",
   "description": "TypeScript type definitions for Elementor WordPress plugin",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/artkrsk/elementor-types.git"
+  },
+  "homepage": "https://github.com/artkrsk/elementor-types#readme",
+  "bugs": {
+    "url": "https://github.com/artkrsk/elementor-types/issues"
+  },
   "files": [
     "dist/**/*",
     "src/**/*",
