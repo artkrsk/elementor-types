@@ -1,6 +1,6 @@
 {
   "name": "@artemsemkin/elementor-types",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "TypeScript type definitions for Elementor WordPress plugin",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -43,20 +43,20 @@
   "license": "MIT",
   "dependencies": {
     "@types/backbone": "^1.4.23",
-    "@types/jquery": "^3.5.29",
+    "@types/jquery": "^3.5.33",
     "@types/select2": "^4.0.63"
   },
   "devDependencies": {
-    "@types/node": "^24.4.0",
+    "@types/node": "^25.3.0",
     "backbone": "^1.6.1",
     "backbone.marionette": "^4.1.3",
     "backbone.radio": "^2.0.0",
-    "swiper": "^12.0.1",
-    "typescript": "^5.2.0",
-    "underscore": "^1.13.7"
+    "swiper": "^12.1.2",
+    "typescript": "^5.9.3",
+    "underscore": "^1.13.8"
   },
   "peerDependencies": {
-    "swiper": "^11.0.0"
+    "swiper": ">=11.0.0"
   },
   "publishConfig": {
     "access": "public"
