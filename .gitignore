@@ -91,3 +91,5 @@ tasks/
 elementor-dev-js
 CLAUDE.md
 .claude
+.mcp.json
+.cursor
