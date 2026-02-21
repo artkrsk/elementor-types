@@ -1,8 +1,8 @@
 # @artemsemkin/elementor-types
 
-TypeScript type definitions for the [Elementor WordPress Page Builder](https://elementor.com/).
+TypeScript type definitions for [Elementor](https://elementor.com/). Covers the frontend, editor, `$e` command system, controls, containers, hooks, and Backbone/Marionette internals.
 
-## Installation
+## Install
 
 ```bash
 npm install --save-dev @artemsemkin/elementor-types
@@ -10,93 +10,83 @@ npm install --save-dev @artemsemkin/elementor-types
 
 ## Usage
 
-### Basic Types
+### Global declarations
+
+Augment `Window` so TypeScript knows about Elementor globals:
 
 ```typescript
-import type {
-  ElementorFrontend,
-  ElementorEditor,
-} from "@artemsemkin/elementor-types";
+import type { ElementorEditor, ElementorCommon, $e } from '@artemsemkin/elementor-types'
 
-// Access Elementor globals
 declare global {
   interface Window {
-    elementorFrontend: ElementorFrontend;
-    elementor: ElementorEditor;
-    $e: $e;
+    $e?: $e
+    elementor?: ElementorEditor
+    elementorCommon?: ElementorCommon
   }
 }
 ```
 
-### Control Types
+### Extending a control view
 
 ```typescript
-import type {
-  DimensionsValue,
-  ResponsiveValue,
-  ColorValue,
-} from "@artemsemkin/elementor-types";
+import type { ElementorEditor } from '@artemsemkin/elementor-types'
 
-interface MyWidgetSettings {
-  margin: ResponsiveValue<DimensionsValue>;
-  backgroundColor: ColorValue;
-  fontSize: number;
+const editor = window.elementor as ElementorEditor
+
+const CustomSlider = editor.modules.controls.Slider.extend({
+  onReady() {
+    // your logic
+  },
+})
+
+editor.addControlView('slider', CustomSlider)
+```
+
+### Editor hooks
+
+```typescript
+import type { HookArgs } from '@artemsemkin/elementor-types'
+
+const $e = window.$e!
+
+class OnRepeaterInsert extends $e.modules.hookUI.After {
+  getCommand(): string {
+    return 'document/repeater/insert'
+  }
+
+  getId(): string {
+    return 'my-plugin-on-repeater-insert'
+  }
+
+  getConditions(args: HookArgs): boolean {
+    return args.name === 'my_repeater'
+  }
+
+  apply(args: HookArgs): void {
+    const { container, model } = args
+    // respond to the repeater insert
+  }
 }
 ```
 
-### Container & Elements
+### Namespaces
+
+Everything is organized under namespaces you can import selectively:
 
 ```typescript
-import type { Container, BackboneModel } from "@artemsemkin/elementor-types";
-
-function processContainer(container: Container) {
-  const settings = container.settings.attributes;
-  const children = container.children;
-  // TypeScript knows the shape of these objects
-}
+import type { Frontend, Editor, Core, Utils } from '@artemsemkin/elementor-types'
 ```
 
-### Namespaced Imports
+| Namespace | What's there |
+|-----------|-------------|
+| `Core` | Module system, commands, hooks base classes |
+| `Frontend` | Widget handlers, element managers, frontend config |
+| `Editor` | Controls, elements, containers, panels, documents |
+| `Admin` | Admin panel types |
+| `Utils` | AJAX helpers, type guards, common utilities |
+| `Globals` | Window augmentations, module registry |
+| `ThirdParty` | Backbone, Marionette, Swiper, jQuery types |
 
-```typescript
-import { Editor, Frontend, Core } from "@artemsemkin/elementor-types";
+## License
 
-class MyHandler extends Frontend.Handlers.Base {
-  // Your implementation
-}
-```
-
-## What's Included
-
-This package provides comprehensive TypeScript definitions for:
-
-- **Frontend**: Widget handlers, modules, and utilities
-- **Editor**: Panel, controls, commands, and $e API
-- **Core**: Backbone models, collections, and base classes
-- **Admin**: Admin-specific interfaces
-- **Utils**: Helper types and utilities
-
-## Coverage
-
-- ✅ Elementor Frontend API
-- ✅ Elementor Editor API
-- ✅ $e Command System
-- ✅ Controls (all types: slider, dimensions, typography, etc.)
-- ✅ Responsive values and device modes
-- ✅ Container API
-- ✅ Hooks system
-- ✅ Dynamic Tags
-- ✅ Template Library
-
-## Requirements
-
-- TypeScript 5.0+
-- Elementor 3.0+
-
-## Dependencies
-
-This package includes type definitions for Elementor's dependencies:
-
-- `@types/backbone` - Backbone.js types
-- `@types/jquery` - jQuery types
-- `@types/select2` - Select2 types
+MIT
