@@ -35,5 +35,3 @@ export declare class InnerSectionColumnsCreateHook implements DataHook {
 
 	static extend(proto: any, staticProps?: any): any;
 }
-
-export default InnerSectionColumnsCreateHook;

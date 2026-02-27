@@ -96,5 +96,3 @@ export declare class Scroll {
 		limitPageHeight?: number
 	): number;
 }
-
-export default Scroll;

@@ -1,8 +1,11 @@
 {
-  "entry": ["src/index.ts"],
+  "entry": ["src/**/*.ts"],
   "project": ["src/**/*.ts"],
+  "ignoreExportsUsedInFile": {
+    "interface": true,
+    "type": true
+  },
   "ignoreDependencies": [
-    "backbone",
     "backbone.marionette",
     "backbone.radio",
     "underscore"

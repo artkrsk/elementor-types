@@ -75,5 +75,3 @@ export declare class ComponentBase {
 
 	static extend(properties: any): any;
 }
-
-export default ComponentBase;

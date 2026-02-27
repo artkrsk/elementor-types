@@ -354,7 +354,3 @@ export class PresetsFactory {
 // Global declaration for elementor
 declare const elementor: any;
 
-/**
- * Export singleton instance for global use
- */
-export const presetsFactory = PresetsFactory;

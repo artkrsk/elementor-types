@@ -36,5 +36,3 @@ export declare class IsValidChildHook implements DataHook {
 
 	static extend(proto: any, staticProps?: any): any;
 }
-
-export default IsValidChildHook;

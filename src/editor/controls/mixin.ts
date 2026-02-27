@@ -6,7 +6,7 @@
  *
  * @example
  * ```javascript
- * /** @type {import('@arts/elementor-types').ControlViewMixin} *\/
+ * /** @type {import('@artemsemkin/elementor-types').ControlViewMixin} *\/
  * export const MyControlMixin = {
  *   onRender() {
  *     this.model.get('name') // ✓ typed
@@ -365,7 +365,7 @@ export interface IControlViewThis {
  *
  * @example
  * ```javascript
- * /** @type {import('@arts/elementor-types').ControlViewMixin} *\/
+ * /** @type {import('@artemsemkin/elementor-types').ControlViewMixin} *\/
  * export const BaseControlView = {
  *   initialize() {
  *     callSuper(this, 'initialize', arguments)

@@ -330,7 +330,3 @@ export class ContainerHelper {
   }
 }
 
-/**
- * Export singleton instance for global use
- */
-export const containerHelper = ContainerHelper;

@@ -41,5 +41,3 @@ export declare class CommandContainerInternalBase implements CommandContainerBas
 	// Extend method
 	static extend(properties: any): any;
 }
-
-export default CommandContainerInternalBase;

@@ -35,5 +35,3 @@ export declare class SectionColumnsLimitHook implements DataHook {
 
 	static extend(proto: any, staticProps?: any): any;
 }
-
-export default SectionColumnsLimitHook;

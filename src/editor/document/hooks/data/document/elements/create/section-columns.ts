@@ -61,5 +61,3 @@ export declare class SectionColumnsCreateHook implements SectionColumnsCreateHoo
 
 	static extend(proto: any, staticProps?: any): any;
 }
-
-export default SectionColumnsCreateHook;
