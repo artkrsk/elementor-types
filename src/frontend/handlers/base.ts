@@ -70,9 +70,9 @@ export declare class Base extends ViewModule {
   /**
    * Event handlers (optional)
    */
-  onElementChange?(propertyName: string): void;
-  onEditSettingsChange?(propertyName: string): void;
-  onPageSettingsChange?(propertyName: string): void;
+  onElementChange?(propertyName: string, controlView?: any, elementView?: any): void;
+  onEditSettingsChange?(propertyName: string, value?: any): void;
+  onPageSettingsChange?(changed: Record<string, any>): void;
   onDestroy(): void;
 }
 

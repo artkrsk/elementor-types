@@ -3,18 +3,25 @@
  *
  * Complete type definitions for the Elementor frontend handler system including:
  * - Base handler classes and their hierarchy
- * - Widget-specific handlers and their configurations
  * - Handler registration and lifecycle management
  * - Animation and interaction systems
  * - Swiper-based carousel handlers
  */
 
-import { ViewModule } from "../core";
 import { SwiperOptions } from "../third-party";
 import type { CommonElementSettings } from "../editor/element-settings";
 
-// Import the comprehensive handler interfaces from enhanced-base
-import type { HandlerSettings, HandlerElements } from "./handlers/enhanced-base";
+/** Handler settings configuration */
+export interface HandlerSettings {
+  selectors?: Record<string, string>;
+  classes?: Record<string, string>;
+  [key: string]: any;
+}
+
+/** Handler elements interface */
+export interface HandlerElements {
+  [key: string]: JQuery<HTMLElement>;
+}
 
 /**
  * Editor listener configuration
@@ -28,21 +35,6 @@ export interface EditorListener {
 
   /** Callback function */
   callback: (...args: any[]) => void;
-}
-
-/**
- * Animation configuration
- */
-export interface AnimationConfig {
-  /** Animation name/type */
-  animation?: string;
-
-  /** Animation delay in milliseconds */
-  _animation_delay?: number;
-  animation_delay?: number;
-
-  /** Custom animation settings */
-  [key: string]: any;
 }
 
 /**
@@ -63,10 +55,10 @@ export interface HandlerBase {
   ) => void;
 
   /** Edit settings change callback */
-  onEditSettingsChange?: (propertyName: string) => void;
+  onEditSettingsChange?: (propertyName: string, value?: any) => void;
 
   /** Page settings change callback */
-  onPageSettingsChange?: (propertyName: string) => void;
+  onPageSettingsChange?: (changed: Record<string, any>) => void;
 
   /** Whether handler is in edit mode */
   isEdit: boolean | null;
@@ -196,29 +188,6 @@ export interface HandlerBaseConstructor {
 }
 
 /**
- * Global handler for animations and global effects
- */
-export interface GlobalHandler extends HandlerBase {
-  /** Current animation class */
-  currentAnimation?: string;
-
-  /**
-   * Get widget type (returns 'global')
-   */
-  getWidgetType(): "global";
-
-  /**
-   * Trigger element animation
-   */
-  animate(): void;
-
-  /**
-   * Get animation settings
-   */
-  getAnimation(): string;
-}
-
-/**
  * Swiper-based handler base class
  */
 export interface SwiperHandlerBase extends HandlerBase {
@@ -268,113 +237,6 @@ export interface SwiperHandlerBase extends HandlerBase {
 }
 
 /**
- * Video handler interface
- */
-export interface VideoHandler extends HandlerBase {
-  /** YouTube player instance */
-  youtubePlayer?: any;
-
-  /** API provider for video services */
-  apiProvider?: any;
-
-  /**
-   * Handle video element interactions
-   */
-  handleVideo(): void;
-
-  /**
-   * Play video
-   */
-  playVideo(): void;
-
-  /**
-   * Prepare YouTube video
-   */
-  prepareYTVideo(apiObject: any, isInsideEditor: boolean): void;
-
-  /**
-   * Handle video end event
-   */
-  handleVideoEnd(): void;
-}
-
-/**
- * Counter handler interface
- */
-export interface CounterHandler extends HandlerBase {
-  /** Intersection observer for counter animation */
-  intersectionObserver?: IntersectionObserver;
-}
-
-/**
- * Accordion handler interface
- */
-export interface AccordionHandler extends HandlerBase {
-  /**
-   * Toggle accordion item
-   */
-  toggleItem(item: JQuery): void;
-
-  /**
-   * Activate accordion item
-   */
-  activateItem(item: JQuery): void;
-
-  /**
-   * Deactivate accordion item
-   */
-  deactivateItem(item: JQuery): void;
-}
-
-/**
- * Tabs handler interface
- */
-export interface TabsHandler extends HandlerBase {
-  /**
-   * Activate tab
-   */
-  activateTab(tabIndex: number): void;
-
-  /**
-   * Change active tab
-   */
-  changeActiveTab(tabIndex: number): void;
-
-  /**
-   * Get active tab index
-   */
-  getActiveTabIndex(): number;
-}
-
-/**
- * Toggle handler interface
- */
-export interface ToggleHandler extends HandlerBase {
-  /**
-   * Toggle content visibility
-   */
-  toggle(): void;
-}
-
-/**
- * Progress handler interface
- */
-export interface ProgressHandler extends HandlerBase {
-  /** Intersection observer for progress animation */
-  intersectionObserver?: IntersectionObserver;
-}
-
-/**
- * Alert handler interface
- */
-export interface AlertHandler extends HandlerBase {
-  /**
-   * Dismiss alert
-   */
-  onDismissButtonClick(event: Event): void;
-}
-
-/**
  * Container handler interface
  */
 export interface ContainerHandler extends HandlerBase {
@@ -397,46 +259,6 @@ export interface GridContainerHandler extends ContainerHandler {
    * Update grid settings
    */
   updateGrid(): void;
-}
-
-/**
- * Background slideshow handler interface
- */
-export interface BackgroundSlideshowHandler extends SwiperHandlerBase {
-  /**
-   * Initialize background slideshow
-   */
-  initSlideshow(): void;
-}
-
-/**
- * Background video handler interface
- */
-export interface BackgroundVideoHandler extends HandlerBase {
-  /**
-   * Play background video
-   */
-  playVideo(): void;
-
-  /**
-   * Pause background video
-   */
-  pauseVideo(): void;
-}
-
-/**
- * Image carousel handler interface
- */
-export interface ImageCarouselHandler extends SwiperHandlerBase {
-  /**
-   * Initialize image carousel
-   */
-  initCarousel(): void;
-
-  /**
-   * Handle lightbox integration
-   */
-  handleLightbox(): void;
 }
 
 /**
@@ -465,21 +287,6 @@ export interface NestedTitleKeyboardHandler extends AccessibilityHandler {
 }
 
 /**
- * Stretched element handler interface
- */
-export interface StretchedElementHandler extends HandlerBase {
-  /**
-   * Stretch element to full width
-   */
-  stretch(): void;
-
-  /**
-   * Reset element stretching
-   */
-  reset(): void;
-}
-
-/**
  * Audio handler interface (WordPress audio)
  */
 export interface AudioHandler extends HandlerBase {
@@ -492,31 +299,6 @@ export interface AudioHandler extends HandlerBase {
    * Handle audio events
    */
   handleAudioEvents(): void;
-}
-
-/**
- * Handles position handler interface
- */
-export interface HandlesPositionHandler extends HandlerBase {
-  /**
-   * Update handles position
-   */
-  updateHandlesPosition(): void;
-
-  /**
-   * Get handles position
-   */
-  getHandlesPosition(): any;
-}
-
-/**
- * Text editor handler interface
- */
-export interface TextEditorHandler extends HandlerBase {
-  /**
-   * Initialize text editor functionality
-   */
-  initTextEditor(): void;
 }
 
 /**
@@ -535,34 +317,6 @@ export interface ShapeHandler extends HandlerBase {
 }
 
 /**
- * Handler registry interface
- */
-export interface HandlerRegistry {
-  /** Registered handlers by name */
-  handlers: Map<string, HandlerBaseConstructor>;
-
-  /**
-   * Register a new handler
-   */
-  register(name: string, handler: HandlerBaseConstructor): void;
-
-  /**
-   * Get handler by name
-   */
-  get(name: string): HandlerBaseConstructor | undefined;
-
-  /**
-   * Check if handler exists
-   */
-  has(name: string): boolean;
-
-  /**
-   * Initialize handlers for element
-   */
-  initHandlers($element: JQuery): void;
-}
-
-/**
  * Editor handler creation utility
  */
 export interface EditorHandlerCreator {
@@ -577,33 +331,17 @@ export interface EditorHandlerCreator {
  */
 export namespace Handlers {
   export type Base = HandlerBase;
-  export type Global = GlobalHandler;
   export type SwiperBase = SwiperHandlerBase;
-  export type Video = VideoHandler;
-  export type Counter = CounterHandler;
-  export type Accordion = AccordionHandler;
-  export type Tabs = TabsHandler;
-  export type Toggle = ToggleHandler;
-  export type Progress = ProgressHandler;
-  export type Alert = AlertHandler;
   export type Container = ContainerHandler;
   export type GridContainer = GridContainerHandler;
-  export type BackgroundSlideshow = BackgroundSlideshowHandler;
-  export type BackgroundVideo = BackgroundVideoHandler;
-  export type ImageCarousel = ImageCarouselHandler;
   export type Accessibility = AccessibilityHandler;
   export type NestedTitleKeyboard = NestedTitleKeyboardHandler;
-  export type StretchedElement = StretchedElementHandler;
   export type Audio = AudioHandler;
-  export type HandlesPosition = HandlesPositionHandler;
-  export type TextEditor = TextEditorHandler;
   export type Shape = ShapeHandler;
-  export type Registry = HandlerRegistry;
   export type EditorCreator = EditorHandlerCreator;
   export type Settings = HandlerSettings;
   export type Elements = HandlerElements;
   export type Listener = EditorListener;
-  export type Animation = AnimationConfig;
 }
 
 // Default export for convenience

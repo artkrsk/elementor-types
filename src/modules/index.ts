@@ -106,5 +106,9 @@ export interface ElementorModules {
  * Note: Users should extend Window interface in their own projects if needed
  */
 
+// Connect orphaned utility modules
+export * from "./utils/masonry";
+export * from "./utils/scroll";
+
 // Export the main modules interface
 export type { ElementorModules as default };

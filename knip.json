@@ -1,0 +1,10 @@
+{
+  "entry": ["src/index.ts"],
+  "project": ["src/**/*.ts"],
+  "ignoreDependencies": [
+    "backbone",
+    "backbone.marionette",
+    "backbone.radio",
+    "underscore"
+  ]
+}

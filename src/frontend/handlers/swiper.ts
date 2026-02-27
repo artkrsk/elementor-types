@@ -31,7 +31,7 @@ export declare class CarouselBase extends SwiperBase {
   getSwiperSettings(): any; // SwiperOptions
   initSwiper(): Promise<void>;
   updateSwiperOption(propertyName: string): void;
-  getChangeableProperties(): string[];
+  getChangeableProperties(): Record<string, string>;
   updateSpaceBetween(propertyName: string): void;
   getPaginationBullets(type?: "array" | "object"): any;
   a11ySetPaginationTabindex(): void;

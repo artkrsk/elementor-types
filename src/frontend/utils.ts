@@ -130,18 +130,6 @@ export interface ElementorBreakpoints {
 }
 
 /**
- * Assets loader utility
- */
-export interface AssetsLoader {
-  load(type: "script" | "style", key: string): Promise<boolean>;
-  getScriptElement(src: string): HTMLScriptElement;
-  getStyleElement(src: string): HTMLLinkElement;
-  loadAsset(assetData: any, assetType: string): Promise<boolean>;
-  isAssetLoaded(assetData: any, assetType: string): boolean;
-  appendAsset(assetData: any, element: HTMLElement): void;
-}
-
-/**
  * Controls utility
  */
 export interface Controls {
@@ -179,23 +167,4 @@ export interface Events {
     event: string,
     data?: any
   ): void;
-}
-
-/**
- * URL actions utility interface
- */
-export interface UrlActions {
-  addAction(action: string, callback: Function): void;
-  runAction(url: string): void;
-}
-
-/**
- * Swiper types for frontend
- */
-export interface SwiperInstance {
-  // Basic Swiper interface - can be expanded based on actual usage
-  slideNext(): void;
-  slidePrev(): void;
-  destroy(): void;
-  update(): void;
 }

@@ -2,56 +2,31 @@
  * Frontend Controls Utilities
  *
  * Mirrors frontend/utils/controls.js
- * Frontend control utilities and helpers
+ * Stateless utility class for control value resolution
  */
-
-/**
- * Control value configuration
- */
-export interface ControlValueConfig {
-	deviceMode?: string;
-	breakpoint?: string;
-	size?: string;
-	unit?: string;
-}
 
 /**
  * Frontend Controls Utilities
- * Helper functions for control values and responsive settings
  */
-export interface FrontendControlsUtils {
-	/**
-	 * Get control value for device
-	 */
-	getControlValue(settings: any, controlName: string, config?: ControlValueConfig): any;
+export declare class Controls {
+  /**
+   * Get control value, optionally accessing a sub-key for object-type controls
+   */
+  getControlValue(
+    controlSettings: Record<string, any>,
+    controlKey: string,
+    controlSubKey?: string
+  ): any;
 
-	/**
-	 * Get responsive value
-	 */
-	getResponsiveValue(settings: any, controlName: string, deviceMode?: string): any;
-
-	/**
-	 * Parse control units
-	 */
-	parseControlUnits(value: string): { size: number; unit: string };
-
-	/**
-	 * Get breakpoint value
-	 */
-	getBreakpointValue(settings: any, controlName: string, breakpoint: string): any;
-
-	/**
-	 * Check if control has value
-	 */
-	hasControlValue(settings: any, controlName: string): boolean;
-
-	/**
-	 * Get control CSS value
-	 */
-	getControlCSSValue(settings: any, controlName: string): string;
+  /**
+   * Get responsive control value for current or specified device.
+   * Walks up the breakpoint chain from current device toward desktop
+   * until a non-empty value is found.
+   */
+  getResponsiveControlValue(
+    controlSettings: Record<string, any>,
+    controlKey: string,
+    controlSubKey?: string,
+    device?: string | null
+  ): any;
 }
-
-declare const FrontendControlsUtils: any;
-
-export { FrontendControlsUtils };
-export default FrontendControlsUtils;

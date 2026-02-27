@@ -207,36 +207,6 @@ export declare class Module {
   __construct(...args: any[]): void;
 
 
-  /**
-   * Get element viewport percentage
-   * Calculates what percentage of an element is visible in the viewport
-   *
-   * @param element - DOM element or jQuery element to check
-   * @returns Percentage (0-100) of element visible in viewport
-   *
-   * @example
-   * const percentage = module.getElementViewportPercentage(element);
-   * if (percentage > 50) {
-   *   // Element is more than 50% visible
-   * }
-   */
-  getElementViewportPercentage(
-    element: HTMLElement | JQuery<HTMLElement>
-  ): number;
-
-  /**
-   * Get page scroll percentage
-   * Calculates how far down the page the user has scrolled
-   *
-   * @returns Percentage (0-100) of page scrolled
-   *
-   * @example
-   * const scrolled = module.getPageScrollPercentage();
-   * if (scrolled > 75) {
-   *   // User has scrolled more than 75% of the page
-   * }
-   */
-  getPageScrollPercentage(): number;
 }
 
 /**
@@ -267,11 +237,6 @@ export declare class ViewModule extends Module {
   bindEvents(): void;
 
   /**
-   * Unbind events from elements
-   */
-  unbindEvents?(): void;
-
-  /**
    * Initialize the view module
    */
   onInit(...args: any[]): void;
@@ -280,11 +245,6 @@ export declare class ViewModule extends Module {
    * Initialize elements
    */
   initElements(): void;
-
-  /**
-   * Find an element by selector
-   */
-  findElement(selector: string): JQuery<HTMLElement>;
 }
 
 /**

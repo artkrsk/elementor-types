@@ -2,50 +2,43 @@
  * Anchor Scroll Margin Utilities
  *
  * Mirrors frontend/utils/anchor-scroll-margin.js
- * Utilities for anchor scrolling with margin adjustments
+ * Applies scroll-margin-top on anchor targets to account for sticky elements
  */
 
 /**
- * Scroll margin configuration
- */
-export interface ScrollMarginConfig {
-	offset: number;
-	duration: number;
-	easing: string;
-}
-
-/**
- * Anchor Scroll Margin Utilities
- * Handles anchor scrolling with proper margin calculations
+ * Anchor Scroll Margin Utilities (extends ViewModule)
  */
 export interface AnchorScrollMarginUtils {
-	/**
-	 * Calculate scroll margin for anchor
-	 */
-	calculateScrollMargin(anchor: HTMLElement): number;
+  getDefaultSettings(): {
+    selectors: {
+      links: string;
+      stickyElements: string;
+    };
+  };
 
-	/**
-	 * Scroll to anchor with margin
-	 */
-	scrollToAnchor(anchor: HTMLElement | string, config?: Partial<ScrollMarginConfig>): void;
+  onInit(): void;
 
-	/**
-	 * Get admin bar height
-	 */
-	getAdminBarHeight(): number;
+  /** Create a MutationObserver on document.body to watch for sticky element changes */
+  observeStickyElements(callback: Function): void;
 
-	/**
-	 * Get sticky header height
-	 */
-	getStickyHeaderHeight(): number;
+  /** Scan DOM for anchor links and sticky elements, then apply scroll-margin-top */
+  initializeStickyAndAnchorTracking(): void;
 
-	/**
-	 * Update scroll margin on resize
-	 */
-	updateScrollMargin(): void;
+  trackAnchorLinks(anchorLinks: Element[], trackedElements: any[]): void;
+  trackStickyElements(stickyElements: Element[], trackedElements: any[]): void;
+  organizeStickyAndAnchors(elements: any[]): void;
+  defineCurrentStickyRange(
+    sticky: any,
+    index: number,
+    stickyList: any[],
+    anchorList: any[]
+  ): void;
+
+  getScrollPosition(element: Element): number;
+  getAllStickyElements(): Element[];
+  getAllAnchorLinks(): Element[];
+  filterAndSortElementsByType(elements: any[], type: string): any[];
+  isValidSelector(hash: string): boolean;
+  getAnchorTarget(element: Element): Element | null;
+  getElementSettings(element: Element): Record<string, any> | null;
 }
-
-declare const AnchorScrollMarginUtils: any;
-
-export { AnchorScrollMarginUtils };
-export default AnchorScrollMarginUtils;

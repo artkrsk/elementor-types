@@ -49,8 +49,23 @@ export interface ElementorFrontendConfig {
   };
   urls: {
     assets: string;
+    ajaxurl: string;
     rest: string;
     uploadUrl: string;
+  };
+  nonces: {
+    floatingButtonsClickTracking: string;
+    atomicFormsSendForm: string;
+  };
+  swiperClass: string;
+  post?: {
+    id: number;
+    title: string;
+    excerpt: string;
+    featuredImage?: string;
+  };
+  user?: {
+    roles: string[];
   };
   settings: {
     page: {
@@ -63,7 +78,7 @@ export interface ElementorFrontendConfig {
   kit: {
     [key: string]: any;
   };
-  elements: {
+  elements?: {
     data: {
       [modelCID: string]: {
         id: string;
@@ -75,14 +90,28 @@ export interface ElementorFrontendConfig {
         };
       };
     };
+    editSettings: Record<string, any>;
+    keys: Record<string, string[]>;
   };
   i18n: {
-    [key: string]: string;
-  } & {
+    shareOnFacebook?: string;
+    shareOnTwitter?: string;
+    pinIt?: string;
+    download?: string;
+    downloadImage?: string;
+    fullscreen?: string;
+    zoom?: string;
+    share?: string;
+    playVideo?: string;
+    previous?: string;
+    next?: string;
+    close?: string;
     a11yCarouselPrevSlideMessage?: string;
     a11yCarouselNextSlideMessage?: string;
     a11yCarouselFirstSlideMessage?: string;
     a11yCarouselLastSlideMessage?: string;
+    a11yCarouselPaginationBulletMessage?: string;
+    [key: string]: string | undefined;
   };
   experimentalFeatures: {
     e_font_icon_svg?: boolean;

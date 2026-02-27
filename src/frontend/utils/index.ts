@@ -6,35 +6,11 @@
 export * from "./icons";
 export * from "./assets-loader";
 export * from "./anchors";
+export * from "./anchor-scroll-margin";
 export * from "./url-actions";
+export * from "./controls";
+export * from "./flex-horizontal-scroll";
+export * from "./swiper";
+export * from "./lightbox";
+export * from "./video-api";
 
-// Re-export for convenience
-export type {
-  IconsManager,
-  EIcons,
-  SvgIconOptions,
-  SvgNodeOptions,
-  SvgIconElementOptions,
-  SymbolElementOptions,
-} from "./icons";
-
-export type {
-  AssetsLoader,
-  AssetConfig,
-  AssetsRegistry,
-  ElementorAssets,
-} from "./assets-loader";
-
-export type {
-  AnchorsHandler,
-  AnchorSettings,
-  AnchorElements,
-} from "./anchors";
-
-export type {
-  UrlActions,
-  UrlActionsSettings,
-  ActionCallback,
-  ActionsRegistry,
-  LightboxActionSettings,
-} from "./url-actions";

@@ -14,24 +14,10 @@ import type {
  * Frontend-specific filter hooks
  */
 export interface ElementorFrontendFilterHooks {
-  // Menu and navigation filters
   "frontend/handlers/menu_anchor/scroll_top_distance": (
     scrollTop: number
   ) => number;
 
-  // Element styling filters
-  "frontend/element/should_render": (
-    shouldRender: boolean,
-    element: JQuery,
-    elementType: string
-  ) => boolean;
-  "frontend/element/classes": (
-    classes: string[],
-    element: JQuery,
-    settings: any
-  ) => string[];
-
-  // Generic frontend filters
   [key: string]: (...args: any[]) => any;
 }
 
@@ -39,21 +25,9 @@ export interface ElementorFrontendFilterHooks {
  * Frontend-specific action hooks
  */
 export interface ElementorFrontendActionHooks {
-  // Element ready actions
   "frontend/element_ready/global": (element: JQuery, $: JQueryStatic) => void;
-
-  // Document and system actions
   "elementor/frontend/documents-manager/init-classes": (manager: any) => void;
-  "frontend/element_before_render": (
-    element: JQuery,
-    elementType: string
-  ) => void;
-  "frontend/element_after_render": (
-    element: JQuery,
-    elementType: string
-  ) => void;
 
-  // Index signatures for dynamic hooks
   [K: `frontend/element_ready/${string}`]: (
     element: JQuery,
     $: JQueryStatic
@@ -63,17 +37,6 @@ export interface ElementorFrontendActionHooks {
     $: JQueryStatic
   ) => void;
 
-  // Responsive and breakpoint actions
-  "frontend/breakpoint/change": (
-    breakpoint: string,
-    direction: "up" | "down"
-  ) => void;
-
-  // Loading and init actions
-  "frontend/init": () => void;
-  "frontend/ready": () => void;
-
-  // Generic frontend actions
   [key: string]: (...args: any[]) => void;
 }
 

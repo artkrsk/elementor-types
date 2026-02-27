@@ -77,20 +77,13 @@ export interface StretchedElementHandler extends Base {
 	 */
 	isStretchSettingEnabled(): boolean;
 
-	/**
-	 * Perform the stretch operation
-	 */
-	performStretch(): void;
+	/** Perform the stretch operation */
+	stretch(): void;
 
-	/**
-	 * Handle element setting changes
-	 */
 	onElementChange(propertyName: string): void;
 
-	/**
-	 * Handle kit changes that affect stretch container
-	 */
-	handleKitChangeStretchContainer(): void;
+	/** Handle kit changes that affect stretch container */
+	onKitChangeStretchContainerChange(): void;
 }
 
 /**

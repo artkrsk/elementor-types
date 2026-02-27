@@ -353,48 +353,6 @@ export interface ElementorHooks {
 
   removeAction(action: string, callback?: Function): void;
 
-  /**
-   * Check if a filter has any callbacks
-   * @param filter - Filter name
-   */
-  hasFilter(filter: string): boolean;
-
-  /**
-   * Check if an action has any callbacks
-   * @param action - Action name
-   */
-  hasAction(action: string): boolean;
-
-  /**
-   * Get current priority for running hooks
-   */
-  getCurrentPriority(): HookPriority;
-
-  /**
-   * Check if hooks are currently being executed for a specific filter/action
-   * @param hookName - Hook name to check
-   */
-  doingFilter(hookName?: string): boolean;
-
-  /**
-   * Check if hooks are currently being executed for a specific action
-   * @param hookName - Hook name to check
-   */
-  doingAction(hookName?: string): boolean;
-
-  /**
-   * Remove all callbacks for a filter
-   * @param filter - Filter name
-   * @param priority - Optional priority to remove (removes all if not specified)
-   */
-  removeAllFilters(filter: string, priority?: HookPriority): void;
-
-  /**
-   * Remove all callbacks for an action
-   * @param action - Action name
-   * @param priority - Optional priority to remove (removes all if not specified)
-   */
-  removeAllActions(action: string, priority?: HookPriority): void;
 }
 
 /**

@@ -171,13 +171,6 @@ export type {
 } from "./utils";
 
 // ============================================================================
-// Additional exports from core modules (avoiding conflicts)
-// ============================================================================
-export * from "./core";
-export * from "./third-party";
-export * from "./globals";
-
-// ============================================================================
 // Modern export conveniences for better tree-shaking
 // ============================================================================
 

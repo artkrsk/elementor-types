@@ -9,12 +9,35 @@ import type { ElementsHandler, LegacyDocumentsManager as DocumentsManager } from
 import type {
   ElementorBreakpoints,
   AssetsLoader,
+  AnchorScrollMarginUtils,
   Controls,
   VideoLoader,
   Events,
   UrlActions,
 } from "./utils";
 import type { ElementorHooks } from "../utils/elementor-hooks";
+
+/** Storage utility wrapping localStorage/sessionStorage with expiration */
+export interface ElementorStorage {
+  get(key: string, options?: { session?: boolean }): any;
+  set(key: string, value: any, options?: { session?: boolean }): void;
+  save(object: Record<string, any>, session?: boolean): void;
+}
+
+/** Browser/OS environment detection flags */
+export interface EnvironmentFlags {
+  firefox: boolean;
+  webkit: boolean;
+  chrome: boolean;
+  safari: boolean;
+  edge: boolean;
+  ie: boolean;
+  opera: boolean;
+  mac: boolean;
+  blink: boolean;
+  appleWebkit: boolean;
+  isTouchDevice: boolean;
+}
 
 /**
  * Main Elementor Frontend interface
@@ -31,16 +54,25 @@ export interface ElementorFrontend {
     $wpAdminBar?: JQuery<HTMLElement>;
   };
   breakpoints: ElementorBreakpoints;
+  storage: ElementorStorage;
+  modulesHandlers: Record<string, any>;
+
+  /** @deprecated since 2.4.0, use `elementorModules.frontend.tools.StretchElement` and `elementorModules.utils.Masonry` */
+  modules?: Record<string, any>;
+
   utils: {
     lightbox: Promise<any>;
-    swiper: any; // Swiper constructor
+    swiper: any;
     assetsLoader: AssetsLoader;
     controls: Controls;
     vimeo: VideoLoader;
     youtube: VideoLoader;
-    anchors: any;
+    baseVideoLoader: any;
+    anchor_scroll_margin: AnchorScrollMarginUtils;
     events: Events;
     urlActions: UrlActions;
+    environment: EnvironmentFlags;
+    escapeHTML: (str: string) => string;
   };
   hooks: ElementorHooks;
   elementsHandler: ElementsHandler;
@@ -60,10 +92,12 @@ export interface ElementorFrontend {
   getKitSettings(settingName?: string): any;
   getPageSettings(settingName?: string): any;
   getGeneralSettings(settingName?: string): any;
+  getDialogsManager(): any;
 
   // Additional methods from JS analysis
   getWidescreenSetting(settings: object, settingKey: string): any;
-  getElements(elementName?: string): any; // deprecated
+  /** @deprecated */
+  getElements(elementName?: string): any;
   getDefaultSettings(): {
     selectors: {
       elementor: string;
@@ -102,28 +136,19 @@ export interface ElementorFrontend {
   trigger(eventName: string, ...args: any[]): void;
 
   // Initialization methods
-  /** Initialize dialogs manager for lightbox and popups */
   initDialogsManager(): void;
-  /** Initialize components when DOM is ready (utils like lightbox, swiper) */
   initOnReadyComponents(): void;
-  /** Initialize element-related functionality on ready */
   initOnReadyElements(): void;
-  /** Initialize module handlers */
   initModules(): void;
 
-  // Lifecycle hooks
   /** Called when document is fully loaded */
   onDocumentLoaded(): void;
 
-  // Utility methods
-  /** Add user agent CSS classes to body */
   addUserAgentClasses(): void;
-  /** Mute jQuery migrate deprecation warnings */
   muteMigrationTraces(): void;
 
   /**
    * @deprecated since 2.5.0, use `elementorModules.frontend.handlers.Base` instead
-   * Legacy Module getter for backwards compatibility
    */
   readonly Module: any;
 }

@@ -56,20 +56,6 @@ export declare class Breakpoints extends Module {
    */
   getActiveMatchRegex(): RegExp;
 
-  /**
-   * Get current active breakpoint key
-   */
-  getCurrentBreakpointKey(): string;
-
-  /**
-   * Check if a specific breakpoint is currently active
-   */
-  isBreakpointActive(breakpointKey: string): boolean;
-
-  /**
-   * Get breakpoint configuration for a specific device
-   */
-  getBreakpointConfig(deviceKey: string): BreakpointConfig[string] | undefined;
 }
 
 /**
