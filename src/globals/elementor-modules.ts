@@ -79,11 +79,11 @@ export interface ElementorFrontend {
  * Elementor modules utils namespace
  */
 export interface ElementorModulesUtils {
-  /** Masonry utility class */
-  Masonry: any;
+  /** Masonry utility class (constructor) */
+  Masonry: import("../modules/utils/masonry").MasonryConstructor;
 
-  /** Scroll utility class */
-  Scroll: any;
+  /** Scroll utility class — static methods only, accessed on the class itself */
+  Scroll: typeof import("../modules/utils/scroll").Scroll;
 }
 
 /**
@@ -92,16 +92,16 @@ export interface ElementorModulesUtils {
  */
 export interface ElementorModules {
   /** Base module class */
-  Module: any;
+  Module: typeof import("../core/modules").Module;
 
   /** View module class */
-  ViewModule: any;
+  ViewModule: typeof import("../core/modules").ViewModule;
 
   /** Args object class */
-  ArgsObject: any;
+  ArgsObject: typeof import("../core/modules").ArgsObject;
 
   /** Force method implementation error class */
-  ForceMethodImplementation: any;
+  ForceMethodImplementation: typeof import("../core/modules").ForceMethodImplementation;
 
   /** Utility classes */
   utils: ElementorModulesUtils;

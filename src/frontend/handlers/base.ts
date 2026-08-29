@@ -9,8 +9,10 @@ import type { ViewModule, ModuleElements } from "../../core";
  * Base handler class for all Elementor frontend handlers
  */
 export declare class Base extends ViewModule {
-  $element: JQuery<HTMLElement>;
-  isEdit: boolean;
+  /** null until __construct runs — and only when isActive() returned true */
+  $element: JQuery<HTMLElement> | null;
+  /** null until __construct runs — and only when isActive() returned true */
+  isEdit: boolean | null;
   editorListeners: any[] | null;
 
   constructor(settings: { $element: JQuery<HTMLElement> });

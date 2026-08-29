@@ -152,11 +152,16 @@ export declare class BackgroundVideoHandler extends Base {
  * Background Slideshow Widget Handler
  */
 export interface BackgroundSlideshowHandler extends BaseSwiperHandler {
-  getSlidesCount(): number;
-  buildSlideshow(): void;
-  initSlideshow(): void;
-  setKenBurnsSettings(): void;
-  handleKenBurns(): void;
+  getDefaultSettings(): any;
+  getSwiperOptions(): any;
+  buildSwiperElements(): void;
+  initSlider(): Promise<void>;
+  activate(): void;
+  deactivate(): void;
+  run(): void;
+  onInit(...args: any[]): void;
+  onDestroy(): void;
+  onElementChange(propertyName: string): void;
 }
 
 /**

@@ -5,7 +5,7 @@
  * Base class for editor components with control activation capabilities
  */
 
-import type { ComponentBase as ApiComponentBase, ComponentConfig } from '../core';
+import type { ComponentBase as ApiComponentBase } from '../core';
 
 /**
  * Editor view interface
@@ -59,16 +59,16 @@ export interface ComponentBase extends ApiComponentBase {
  * Editor Component Base Class
  */
 export declare class ComponentBase {
-	config: ComponentConfig;
-
-	constructor(config?: ComponentConfig);
+	constructor(args?: any);
 
 	getNamespace(): string;
+	getServiceName(): string;
 	defaultCommands(): any;
-	defaultCommandsInternal?(): any;
+	defaultCommandsInternal(): any;
+	defaultHooks(): any;
 	importCommands(commandsModule: any): any;
-	register(): void;
-	initialize(): void;
+	importHooks(hooksModule: any): any;
+	registerAPI(): void;
 
 	activateControl(controlPath: string): void;
 	getControlViewByPath(currentView: EditorView, controlPath: string): ControlBaseDataView;

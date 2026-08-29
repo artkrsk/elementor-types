@@ -7,6 +7,7 @@
 
 import { ViewModule, ModuleElements } from "../core";
 import { SwiperOptions } from "../third-party";
+import type { Base as FrontendHandlerBase } from "../frontend/handlers/base";
 
 /**
  * Base settings for handlers
@@ -53,105 +54,12 @@ export interface FrontendEditorListener {
 }
 
 /**
- * Base frontend handler interface
+ * Base class for all frontend element handlers.
+ * Type-only re-export of the single source of truth — the declared class in
+ * frontend/handlers/base — keeping the symbol class-typed so consumers can
+ * write `typeof FrontendHandlerBase`.
  */
-export interface FrontendHandlerBase extends ViewModule {
-  /** Main element jQuery object */
-  $element: JQuery;
-
-  /** Editor event listeners */
-  editorListeners: FrontendEditorListener[] | null;
-
-  /** Whether handler is in edit mode */
-  isEdit: boolean | null;
-
-  /** Handler elements collection */
-  elements: FrontendHandlerElements | null;
-
-  /** Element change callback */
-  onElementChange?: (
-    propertyName: string,
-    controlView: any,
-    elementView: any
-  ) => void;
-
-  /** Edit settings change callback */
-  onEditSettingsChange?: (propertyName: string) => void;
-
-  /** Page settings change callback */
-  onPageSettingsChange?: (propertyName: string) => void;
-
-  /**
-   * Check if handler should be active
-   */
-  isActive(settings?: FrontendHandlerSettings): boolean;
-
-  /**
-   * Check if element is in current document
-   */
-  isElementInTheCurrentDocument(): boolean;
-
-  /**
-   * Get unique handler ID
-   */
-  getUniqueHandlerID(cid?: string, $element?: JQuery): string;
-
-  /**
-   * Initialize editor listeners
-   */
-  initEditorListeners(): void;
-
-  /**
-   * Add editor listeners
-   */
-  addEditorListeners(): void;
-
-  /**
-   * Remove editor listeners
-   */
-  removeEditorListeners(): void;
-
-  /**
-   * Get model CID
-   */
-  getModelCID(): string;
-
-  /**
-   * Get widget type
-   */
-  getWidgetType(): string;
-
-  /**
-   * Get element type
-   */
-  getElementType(): string;
-
-  /**
-   * Get constructor ID
-   */
-  getConstructorID(): string;
-
-  /**
-   * Get element settings
-   */
-  getElementSettings(setting?: string): any;
-
-  /**
-   * Get current device setting
-   */
-  getCurrentDeviceSetting(setting: string): any;
-
-  /**
-   * Get edit settings
-   */
-  getEditSettings(setting?: string): any;
-
-  /**
-   * Handler destruction
-   */
-  onDestroy(): void;
-}
-
+export type { FrontendHandlerBase };
 /**
  * Stretched element handler interface
  */

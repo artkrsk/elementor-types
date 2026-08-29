@@ -11,7 +11,6 @@ import type { ViewModule } from "../core";
 export interface HandlerOptions {
   $element: JQuery<HTMLElement>;
   elementName?: string;
-  model?: any;
 }
 
 /**
@@ -31,7 +30,8 @@ export interface ElementsHandler {
     HandlerClass: any,
     skin?: string | null
   ): void;
-  getHandler(handlerName: string): Promise<any>; // Promise<typeof ElementorModules.frontend.handlers.Base>;
+  /** Returns the handler class directly when already resolved, else a Promise of it */
+  getHandler(handlerName: string): any;
   getHandlers(handlerName?: string): any;
   runReadyTrigger(scope: HTMLElement | JQuery<HTMLElement>): void;
   init(): void;
@@ -40,21 +40,3 @@ export interface ElementsHandler {
   };
 }
 
-/**
- * Documents manager interface (legacy - see documents-manager.ts for new implementation)
- */
-export interface LegacyDocumentsManager extends ViewModule {
-  documents: {
-    [documentId: string]: any; // ElementorModules.frontend.Document;
-  };
-  documentClasses: {
-    [documentType: string]: any; // typeof ElementorModules.frontend.Document;
-  };
-  initDocumentClasses(): void;
-  addDocumentClass(
-    documentType: string,
-    documentClass: any // typeof ElementorModules.frontend.Document
-  ): void;
-  attachDocumentsClasses(): void;
-  attachDocumentClass($document: JQuery<HTMLElement>): void;
-}

@@ -57,7 +57,7 @@ export declare class AnchorsHandler extends ViewModule {
    * Handle anchor link clicks with smooth scrolling
    * @param event - Click event from anchor link
    */
-  handleAnchorLinks(event: Event): void;
+  handleAnchorLinks(event: JQuery.TriggeredEvent | Event): void;
 
   /**
    * Initialize the anchor handler

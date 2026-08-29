@@ -1,31 +1,54 @@
 /**
  * Command Data Base
  *
- * Mirrors editor/commands/base/command-data-base.js
+ * Mirrors modules/web-cli/assets/js/modules/command-data.js ($e.modules.CommandData)
  * Base class for data-related commands
  */
 
 import type { CommandBase } from '../base';
 
 /**
- * Base command for data operations
- * Handles data manipulation and validation
+ * Base command for data operations backed by the $e.data REST layer
  */
 export interface CommandDataBase extends CommandBase {
-	/**
-	 * Validate data arguments
-	 */
-	validateData(args: any): void;
+	/** Resolved response data */
+	data: any;
+
+	/** Request type for the current run */
+	type: 'create' | 'delete' | 'get' | 'update' | 'options';
 
 	/**
-	 * Process data before applying
+	 * Before/after hooks pair for the given request type, or false
 	 */
-	processData(data: any): any;
+	getApplyMethods(type?: string): { before: (args: any) => any; after: (data: any, args: any) => any } | false;
 
 	/**
-	 * Apply data changes
+	 * Assemble the request descriptor sent to $e.data
 	 */
-	applyData(args: any): any;
+	getRequestData(): {
+		type: string;
+		args: any;
+		timestamp: number;
+		component: any;
+		command: string;
+		endpoint: string;
+	};
+
+	apply(): Promise<any>;
+
+	applyBeforeCreate(args?: any): any;
+	applyAfterCreate(data: any, args?: any): any;
+	applyBeforeDelete(args?: any): any;
+	applyAfterDelete(data: any, args?: any): any;
+	applyBeforeGet(args?: any): any;
+	applyAfterGet(data: any, args?: any): any;
+	applyBeforeUpdate(args?: any): any;
+	applyAfterUpdate(data: any, args?: any): any;
+	applyBeforeOptions(args?: any): any;
+	applyAfterOptions(data: any, args?: any): any;
+
+	applyAfterCatch(e: any): void;
+	onCatchApply(e: any): void;
 }
 
 /**
@@ -33,6 +56,7 @@ export interface CommandDataBase extends CommandBase {
  */
 export interface CommandDataBaseConstructor {
 	new (options?: any): any;
+	getInstanceType(): string;
 	extend(proto: any, staticProps?: any): CommandDataBaseConstructor;
 }
 

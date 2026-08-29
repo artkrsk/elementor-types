@@ -63,14 +63,14 @@ export interface ElementorFrontendHooks extends ElementorHooks {
     callback: ElementorFrontendFilterHooks[K],
     priority?: HookPriority,
     context?: any
-  ): void;
+  ): ElementorFrontendHooks;
 
   addFilter<T = any>(
     filter: string,
     callback: FilterCallback<T>,
     priority?: HookPriority,
     context?: any
-  ): void;
+  ): ElementorFrontendHooks;
 
   /**
    * Execute frontend action hooks
@@ -78,9 +78,9 @@ export interface ElementorFrontendHooks extends ElementorHooks {
   doAction<K extends keyof ElementorFrontendActionHooks>(
     action: K,
     ...args: Parameters<ElementorFrontendActionHooks[K]>
-  ): void;
+  ): ElementorFrontendHooks;
 
-  doAction(action: string, ...args: any[]): void;
+  doAction(action: string, ...args: any[]): ElementorFrontendHooks;
 
   /**
    * Add frontend action callback
@@ -90,14 +90,14 @@ export interface ElementorFrontendHooks extends ElementorHooks {
     callback: ElementorFrontendActionHooks[K],
     priority?: HookPriority,
     context?: any
-  ): void;
+  ): ElementorFrontendHooks;
 
   addAction(
     action: string,
     callback: ActionCallback,
     priority?: HookPriority,
     context?: any
-  ): void;
+  ): ElementorFrontendHooks;
 }
 
 export default ElementorFrontendHooks;

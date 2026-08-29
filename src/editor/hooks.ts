@@ -287,14 +287,14 @@ export interface ElementorHooks {
     callback: ElementorFilterHooks[K],
     priority?: HookPriority,
     context?: any
-  ): void;
+  ): ElementorHooks;
 
   addFilter<T = unknown>(
     filter: string,
     callback: FilterCallback<T>,
     priority?: HookPriority,
     context?: unknown
-  ): void;
+  ): ElementorHooks;
 
   /**
    * Remove a filter callback
@@ -304,9 +304,9 @@ export interface ElementorHooks {
   removeFilter<K extends keyof ElementorFilterHooks>(
     filter: K,
     callback: ElementorFilterHooks[K]
-  ): void;
+  ): ElementorHooks;
 
-  removeFilter(filter: string, callback: Function): void;
+  removeFilter(filter: string, callback: Function): ElementorHooks;
 
   /**
    * Execute action hooks with provided arguments
@@ -316,9 +316,9 @@ export interface ElementorHooks {
   doAction<K extends keyof ElementorActionHooks>(
     action: K,
     ...args: Parameters<ElementorActionHooks[K]>
-  ): void;
+  ): ElementorHooks;
 
-  doAction(action: string, ...args: any[]): void;
+  doAction(action: string, ...args: any[]): ElementorHooks;
 
   /**
    * Add an action callback
@@ -332,14 +332,14 @@ export interface ElementorHooks {
     callback: ElementorActionHooks[K],
     priority?: HookPriority,
     context?: any
-  ): void;
+  ): ElementorHooks;
 
   addAction(
     action: string,
     callback: ActionCallback,
     priority?: HookPriority,
     context?: any
-  ): void;
+  ): ElementorHooks;
 
   /**
    * Remove an action callback
@@ -349,9 +349,9 @@ export interface ElementorHooks {
   removeAction<K extends keyof ElementorActionHooks>(
     action: K,
     callback: ElementorActionHooks[K]
-  ): void;
+  ): ElementorHooks;
 
-  removeAction(action: string, callback?: Function): void;
+  removeAction(action: string, callback?: Function): ElementorHooks;
 
 }
 

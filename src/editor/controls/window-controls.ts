@@ -13,6 +13,7 @@ import type { Module } from '../../core/modules';
  */
 type ExtendableConstructor<T> = (new (...args: any[]) => T) & {
   extend(proto: any, staticProps?: any): ExtendableConstructor<T>;
+  prototype: T;
 };
 
 /**
@@ -345,7 +346,7 @@ export interface ElementorWindowControls {
   Select: ExtendableConstructor<SelectControl>;
 
   /** Select2 control */
-  Select2: ExtendableConstructor<SelectControl>;
+  Select2: ExtendableConstructor<import("./specific").Select2>;
 
   /** Slider control */
   Slider: ExtendableConstructor<NumberControl>;

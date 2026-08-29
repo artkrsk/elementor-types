@@ -27,5 +27,4 @@ export type {
 
 export type {
   ComponentBase,
-  ComponentConfig,
 } from "./component-base";

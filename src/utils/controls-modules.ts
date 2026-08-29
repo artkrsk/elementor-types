@@ -4,6 +4,7 @@
  */
 
 import type { ControlBaseView, ControlBaseDataView } from "../editor/controls/base";
+import type { Select2 } from "../editor/controls/specific";
 
 /**
  * Dimensions Control Interface
@@ -187,42 +188,65 @@ export interface SliderControl extends ControlBaseDataView {
  * Main interface for window.elementor.modules.controls
  */
 export interface ElementorControlsModule {
+  /** Base control view */
+  Base: new (...args: any[]) => ControlBaseView;
+
+  /** Base data control view */
+  BaseData: new (...args: any[]) => ControlBaseDataView;
+
+  /** Multi-value base control */
+  BaseMultiple: new (...args: any[]) => ControlBaseDataView;
+
+  /** Unit-aware base control */
+  BaseUnits: new (...args: any[]) => ControlBaseDataView;
+
   /** Dimensions control */
   Dimensions: new (...args: any[]) => DimensionsControl;
 
   /** Gaps control */
   Gaps: new (...args: any[]) => GapsControl;
 
-  /** Global style repeater control */
-  'Global-style-repeater': new (...args: any[]) => GlobalStyleRepeaterControl;
-
   /** Repeater row control */
   RepeaterRow: new (...args: any[]) => RepeaterRowControl;
+
+  /** Repeater control */
+  Repeater: new (...args: any[]) => ControlBaseDataView;
+
+  /** Select control */
+  Select: new (...args: any[]) => ControlBaseDataView;
+
+  /** Select2 enhanced dropdown control */
+  Select2: new (...args: any[]) => Select2;
 
   /** Slider control */
   Slider: new (...args: any[]) => SliderControl;
 
+  /** Color control */
+  Color: new (...args: any[]) => ControlBaseDataView;
+
+  /** Media control */
+  Media: new (...args: any[]) => ControlBaseDataView;
+
+  /** Choose control */
+  Choose: new (...args: any[]) => ControlBaseDataView;
+
+  /** Switcher control */
+  Switcher: new (...args: any[]) => ControlBaseDataView;
+
+  /** Icons control */
+  Icons: new (...args: any[]) => ControlBaseDataView;
+
   /** URL control */
   Url: new (...args: any[]) => ControlBaseDataView;
 
-  /** Base control classes */
-  BaseControl?: new (...args: any[]) => ControlBaseView;
-  BaseDataControl?: new (...args: any[]) => ControlBaseDataView;
+  /** Wysiwyg control */
+  Wysiwyg: new (...args: any[]) => ControlBaseDataView;
 
-  /** Get control by name */
-  get?(controlName: string): (new (...args: any[]) => ControlBaseView) | undefined;
-
-  /** Check if control exists */
-  has?(controlName: string): boolean;
-
-  /** Get all available control names */
-  getAvailableControls?(): string[];
-
-  /** Register new control */
-  register?(
-    controlName: string,
-    controlClass: new (...args: any[]) => ControlBaseView
-  ): void;
+  /**
+   * The real object is a plain ~36-key literal (editor-base.js) —
+   * remaining control views are reachable but loosely typed
+   */
+  [controlName: string]: (new (...args: any[]) => ControlBaseView) | undefined;
 }
 
 /**

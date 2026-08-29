@@ -1,77 +1,90 @@
 /**
  * Component Base Interface
  *
- * Base interface for all Elementor components
+ * Mirrors modules/web-cli/assets/js/modules/component-base.js
  */
 
 import type { Module } from './modules';
 
 /**
- * Component configuration interface
- */
-export interface ComponentConfig {
-	namespace?: string;
-	commands?: any;
-	commandsInternal?: any;
-	[key: string]: any;
-}
-
-/**
  * Base component interface
- * Foundation for all Elementor components
+ * Foundation for all $e components
  */
 export interface ComponentBase extends Module {
-	/**
-	 * Component configuration
-	 */
-	config: ComponentConfig;
+	/** Commands registry (built from defaultCommands()) */
+	commands: any;
+
+	/** Internal commands registry */
+	commandsInternal: any;
+
+	/** Hooks registry */
+	hooks: any;
+
+	/** Routes registry */
+	routes: any;
+
+	/** Tabs registry */
+	tabs: any;
+
+	/** Shortcuts registry */
+	shortcuts: any;
+
+	/** Utils registry */
+	utils: any;
+
+	/** Data-commands registry */
+	data: any;
+
+	/** UI states registry */
+	uiStates: any;
+
+	/** States registry */
+	states: any;
 
 	/**
-	 * Get component namespace
+	 * Get component namespace (unique component id, e.g. 'document/elements')
 	 */
 	getNamespace(): string;
 
 	/**
-	 * Get default commands
+	 * Get service name (defaults to the namespace)
 	 */
+	getServiceName(): string;
+
 	defaultCommands(): any;
+	defaultCommandsInternal(): any;
+	defaultHooks(): any;
+	defaultRoutes(): any;
+	defaultTabs(): any;
 
 	/**
-	 * Get default internal commands
-	 */
-	defaultCommandsInternal?(): any;
-
-	/**
-	 * Get default hooks
-	 */
-	defaultHooks?(): any;
-
-	/**
-	 * Import commands from module
+	 * Import commands from a module namespace object
 	 */
 	importCommands(commandsModule: any): any;
 
 	/**
-	 * Import hooks from module
+	 * Import hooks from a module namespace object
 	 */
 	importHooks(hooksModule: any): any;
 
 	/**
-	 * Register component
+	 * Registration entry point — wires the component into $e
 	 */
-	register(): void;
+	registerAPI(): void;
 
-	/**
-	 * Initialize component
-	 */
-	initialize(): void;
+	activate(): void;
+	inactivate(): void;
+	isActive(): boolean;
+	open(): boolean;
+	close(): boolean;
+	dependency(): boolean;
 }
 
 /**
  * Constructor for ComponentBase
  */
 export interface ComponentBaseConstructor {
-	new (config?: ComponentConfig): ComponentBase;
+	new (args?: any): ComponentBase;
 
 	/**
 	 * Extend method for creating subclasses

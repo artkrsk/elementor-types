@@ -44,20 +44,8 @@ export interface ChildrenArray extends Array<Container> {
 	 */
 	someRecursive(callback: ContainerCallback<boolean>): boolean;
 
-	/**
-	 * Filter containers recursively
-	 */
-	filterRecursive?(callback: ContainerCallback<boolean>): Container[];
 
-	/**
-	 * Map containers recursively
-	 */
-	mapRecursive?<T>(callback: ContainerCallback<T>): T[];
 
-	/**
-	 * Get all containers recursively as flat array
-	 */
-	getAllRecursive?(): Container[];
 }
 
 /**

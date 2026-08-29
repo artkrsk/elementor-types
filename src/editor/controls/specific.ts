@@ -335,6 +335,7 @@ export interface Select2 extends ControlBaseDataView {
   select2Instance?: Select2Instance;
 
   getSelect2Placeholder(): string;
+  getSelect2DefaultOptions(): Partial<Select2Options>;
   getSelect2Options(): Partial<Select2Options>;
   onRender(): void;
   onDestroy(): void;

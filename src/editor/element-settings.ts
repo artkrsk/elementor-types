@@ -167,6 +167,9 @@ export interface CommonElementSettings
           BorderSettings,
           ShadowSettings {
 
+  /** Settings bags carry arbitrary widget/document keys beyond the modeled ones */
+  [key: string]: any;
+
   // Element visibility
   _element_id?: string;
   hide_desktop?: boolean;

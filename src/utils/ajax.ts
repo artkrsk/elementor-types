@@ -15,14 +15,17 @@ export interface AjaxRequestConfig {
   /** Request data payload */
   data?: Record<string, any>;
 
+  /** Key requests to dedupe/replace an in-flight request with the same id */
+  unique_id?: string;
+
   /** Success callback function */
-  success?: (response: any, textStatus: string, jqXHR: JQuery.jqXHR) => void;
+  success?: (response: any) => void;
 
   /** Error callback function */
-  error?: (jqXHR: JQuery.jqXHR, textStatus: string, errorThrown: string) => void;
+  error?: (error: any) => void;
 
   /** Complete callback function (called regardless of success/error) */
-  complete?: (jqXHR: JQuery.jqXHR, textStatus: string) => void;
+  complete?: (result: any) => void;
 
   /** Before send callback */
   beforeSend?: (jqXHR: JQuery.jqXHR, settings: JQuery.AjaxSettings) => void;
@@ -196,7 +199,7 @@ export interface ElementorAjax {
    * });
    * ```
    */
-  addRequest(action: string, config?: AjaxRequestConfig): string;
+  addRequest(action: string, config?: AjaxRequestConfig, immediately?: boolean): JQuery.Deferred<any>;
 
   /**
    * Send a request immediately (bypassing queue)

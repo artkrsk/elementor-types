@@ -49,7 +49,7 @@ export interface ElementorCommonAjax {
    * @param action - The action/endpoint name
    * @param options - Request configuration options
    */
-  addRequest(action: string, options?: ElementorCommonAjaxOptions): void;
+  addRequest(action: string, options?: ElementorCommonAjaxOptions, immediately?: boolean): JQuery.Deferred<any, any, any>;
 
   /**
    * Send a request immediately
@@ -57,26 +57,31 @@ export interface ElementorCommonAjax {
    * @param options - Request configuration options
    */
   send?(action: string, options?: ElementorCommonAjaxOptions): JQuery.jqXHR;
+
+  /**
+   * Batch-load objects by id through the editor's AJAX layer.
+   * Elementor never consumes an `error` callback for this call.
+   */
+  loadObjects(options: {
+    action: string;
+    ids: Array<string | number>;
+    data?: Record<string, any> | undefined;
+    before?: (() => void) | undefined;
+    success: (data: Record<string, any>) => void;
+  }): void;
 }
 
 /**
  * Dialog Types and Options
  */
 export type DialogType =
-  | 'alert'
-  | 'confirm'
+  | 'simple'
+  | 'buttons'
   | 'lightbox'
-  | 'modal'
-  | 'popup'
-  | 'widget';
+  | 'confirm'
+  | 'alert';
 
 export interface DialogOptions {
-  /** Dialog ID */
-  id?: string;
-
-  /** Dialog title */
-  title?: string;
-
   /** Dialog content (HTML string or jQuery element) */
   content?: string | JQuery;
 
@@ -86,29 +91,8 @@ export interface DialogOptions {
   /** Main message content (HTML string or jQuery element) */
   message?: string | JQuery;
 
-  /** Dialog width */
-  width?: number | string;
-
-  /** Dialog height */
-  height?: number | string;
-
   /** Whether dialog is modal */
   modal?: boolean;
-
-  /** Whether dialog is resizable */
-  resizable?: boolean;
-
-  /** Whether dialog is draggable */
-  draggable?: boolean;
-
-  /** Auto-open dialog on creation */
-  autoOpen?: boolean;
-
-  /** Close dialog on escape key */
-  closeOnEscape?: boolean;
-
-  /** Close dialog on background click */
-  closeOnBackgroundClick?: boolean;
 
   /** Hide behavior settings */
   hide?: {
@@ -118,6 +102,8 @@ export interface DialogOptions {
     onOutsideClick?: boolean;
     onOutsideContextMenu?: boolean;
     onBackgroundClick?: boolean;
+    /** 'buttons' widget type only: hide when any button is clicked */
+    onButtonClick?: boolean;
     onEscKeyPress?: boolean;
     ignore?: string;
   };
@@ -203,14 +189,8 @@ export interface DialogElements {
  * Dialog Widget Interface
  */
 export interface DialogWidget {
-  /** Widget ID */
-  id: string;
-
-  /** Widget type */
-  type: DialogType;
-
-  /** Widget options */
-  options: DialogOptions;
+  /** Add a named element to the widget */
+  addElement(name: string, element?: string | JQuery, classes?: string): JQuery;
 
   /** Show the dialog */
   show(): DialogWidget;
@@ -223,12 +203,6 @@ export interface DialogWidget {
 
   /** Check if dialog is visible */
   isVisible(): boolean;
-
-  /** Get dialog content */
-  getContent(): JQuery;
-
-  /** Set dialog content */
-  setContent(content: string | JQuery): DialogWidget;
 
   /** Get all dialog elements or a specific element by key */
   getElements(): DialogElements;
@@ -250,12 +224,6 @@ export interface DialogWidget {
   /** Set dialog ID */
   setID(id: string): DialogWidget;
 
-  /** Refresh dialog layout */
-  refresh(): void;
-
-  /** Set dialog position */
-  setPosition(position: DialogOptions['position']): void;
-
   /** Refresh position */
   refreshPosition(): void;
 
@@ -270,261 +238,76 @@ export interface DialogWidget {
 }
 
 /**
- * Dialog Manager Interface
+ * Dialog Manager Interface — the real dialogs-manager `Instance`
+ * (assets/lib/dialog/dialog.js). It only creates widgets; there are no
+ * lookup/close-all/alert/confirm helpers on the manager itself.
  */
 export interface ElementorCommonDialogsManager {
   /**
    * Create a new dialog widget
-   * @param type - Dialog type (alert, confirm, modal, etc.)
-   * @param options - Dialog configuration options
-   * @returns Dialog widget instance
    */
-  createWidget(type: DialogType, options: DialogOptions): DialogWidget;
+  createWidget(widgetType: DialogType, properties?: DialogOptions): DialogWidget;
 
   /**
-   * Get existing dialog by ID
-   * @param id - Dialog ID
-   * @returns Dialog widget or null if not found
+   * Get manager settings (all, or one by key)
    */
-  getDialog(id: string): DialogWidget | null;
+  getSettings(property?: string): any;
 
-  /**
-   * Destroy dialog by ID
-   * @param id - Dialog ID
-   * @returns True if dialog was destroyed
-   */
-  destroyDialog(id: string): boolean;
+  init?(settings?: Record<string, any>): void;
 
-  /**
-   * Get all active dialogs
-   * @returns Array of active dialog widgets
-   */
-  getActiveDialogs(): DialogWidget[];
-
-  /**
-   * Close all dialogs
-   */
-  closeAll(): void;
-
-  /**
-   * Create and show an alert dialog
-   * @param message - Alert message
-   * @param title - Optional title
-   */
-  alert(message: string, title?: string): DialogWidget;
-
-  /**
-   * Create and show a confirm dialog
-   * @param message - Confirmation message
-   * @param callback - Callback for user response
-   * @param title - Optional title
-   */
-  confirm(
-    message: string,
-    callback: (confirmed: boolean) => void,
-    title?: string
-  ): DialogWidget;
-
-  /**
-   * Create and show a modal dialog
-   * @param content - Modal content
-   * @param options - Modal options
-   */
-  modal(content: string | JQuery, options?: DialogOptions): DialogWidget;
-}
-
-/**
+  /** Ids of currently open dialogs */
+  openDialogs: string[];
+}/**
  * Configuration Interface for ElementorCommon
+ * Mirrors the elementor-common config localized by core/common/app.php
  */
 export interface ElementorCommonConfig {
-  /** Experimental features configuration */
-  experimentalFeatures: {
-    container?: boolean;
-    flexboxContainer?: boolean;
-    landing_pages?: boolean;
-    form_submissions?: boolean;
-    [feature: string]: boolean | undefined;
-  };
-
-  /** Environment information */
-  environment?: 'production' | 'development' | 'staging';
-
-  /** Version information */
-  version?: {
-    elementor: string;
-    php: string;
-    wordpress: string;
-  };
-
-  /** URLs and endpoints */
-  urls?: {
-    base: string;
+  version: string;
+  isRTL: boolean;
+  isDebug: boolean;
+  isElementorDebug: boolean;
+  activeModules: string[];
+  experimentalFeatures: Record<string, true>;
+  allExperimentalFeatures?: Record<string, boolean>;
+  urls: {
     assets: string;
-    ajax: string;
-    uploads: string;
+    rest: string;
   };
-
-  /** Localization settings */
-  locale?: {
-    language: string;
-    direction: 'ltr' | 'rtl';
-    timezone: string;
+  filesUpload?: {
+    unfilteredFiles: boolean;
   };
-
-  /** User capabilities */
-  user?: {
-    can_edit: boolean;
-    can_publish: boolean;
-    can_edit_others: boolean;
-    role: string;
-  };
-
-  /** Debug configuration */
-  debug?: {
-    enabled: boolean;
-    level: 'error' | 'warn' | 'info' | 'debug';
-    log_ajax: boolean;
-    log_hooks: boolean;
-  };
-}
-
-/**
- * Debug Interface for ElementorCommon
+  [key: string]: any;
+}/**
+ * Debug Interface for ElementorCommon — an error-reporting queue,
+ * not a console logger (core/common/assets/js/utils/debug.js)
  */
 export interface ElementorCommonDebug {
-  /** Whether debugging is enabled */
-  enabled: boolean;
-
-  /** Log a debug message */
-  log(...args: any[]): void;
-
-  /** Log a warning message */
-  warn(...args: any[]): void;
-
-  /** Log an error message */
-  error(...args: any[]): void;
-
-  /** Log an info message */
-  info(...args: any[]): void;
-
-  /** Group console messages */
-  group(label: string): void;
-
-  /** End console group */
-  groupEnd(): void;
-
-  /** Log with stack trace */
-  trace(...args: any[]): void;
-
-  /** Time measurement utilities */
-  time(label: string): void;
-  timeEnd(label: string): void;
-
-  /** Dump object/variable for inspection */
-  dump(obj: any, label?: string): void;
-}
-
-/**
+  addURLToWatch(url: string): void;
+  addCustomError(error: Error, category?: string, tag?: string): void;
+  addError(errorParams: Record<string, any>): void;
+  sendErrors(): void;
+}/**
  * Storage Interface for ElementorCommon
+ * (core/common/assets/js/utils/storage.js)
  */
 export interface ElementorCommonStorage {
-  /**
-   * Get item from storage
-   * @param key - Storage key
-   * @param fallback - Fallback value if key not found
-   */
-  get<T = any>(key: string, fallback?: T): T;
-
-  /**
-   * Set item in storage
-   * @param key - Storage key
-   * @param value - Value to store
-   */
-  set(key: string, value: any): void;
-
-  /**
-   * Remove item from storage
-   * @param key - Storage key
-   */
-  remove(key: string): void;
-
-  /**
-   * Clear all storage
-   */
-  clear(): void;
-
-  /**
-   * Check if key exists
-   * @param key - Storage key
-   */
-  has(key: string): boolean;
-}
-
-/**
- * Utils Interface for ElementorCommon
- */
-export interface ElementorCommonUtils {
-  /**
-   * Generate unique ID
-   * @param prefix - Optional prefix for ID
-   */
-  generateId(prefix?: string): string;
-
-  /**
-   * Debounce function execution
-   * @param func - Function to debounce
-   * @param wait - Wait time in milliseconds
-   * @param immediate - Execute immediately
-   */
-  debounce<T extends (...args: any[]) => any>(
-    func: T,
-    wait: number,
-    immediate?: boolean
-  ): T;
-
-  /**
-   * Throttle function execution
-   * @param func - Function to throttle
-   * @param wait - Wait time in milliseconds
-   */
-  throttle<T extends (...args: any[]) => any>(
-    func: T,
-    wait: number
-  ): T;
-
-  /**
-   * Deep clone an object
-   * @param obj - Object to clone
-   */
-  clone<T>(obj: T): T;
-
-  /**
-   * Deep merge objects
-   * @param target - Target object
-   * @param sources - Source objects
-   */
-  merge<T>(target: T, ...sources: any[]): T;
-
-  /**
-   * Escape HTML string
-   * @param str - String to escape
-   */
-  escapeHtml(str: string): string;
-
-  /**
-   * Strip HTML tags
-   * @param str - String to strip
-   */
-  stripHtml(str: string): string;
-}
-
-/**
+  get<T = any>(key?: string | null, options?: { session?: boolean }): T;
+  set(key: string, value: any, options?: { session?: boolean; lifetimeInSeconds?: number }): void;
+  save(object: Record<string, any>, session?: boolean): void;
+}/**
  * Main ElementorCommon Interface
  * Complete interface for window.elementorCommon functionality
  */
 export interface ElementorCommon {
   /** AJAX functionality */
   ajax: ElementorCommonAjax;
+
+  /** Cached jQuery references built by getDefaultElements() */
+  elements: {
+    $window: JQuery<Window>;
+    $document: JQuery<Document>;
+    $body: JQuery;
+  };
 
   /** Dialog management system */
   dialogsManager: ElementorCommonDialogsManager;
@@ -538,11 +321,17 @@ export interface ElementorCommon {
   /** Storage utilities */
   storage?: ElementorCommonStorage;
 
-  /** Common utilities */
-  utils?: ElementorCommonUtils;
+  /** Common helpers (core/common/assets/js/common.js) */
+  helpers: {
+    consoleWarn(...args: any[]): void;
+    consoleError(message: string): void;
+    cloneObject<T>(object: T): T;
+    upperCaseWords(str: string): string;
+    getUniqueId(): string;
+  };
 
   /** Translation/localization function */
-  translate?(key: string, domain?: string): string;
+  translate?(stringKey: string, context?: string | null, templateArgs?: any[] | Record<string, any>, i18nStack?: Record<string, string>): string;
 
   /** Event system integration */
   events?: {

@@ -2,6 +2,8 @@
 
 TypeScript type definitions for [Elementor](https://elementor.com/). Covers the frontend, editor, `$e` command system, controls, containers, hooks, and Backbone/Marionette internals.
 
+Targets **Elementor 4.4.0** (the legacy v3-style JS API surface that v4 retains). The targeted version is also recorded in the `elementor.version` field of `package.json`.
+
 ## Install
 
 ```bash

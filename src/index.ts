@@ -7,7 +7,7 @@
  *
  * @example Basic Usage
  * ```typescript
- * import type { ElementorFrontend, ElementorEditor } from '@elementor/types';
+ * import type { ElementorFrontend, ElementorEditor } from '@artemsemkin/elementor-types';
  *
  * // Use in your custom widgets or handlers
  * class MyCustomHandler extends Frontend.Handlers.Base {
@@ -17,7 +17,7 @@
  *
  * @example Using Helper Types
  * ```typescript
- * import type { ResponsiveValue, ElementSettings } from '@elementor/types';
+ * import type { ResponsiveValue, ElementSettings } from '@artemsemkin/elementor-types';
  *
  * interface MyWidgetSettings {
  *   title: string;
@@ -28,13 +28,19 @@
  *
  * @example Using Type Guards
  * ```typescript
- * import { isResponsiveValue, isMediaValue } from '@elementor/types';
+ * import { isResponsiveValue, isMediaValue } from '@artemsemkin/elementor-types';
  *
  * if (isResponsiveValue(settings.margin)) {
  *   // TypeScript knows this is a responsive value
  *   const desktopMargin = settings.margin.desktop;
  * }
  * ```
+ *
+ * Note: runtime imports (the type guards) are supported only through a
+ * bundler (esbuild/vite/webpack) — the emitted dist/ uses extensionless
+ * ESM barrels that raw Node cannot resolve.
+ *
+ * @see Targets Elementor 4.4.0 (legacy v3-style JS API surface).
  *
  * @packageDocumentation
  */
@@ -86,7 +92,6 @@ export type {
   ElementorEditor,
   HistoryManager,
   ElementorGlobals,
-  ElementorIconsManager,
   ElementorHooks,
   ElementorActionHooks,
   ElementorFilterHooks,
@@ -99,12 +104,11 @@ export type {
 
 // Element system (Task 5 completed - comprehensive element types)
 // Available via: Editor.Elements.ElementModel, Editor.Elements.Models.ElementModel
-// Or: import type { Editor } from '@arts/elementor-types'; type MyModel = Editor.Elements.ElementModel;
+// Or: import type { Editor } from '@artemsemkin/elementor-types'; type MyModel = Editor.Elements.ElementModel;
 
 // Global interfaces
 export type {
   ElementorModules,
-  ElementorMain,
   ElementorWindowModules,
   FrontendHandlerBase,
   FrontendHandlerSettings,
@@ -214,15 +218,15 @@ export {
 
 // Note: Frontend, Editor, Admin types are available via namespace imports
 // to avoid naming conflicts (e.g., both have Section classes)
-// Use: import { Frontend, Editor } from '@elementor/types'
-// Or: import type { Frontend, Editor } from '@elementor/types'
+// Use: import { Frontend, Editor } from '@artemsemkin/elementor-types'
+// Or: import type { Frontend, Editor } from '@artemsemkin/elementor-types'
 
 /**
  * Common usage patterns:
  *
  * @example Namespace imports (recommended)
  * ```typescript
- * import type { Frontend, Editor, Core } from '@elementor/types';
+ * import type { Frontend, Editor, Core } from '@artemsemkin/elementor-types';
  *
  * class MyHandler extends Frontend.Handlers.Base {
  *   // Implementation
@@ -241,13 +245,13 @@ export {
  *   WidgetModel,
  *   BaseElementView,
  *   ElementsCollection
- * } from '@elementor/types';
- * import { isResponsiveValue, isMediaValue } from '@elementor/types';
+ * } from '@artemsemkin/elementor-types';
+ * import { isResponsiveValue, isMediaValue } from '@artemsemkin/elementor-types';
  * ```
  *
  * @example Element and component types
  * ```typescript
- * import type { Editor } from '@elementor/types';
+ * import type { Editor } from '@artemsemkin/elementor-types';
  *
  * // Using the comprehensive element system (Task 5 completed)
  * type MyWidgetModel = Editor.Elements.WidgetModel;

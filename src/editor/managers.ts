@@ -72,41 +72,4 @@ export interface ElementorGlobals {
   update(id: string, value: any): void;
 }
 
-/**
- * Icons manager base interface
- */
-export interface IconsManager {
-  prefix: string;
-  createSvgElement(
-    name: string,
-    options: { path: string; width: number; height: number }
-  ): SVGElement;
-  createSvgNode(
-    tag: string,
-    options: { props?: object; attrs?: object }
-  ): SVGElement;
-  createSvgIconElement(options: {
-    iconName: string;
-    iconSelector: string;
-  }): SVGElement;
-  createSvgSymbolsContainer(): void;
-  createSymbolElement(options: {
-    id: string;
-    path: string;
-    width: number;
-    height: number;
-  }): SVGElement;
-}
 
-/**
- * Extended Elementor icons manager interface
- */
-export interface ElementorIconsManager extends IconsManager {
-  enqueueIconFonts(iconType: string): void;
-  getIconLibraries(): object;
-  registerIconLibrary(libraryName: string, config: object): void;
-  renderIcon(icon: object, attributes?: object, tag?: string): string;
-  renderUploadedSVG(value: object, attributes?: object, tag?: string): string;
-  isIconLibraryLoaded(libraryName: string): boolean;
-  loadIconLibrary(libraryName: string): Promise<void>;
-}

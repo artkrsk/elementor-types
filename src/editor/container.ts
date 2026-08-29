@@ -61,10 +61,6 @@ export interface ContainerView extends View<Model> {
  * Core container system for element hierarchy
  */
 export interface Container {
-	// Static constants
-	TYPE_REPEATER: 'repeater-control';
-	TYPE_REPEATER_ITEM: 'repeater';
-
 	// Properties
 	type: string;
 	id: string;
@@ -88,22 +84,13 @@ export interface Container {
 	findChildrenRecursive(callback: (child: any) => boolean): any[];
 	forEachChildrenRecursive(callback: (child: any) => void): void;
 	getParentAncestry(): any[];
-	getAllAncestry(): any[];
-	getHierarchy(): string[];
 	getSetting(key: string): any;
-	setSetting(key: string, value: any): void;
-	getGroupRelatedControls(groupName: string): Record<string, any>;
-	getAllControls(): Record<string, any>;
-	getLabel(): string;
+	getGroupRelatedControls(settings: Record<string, any>): Record<string, any>;
 	isEditable(): boolean;
 	isDesignable(): boolean;
 	isValidChild(childModel: Model): boolean;
 	isRepeater(): boolean;
 	isRepeaterItem(): boolean;
-	getChildType(): string;
-	getElementType(): string;
-	isEmpty(): boolean;
-	isInner(): boolean;
 	render(): void;
 	renderUI(): void;
 }

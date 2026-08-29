@@ -8,20 +8,32 @@
  * Hook arguments passed to apply() method
  */
 export interface HookArgs {
-  /** Element container */
+  /** Element container (fallback when `containers` is absent) */
   container?: any;
+  /** Element containers — the primary field; commands destructure `containers = [ args.container ]` */
+  containers?: any[];
   /** Control/element name */
   name?: string;
-  /** Index for repeater operations */
+  /** Index for repeater insert/remove operations */
   index?: number;
+  /** Source index for repeater move */
+  sourceIndex?: number;
+  /** Target index for repeater move */
+  targetIndex?: number;
   /** Backbone model */
   model?: any;
   /** Settings object */
   settings?: any;
+  /** Per-container settings keyed by container id (document/elements/settings) */
+  isMultiSettings?: boolean;
+  /** Command options bag (e.g. { external: true }, { at: number }) */
+  options?: any;
   /** For undo/redo operations */
   isRestored?: boolean;
   /** Document reference */
   document?: any;
+  /** Document status for save commands ('publish' | 'draft' | 'pending' | ...) */
+  status?: string;
   /** Command-specific additional arguments */
   [key: string]: any;
 }
@@ -41,6 +53,12 @@ export interface HookUIBase {
    * @returns Hook ID
    */
   getId(): string;
+
+  /**
+   * Wire this hook instance into $e.hooks (registerUIAfter/registerUIBefore
+   * depending on the concrete subclass)
+   */
+  register(): void;
 
   /**
    * Get container type filter (optional)
@@ -99,4 +117,50 @@ export interface HookUIBeforeConstructor {
 export interface HookUI {
   After: HookUIAfterConstructor;
   Before: HookUIBeforeConstructor;
+}
+
+/**
+ * Base interface for data hooks ($e.modules.hookData)
+ */
+export interface HookDataBase {
+  /**
+   * Get the command this hook listens to
+   */
+  getCommand(): string;
+
+  /**
+   * Get unique hook identifier
+   */
+  getId(): string;
+
+  /**
+   * Wire this hook instance into $e.hooks (registerDataAfter/registerDataCatch/
+   * registerDataDependency depending on the concrete subclass)
+   */
+  register(): void;
+
+  /**
+   * Get container type filter (optional)
+   */
+  getContainerType?(): string;
+
+  /**
+   * Check if hook should run (optional)
+   */
+  getConditions?(args: HookArgs): boolean;
+
+  /**
+   * Execute hook logic
+   */
+  apply(args: HookArgs): any;
+}
+
+/**
+ * Data hook constructors namespace ($e.modules.hookData)
+ */
+export interface HookData {
+  Base: new () => HookDataBase;
+  After: new () => HookDataBase;
+  Catch: new () => HookDataBase;
+  Dependency: new () => HookDataBase;
 }

@@ -3,7 +3,8 @@
  * Commands for manipulating elements within documents
  */
 
-import type { CommandBase, editor } from "../base";
+import type { CommandBase, CommandInternalBase } from "../base";
+import { CommandHistoryBase } from "../base/command-history-base";
 import type { ElementModel } from "../../models";
 
 /**
@@ -71,7 +72,7 @@ export interface ResetElementArgs extends ElementCommandArgs {
 /**
  * Copy command - copies element(s) to storage
  */
-export declare class Copy extends editor.CommandHistoryBase {
+export declare class Copy extends CommandHistoryBase {
   static restore(historyItem: any, isRedo: boolean): void;
   validateArgs(args: CopyElementArgs): void;
   getHistory(args: CopyElementArgs): any;
@@ -81,7 +82,7 @@ export declare class Copy extends editor.CommandHistoryBase {
 /**
  * Copy All command - copies all elements in container
  */
-export declare class CopyAll extends editor.CommandHistoryBase {
+export declare class CopyAll extends CommandHistoryBase {
   static restore(historyItem: any, isRedo: boolean): void;
   validateArgs(args: CopyElementArgs): void;
   getHistory(args: CopyElementArgs): any;
@@ -91,7 +92,7 @@ export declare class CopyAll extends editor.CommandHistoryBase {
 /**
  * Create command - creates new element(s)
  */
-export declare class Create extends editor.CommandHistoryBase {
+export declare class Create extends CommandHistoryBase {
   static restore(historyItem: any, isRedo: boolean): void;
   validateArgs(args: CreateElementArgs): void;
   getHistory(args: CreateElementArgs): any;
@@ -101,7 +102,7 @@ export declare class Create extends editor.CommandHistoryBase {
 /**
  * Delete command - deletes element(s)
  */
-export declare class Delete extends editor.CommandHistoryBase {
+export declare class Delete extends CommandHistoryBase {
   static restore(historyItem: any, isRedo: boolean): void;
   validateArgs(args: ElementCommandArgs): void;
   getHistory(args: ElementCommandArgs): any;
@@ -127,7 +128,7 @@ export declare class DeselectAll extends CommandBase {
 /**
  * Duplicate command - duplicates element(s)
  */
-export declare class Duplicate extends editor.CommandHistoryBase {
+export declare class Duplicate extends CommandHistoryBase {
   static restore(historyItem: any, isRedo: boolean): void;
   validateArgs(args: ElementCommandArgs): void;
   getHistory(args: ElementCommandArgs): any;
@@ -137,7 +138,7 @@ export declare class Duplicate extends editor.CommandHistoryBase {
 /**
  * Empty command - empties container of all elements
  */
-export declare class Empty extends editor.CommandHistoryBase {
+export declare class Empty extends CommandHistoryBase {
   static restore(historyItem: any, isRedo: boolean): void;
   validateArgs(args: ElementCommandArgs): void;
   getHistory(args: ElementCommandArgs): any;
@@ -147,7 +148,7 @@ export declare class Empty extends editor.CommandHistoryBase {
 /**
  * Import command - imports elements from external data
  */
-export declare class Import extends editor.CommandHistoryBase {
+export declare class Import extends CommandHistoryBase {
   static restore(historyItem: any, isRedo: boolean): void;
   validateArgs(args: ElementCommandArgs & { data: any }): void;
   getHistory(args: ElementCommandArgs): any;
@@ -157,7 +158,7 @@ export declare class Import extends editor.CommandHistoryBase {
 /**
  * Move command - moves element(s) to different position/container
  */
-export declare class Move extends editor.CommandHistoryBase {
+export declare class Move extends CommandHistoryBase {
   static restore(historyItem: any, isRedo: boolean): void;
   validateArgs(args: MoveElementArgs): void;
   getHistory(args: MoveElementArgs): any;
@@ -167,7 +168,7 @@ export declare class Move extends editor.CommandHistoryBase {
 /**
  * Paste command - pastes element(s) from storage
  */
-export declare class Paste extends editor.CommandHistoryBase {
+export declare class Paste extends CommandHistoryBase {
   static restore(historyItem: any, isRedo: boolean): void;
   validateArgs(args: PasteElementArgs): void;
   getHistory(args: PasteElementArgs): any;
@@ -177,7 +178,7 @@ export declare class Paste extends editor.CommandHistoryBase {
 /**
  * Paste Area command - pastes elements into specific area
  */
-export declare class PasteArea extends editor.CommandHistoryBase {
+export declare class PasteArea extends CommandHistoryBase {
   static restore(historyItem: any, isRedo: boolean): void;
   validateArgs(args: PasteElementArgs): void;
   getHistory(args: PasteElementArgs): any;
@@ -187,7 +188,7 @@ export declare class PasteArea extends editor.CommandHistoryBase {
 /**
  * Paste Style command - pastes only styling from storage
  */
-export declare class PasteStyle extends editor.CommandHistoryBase {
+export declare class PasteStyle extends CommandHistoryBase {
   static restore(historyItem: any, isRedo: boolean): void;
   validateArgs(args: PasteElementArgs): void;
   getHistory(args: PasteElementArgs): any;
@@ -197,7 +198,7 @@ export declare class PasteStyle extends editor.CommandHistoryBase {
 /**
  * Reset Settings command - resets element settings to defaults
  */
-export declare class ResetSettings extends editor.CommandHistoryBase {
+export declare class ResetSettings extends CommandHistoryBase {
   static restore(historyItem: any, isRedo: boolean): void;
   validateArgs(args: ResetElementArgs): void;
   getHistory(args: ResetElementArgs): any;
@@ -207,7 +208,7 @@ export declare class ResetSettings extends editor.CommandHistoryBase {
 /**
  * Reset Style command - resets element style settings
  */
-export declare class ResetStyle extends editor.CommandHistoryBase {
+export declare class ResetStyle extends CommandHistoryBase {
   static restore(historyItem: any, isRedo: boolean): void;
   validateArgs(args: ResetElementArgs): void;
   getHistory(args: ResetElementArgs): any;
@@ -233,7 +234,7 @@ export declare class SelectAll extends CommandBase {
 /**
  * Settings command - updates element settings
  */
-export declare class Settings extends editor.CommandHistoryBase {
+export declare class Settings extends CommandHistoryBase {
   static restore(historyItem: any, isRedo: boolean): void;
   validateArgs(args: ElementSettingsArgs): void;
   getHistory(args: ElementSettingsArgs): any;

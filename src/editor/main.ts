@@ -4,8 +4,10 @@
  */
 
 import type { HistoryManager } from "./history";
-import type { ElementorGlobals, ElementorIconsManager } from "./managers";
+import type { ElementorGlobals } from "./managers";
+import type { ElementorAjax } from "../utils/ajax";
 import type { WidgetCache } from "./elements";
+import type { ElementsManager } from "./elements/manager";
 import type { ElementorWindowModules } from "../globals/elementor-window";
 import type { CommonElementSettings } from "./element-settings";
 import type { BackboneRadioChannel, BackboneView, BackboneModel } from "../third-party";
@@ -55,6 +57,8 @@ export interface ControlView {
 export interface PanelView {
   currentPageName: string;
   getCurrentPageName(): string;
+  /** The Marionette view of the currently open panel page */
+  getCurrentPageView(): any;
   setPage(pageName: string): void;
   getPages(): Record<string, any>;
 }
@@ -127,19 +131,20 @@ export interface EditorContainer {
  * Helpers manager interface
  */
 export interface HelpersManager {
-  urlActions: any;
-  historyDebounce: any;
-  heartbeat: any;
-
-  // Utility methods
-  scrollToElement(element: JQuery | HTMLElement): void;
-  isElementInViewport(element: JQuery | HTMLElement): boolean;
-
-  // String utilities
-  stringReplaceAll(str: string, search: string, replace: string): string;
-
-  // Device detection
-  isTouchDevice(): boolean;
+  /** Scroll the preview so $element is in view */
+  scrollToView($element: JQuery, timeout?: number, $parent?: JQuery): void;
+  isInViewport(element: HTMLElement, html?: HTMLElement): boolean;
+  /** @deprecated since 2.0.0 — use native String.prototype.replace() */
+  stringReplaceAll(string: string, replaces: Record<string, string>): string;
+  enqueueCSS(url: string, $document?: JQuery<Document>, options?: { crossOrigin?: boolean }): void;
+  enqueuePreviewStylesheet(url: string): void;
+  enqueueEditorStylesheet(url: string): void;
+  renderIcon(view: any, icon: any, attributes?: object, tag?: string, returnType?: string): any;
+  getSimpleDialog(id: string, title: string, message: string, confirmString: string, onConfirm: Function): any;
+  hasPro(): boolean;
+  getWidgetCache(model: any): any;
+  /** The localized helpers module carries many more members than are modeled here */
+  [key: string]: any;
 }
 
 /**
@@ -170,15 +175,6 @@ export interface TemplatesManager {
 /**
  * Ajax manager interface
  */
-export interface AjaxManager {
-  request(type: string, options: any): Promise<any>;
-  addRequest(action: string, config?: {
-    data?: Record<string, any>;
-    success?: (response: any) => void;
-    error?: (error: any) => void;
-  }): void;
-}
-
 /**
  * Conditions manager interface
  */
@@ -282,6 +278,9 @@ export interface ElementorEditor {
       container: string;
       id: string;
       type: string;
+      /** Serialized document settings (controls + values) */
+      settings?: any;
+      [key: string]: any;
     };
     initial_document: {
       id: string;
@@ -297,6 +296,8 @@ export interface ElementorEditor {
     elements: {
       [elementType: string]: ElementData;
     };
+    /** The localized config bag carries many more keys than are modeled here */
+    [key: string]: any;
   };
   loaded: boolean;
   previewLoadedOnce: boolean;
@@ -310,7 +311,7 @@ export interface ElementorEditor {
   imagesManager: ImagesManager;
   presetsFactory: PresetsFactory;
   templates: TemplatesManager;
-  ajax: AjaxManager;
+  ajax: ElementorAjax;
   conditions: ConditionsManager;
 
   // Background click listeners
@@ -325,8 +326,11 @@ export interface ElementorEditor {
     page: {
       model: {
         attributes: CommonElementSettings;
+        get(setting: string): any;
         on(event: string, callback: Function): void;
       };
+      /** Subscribe to a single page-setting change (change:<attribute> on the model) */
+      addChangeCallback(attribute: string, callback: (value: any) => void): void;
     };
   };
 
@@ -349,7 +353,7 @@ export interface ElementorEditor {
 
   // UI Elements
   $previewContents: JQuery<HTMLElement>;
-  $preview?: JQuery<HTMLElement>;
+  $preview?: JQuery<HTMLIFrameElement>;
   elements?: {
     models: any[];
     add(model: any): void;
@@ -363,13 +367,20 @@ export interface ElementorEditor {
   responsiveBar: ResponsiveBar;
 
   // Core managers
+  elementsManager: ElementsManager;
   history: HistoryManager;
   dynamicTags: DynamicTagsManager;
   notifications: NotificationsManager;
   introduction: IntroductionManager;
   validator: ValidatorManager;
   globals: ElementorGlobals;
-  iconsManager: ElementorIconsManager;
+  iconManager: {
+    library: any;
+    store: any;
+    cache: Record<string, any>;
+    getLayout(): any;
+    loadIconLibraries(): void;
+  };
   breakpoints: Breakpoints;
 
   // Hooks system
@@ -407,7 +418,7 @@ export interface ElementorEditor {
    * });
    * ```
    */
-  addControlView(controlID: string, ControlViewClass: new(...args: any[]) => ControlView): void;
+  addControlView(controlID: string, ControlViewClass: new (...args: any[]) => any): void;
   getElementData(model: any): ElementData;
   getElementControls(modelElement: any): Record<string, any>;
   mergeControlsSettings(controls: Record<string, any>): Record<string, any>;
@@ -457,7 +468,9 @@ export interface ElementorEditor {
 
   // Event methods
   on(event: string, callback: Function): void;
+  once(event: string, callback: Function): void;
   off(event: string, callback: Function): void;
+  trigger(event: string, ...args: any[]): void;
 }
 
 // ============================================================================

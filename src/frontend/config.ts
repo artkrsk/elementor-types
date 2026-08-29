@@ -50,7 +50,6 @@ export interface ElementorFrontendConfig {
   urls: {
     assets: string;
     ajaxurl: string;
-    rest: string;
     uploadUrl: string;
   };
   nonces: {
@@ -95,7 +94,7 @@ export interface ElementorFrontendConfig {
   };
   i18n: {
     shareOnFacebook?: string;
-    shareOnTwitter?: string;
+    shareOnX?: string;
     pinIt?: string;
     download?: string;
     downloadImage?: string;

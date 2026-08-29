@@ -1,6 +1,6 @@
 {
   "name": "@artemsemkin/elementor-types",
-  "version": "1.0.10",
+  "version": "2.0.0",
   "description": "TypeScript type definitions for Elementor WordPress plugin",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -20,8 +20,7 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.js"
+      "import": "./dist/index.js"
     }
   },
   "scripts": {
@@ -56,10 +55,13 @@
     "underscore": "^1.13.8"
   },
   "peerDependencies": {
-    "swiper": ">=11.0.0"
+    "swiper": ">=12.0.0"
   },
   "packageManager": "pnpm@10.30.0",
   "publishConfig": {
     "access": "public"
+  },
+  "elementor": {
+    "version": "4.4.0"
   }
 }

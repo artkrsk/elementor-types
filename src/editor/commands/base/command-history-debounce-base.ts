@@ -1,56 +1,31 @@
 /**
  * Command History Debounce Base
  *
- * Mirrors editor/document/command-bases/command-history-debounce-base.js
- * Base class for commands that support history with debouncing
+ * Mirrors assets/dev/js/editor/document/command-bases/command-history-debounce-base.js
+ * Base class for commands that debounce history transactions.
+ * Debouncing is a STATIC lodash wrapper shared across instances — it wraps
+ * $e.internal('document/history/end-transaction'|'clear-transaction') calls;
+ * there are no per-instance timers.
  */
 
-import type { CommandHistoryBase } from './command-history-base';
+import { CommandHistoryBase } from './command-history-base';
 
 /**
  * Base command that supports debounced history operations
  */
-export interface CommandHistoryDebounceBase extends CommandHistoryBase {
-	/**
-	 * Debounce timeout in milliseconds
-	 */
-	debounceTimeout: number;
+export declare class CommandHistoryDebounceBase extends CommandHistoryBase {
+	/** Set in initialize() from the current command trace / options.debounce */
+	isDebounceRequired?: boolean;
 
-	/**
-	 * Debounce timer reference
-	 */
-	debounceTimer: any;
+	/** Shared lodash-debounced runner (created on first use) */
+	static debounce: ((fn: () => void) => void) | undefined;
 
-	/**
-	 * Get debounce timeout for this command
-	 */
-	getDebounceTimeout(): number;
-
-	/**
-	 * Start debounce timer
-	 */
-	startDebounce(args: any): void;
-
-	/**
-	 * Clear debounce timer
-	 */
-	clearDebounce(): void;
-
-	/**
-	 * Execute debounced command
-	 */
-	executeDebounced(args: any): void;
+	static getInstanceType(): string;
 }
 
 /**
- * Constructor for CommandHistoryDebounceBase
+ * Constructor shape for CommandHistoryDebounceBase
  */
-export interface CommandHistoryDebounceBaseConstructor {
-	new (options?: any): any;
-	extend(proto: any, staticProps?: any): CommandHistoryDebounceBaseConstructor;
-}
+export type CommandHistoryDebounceBaseConstructor = typeof CommandHistoryDebounceBase;
 
-declare const CommandHistoryDebounceBase: CommandHistoryDebounceBaseConstructor;
-
-export { CommandHistoryDebounceBase };
 export default CommandHistoryDebounceBase;

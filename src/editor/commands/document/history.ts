@@ -3,7 +3,8 @@
  * Commands for managing document history, undo/redo operations
  */
 
-import type { CommandBase, editor } from "../base";
+import type { CommandBase, CommandInternalBase } from "../base";
+import { CommandHistoryBase } from "../base/command-history-base";
 
 /**
  * History command arguments base interface
@@ -49,7 +50,7 @@ export interface LogArgs extends HistoryCommandArgs {
 /**
  * Base history command class
  */
-export declare class CommandHistoryInternalBase extends editor.EditorCommandInternalBase {
+export declare class CommandHistoryInternalBase extends CommandInternalBase {
   validateArgs(args: HistoryCommandArgs): void;
   isHistoryActive(): boolean;
 }
@@ -57,7 +58,7 @@ export declare class CommandHistoryInternalBase extends editor.EditorCommandInte
 /**
  * Do command - executes a command with history tracking
  */
-export declare class Do extends editor.CommandHistoryBase {
+export declare class Do extends CommandHistoryBase {
   validateArgs(args: { command: string; args?: any }): void;
   apply(args: { command: string; args?: any }): any;
 }

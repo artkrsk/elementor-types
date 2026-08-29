@@ -21,7 +21,7 @@ export * as NavigatorRegionCommands from "./regions/navigator";
 export * as DocumentsComponentCommands from "./components/documents";
 
 // Re-export for convenience
-export type { CommandBase, editor } from "./base";
+export type { CommandBase, EModulesEditor } from "./base";
 
 // Re-export namespaces
 export type { DocumentElements } from "./document/elements";

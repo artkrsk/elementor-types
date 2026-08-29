@@ -63,8 +63,9 @@ export interface ScrollModule {
 
 // Module utilities namespace
 export interface ModuleUtils {
-	Masonry: new (...args: any[]) => MasonryModule;
-	Scroll: ScrollModule;
+	Masonry: import("./utils/masonry").MasonryConstructor;
+	/** Static methods only — accessed on the class itself */
+	Scroll: typeof import("./utils/scroll").Scroll;
 }
 
 // Frontend module namespace

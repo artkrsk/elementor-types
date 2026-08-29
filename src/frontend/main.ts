@@ -5,7 +5,8 @@
 
 import type { ViewModule } from "../core";
 import type { ElementorFrontendConfig } from "./config";
-import type { ElementsHandler, LegacyDocumentsManager as DocumentsManager } from "./managers";
+import type { ElementsHandler } from "./managers";
+import type { DocumentsManager } from "./documents-manager";
 import type {
   ElementorBreakpoints,
   AssetsLoader,
@@ -20,7 +21,7 @@ import type { ElementorHooks } from "../utils/elementor-hooks";
 /** Storage utility wrapping localStorage/sessionStorage with expiration */
 export interface ElementorStorage {
   get(key: string, options?: { session?: boolean }): any;
-  set(key: string, value: any, options?: { session?: boolean }): void;
+  set(key: string, value: any, options?: { session?: boolean; lifetimeInSeconds?: number }): void;
   save(object: Record<string, any>, session?: boolean): void;
 }
 
@@ -69,6 +70,8 @@ export interface ElementorFrontend {
     youtube: VideoLoader;
     baseVideoLoader: any;
     anchor_scroll_margin: AnchorScrollMarginUtils;
+    /** @deprecated Removed from Elementor core after 3.25.x; present only on older installs. */
+    anchors?: import("./utils/anchors").AnchorsHandler;
     events: Events;
     urlActions: UrlActions;
     environment: EnvironmentFlags;

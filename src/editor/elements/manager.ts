@@ -14,6 +14,8 @@ import type { BaseElementView } from './views/base-element-view';
  * Base interface for element type definitions
  */
 export interface ElementTypeBase {
+	/** Registration key — the manager derives the type from this */
+	getType(): string;
 	getModel(): any;
 	getView(): any;
 }
@@ -45,7 +47,7 @@ export interface ElementsManager {
 
 	// Element Type Management
 	getElementTypeClass(type: string): ElementTypeClass | null;
-	registerElementType(type: string, elementClass: ElementTypeClass): void;
+	registerElementType(element: ElementTypeBase): void;
 	unregisterElementType(type: string): void;
 
 	// Element Creation

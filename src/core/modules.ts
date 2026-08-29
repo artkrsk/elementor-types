@@ -65,12 +65,6 @@ export declare class Module {
   constructor(settings?: ModuleSettings, instanceParams?: any);
 
   /**
-   * Instance parameters for complex module initialization
-   * Used by modules that need additional context during construction
-   */
-  instanceParams?: any;
-
-  /**
    * Static extend method for creating subclasses
    *
    * Creates a new class that inherits from this class with proper prototype chain.
@@ -152,17 +146,11 @@ export declare class Module {
   /**
    * Remove event listeners
    *
-   * @param eventName - Event name(s) to remove listeners from. Supports:
-   *   - Single event: 'init'
-   *   - Multiple events (space-separated): 'init destroy'
+   * Note: unlike on(), off() does NOT split space-separated names —
+   * pass one event name per call.
+   *
+   * @param eventName - Single event name, e.g. 'init'
    * @param callback - Specific callback to remove (optional - removes all if not provided)
-   *
-   * @example
-   * // Remove specific callback
-   * module.off('init', callback);
-   *
-   * // Remove all callbacks for multiple events
-   * module.off('init destroy');
    */
   off(eventName: string, callback?: Function): this;
 
@@ -173,21 +161,11 @@ export declare class Module {
    * - trigger('init') will call this.onInit() if it exists
    * - trigger('before:render') will call this.onBeforeRender() if it exists
    *
-   * @param eventName - Event name to trigger. Supports:
-   *   - Single event: 'init'
-   *   - Multiple events (space-separated): 'init ready'
-   *   - Namespaced events: 'before:render', 'after:destroy'
+   * Note: unlike on(), trigger() does NOT split space-separated names —
+   * pass one event name per call.
+   *
+   * @param eventName - Single event name, e.g. 'init' or 'editor:ready'
    * @param params - Parameters to pass to callbacks and auto-methods
-   *
-   * @example
-   * // Single event with auto-method calling
-   * module.trigger('init', data); // Calls callbacks + this.onInit(data)
-   *
-   * // Multiple events
-   * module.trigger('before:render after:render', element);
-   *
-   * // Namespaced event
-   * module.trigger('editor:ready', editor); // Calls this.onEditorReady(editor)
    */
   trigger(eventName: string, ...params: any[]): this;
 
@@ -250,8 +228,10 @@ export declare class ViewModule extends Module {
 /**
  * ArgsObject for argument validation
  */
-export declare class ArgsObject {
+export declare class ArgsObject extends InstanceType {
   args: object;
+
+  static getInstanceType(): string;
 
   constructor(args: object);
 

@@ -38,148 +38,10 @@ export interface EditorListener {
 }
 
 /**
- * Base handler class that all frontend handlers extend
+ * Base handler class that all frontend handlers extend.
+ * Alias of the single source of truth in ./handlers/base.
  */
-export interface HandlerBase {
-  /** Main element jQuery object */
-  $element: JQuery;
-
-  /** Editor event listeners collection */
-  editorListeners: EditorListener[] | null;
-
-  /** Element change callback */
-  onElementChange?: (
-    propertyName: string,
-    controlView: any,
-    elementView: any
-  ) => void;
-
-  /** Edit settings change callback */
-  onEditSettingsChange?: (propertyName: string, value?: any) => void;
-
-  /** Page settings change callback */
-  onPageSettingsChange?: (changed: Record<string, any>) => void;
-
-  /** Whether handler is in edit mode */
-  isEdit: boolean | null;
-
-  /** Handler elements collection */
-  elements?: HandlerElements;
-
-  // ViewModule-like functionality
-  /**
-   * Initialize handler
-   */
-  onInit?(...args: any[]): void;
-
-  /**
-   * Get default settings
-   */
-  getDefaultSettings?(): any;
-
-  /**
-   * Get default elements
-   */
-  getDefaultElements?(): HandlerElements;
-
-  /**
-   * Get settings
-   */
-  getSettings?(key?: string): any;
-
-  /**
-   * Bind events
-   */
-  bindEvents?(): void;
-
-  /**
-   * Check if handler should be active for given settings
-   */
-  isActive(settings?: HandlerSettings): boolean;
-
-  /**
-   * Check if element is in the current document
-   */
-  isElementInTheCurrentDocument(): boolean;
-
-  /**
-   * Find element within handler scope
-   */
-  findElement(selector: string): JQuery;
-
-  /**
-   * Get unique handler ID
-   */
-  getUniqueHandlerID(cid?: string, $element?: JQuery): string;
-
-  /**
-   * Initialize editor listeners
-   */
-  initEditorListeners(): void;
-
-  /**
-   * Add editor listeners
-   */
-  addEditorListeners(): void;
-
-  /**
-   * Remove editor listeners
-   */
-  removeEditorListeners(): void;
-
-  /**
-   * Get editor listeners array
-   */
-  getEditorListeners(): EditorListener[];
-
-  /**
-   * Get model CID
-   */
-  getModelCID(): string;
-
-  /**
-   * Get handler ID
-   */
-  getID(): string;
-
-  /**
-   * Get widget type
-   */
-  getWidgetType(): string;
-
-  /**
-   * Get element type
-   */
-  getElementType(): string;
-
-  /**
-   * Get constructor ID
-   */
-  getConstructorID(): string;
-
-  /**
-   * Get element settings
-   */
-  getElementSettings(): CommonElementSettings;
-  getElementSettings<K extends keyof CommonElementSettings>(setting: K): CommonElementSettings[K];
-  getElementSettings(setting: string): any;
-
-  /**
-   * Get current device setting
-   */
-  getCurrentDeviceSetting(setting: string): any;
-
-  /**
-   * Get edit settings
-   */
-  getEditSettings(setting?: string): any;
-
-  /**
-   * Handler destruction
-   */
-  onDestroy(): void;
-}
-
+export type HandlerBase = import("./handlers/base").Base;
 /**
  * Handler base constructor
  */
@@ -237,86 +99,6 @@ export interface SwiperHandlerBase extends HandlerBase {
 }
 
 /**
- * Container handler interface
- */
-export interface ContainerHandler extends HandlerBase {
-  /**
-   * Handle container-specific functionality
-   */
-  handleContainer(): void;
-}
-
-/**
- * Grid container handler interface
- */
-export interface GridContainerHandler extends ContainerHandler {
-  /**
-   * Initialize grid layout
-   */
-  initGrid(): void;
-
-  /**
-   * Update grid settings
-   */
-  updateGrid(): void;
-}
-
-/**
- * Accessibility handler interface
- */
-export interface AccessibilityHandler extends HandlerBase {
-  /**
-   * Handle keyboard navigation
-   */
-  handleKeyboard(event: KeyboardEvent): void;
-
-  /**
-   * Update ARIA attributes
-   */
-  updateARIA(): void;
-}
-
-/**
- * Nested title keyboard handler interface
- */
-export interface NestedTitleKeyboardHandler extends AccessibilityHandler {
-  /**
-   * Handle nested title keyboard navigation
-   */
-  handleNestedTitleKeyboard(event: KeyboardEvent): void;
-}
-
-/**
- * Audio handler interface (WordPress audio)
- */
-export interface AudioHandler extends HandlerBase {
-  /**
-   * Initialize audio player
-   */
-  initAudio(): void;
-
-  /**
-   * Handle audio events
-   */
-  handleAudioEvents(): void;
-}
-
-/**
- * Shape divider handler interface
- */
-export interface ShapeHandler extends HandlerBase {
-  /**
-   * Initialize shape dividers
-   */
-  initShapes(): void;
-
-  /**
-   * Update shape settings
-   */
-  updateShapes(): void;
-}
-
-/**
  * Editor handler creation utility
  */
 export interface EditorHandlerCreator {
@@ -330,14 +112,8 @@ export interface EditorHandlerCreator {
  * Frontend handlers namespace
  */
 export namespace Handlers {
-  export type Base = HandlerBase;
+  export type Base = import("./handlers/base").Base;
   export type SwiperBase = SwiperHandlerBase;
-  export type Container = ContainerHandler;
-  export type GridContainer = GridContainerHandler;
-  export type Accessibility = AccessibilityHandler;
-  export type NestedTitleKeyboard = NestedTitleKeyboardHandler;
-  export type Audio = AudioHandler;
-  export type Shape = ShapeHandler;
   export type EditorCreator = EditorHandlerCreator;
   export type Settings = HandlerSettings;
   export type Elements = HandlerElements;
