@@ -56,6 +56,7 @@ export * as Admin from "./admin";
 export * as Utils from "./utils";
 export * as ThirdParty from "./third-party";
 export * as Globals from "./globals";
+export * as Pro from "./pro";
 
 // ============================================================================
 // Direct exports for commonly used types
@@ -87,6 +88,14 @@ export type {
   UrlActions,
 } from "./frontend";
 
+// Elementor Pro essentials
+export type {
+  ElementorProFrontend,
+  ElementorProFrontendConfig,
+  PopupModule,
+  PopupDocument,
+  PopupTriggers,
+} from "./pro";
 // Editor essentials
 export type {
   ElementorEditor,

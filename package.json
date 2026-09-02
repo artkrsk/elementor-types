@@ -1,6 +1,6 @@
 {
   "name": "@artemsemkin/elementor-types",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "TypeScript type definitions for Elementor WordPress plugin",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -63,5 +63,8 @@
   },
   "elementor": {
     "version": "4.4.0"
+  },
+  "elementorPro": {
+    "version": "4.2.2"
   }
 }

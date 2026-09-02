@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.1.0
+
+### Added
+
+- `Pro` namespace (`src/pro/`), read from Elementor Pro 4.2.2's shipped `elements-handlers.js`: `ElementorProFrontend` (`config`, `modules.popup`), `ElementorProFrontendConfig`, and the Popup Builder frontend — `PopupModule` (`popupPopped`, `showPopup()`, `closePopup()`, `shouldSetViewsAndSessions()` / `setViewsAndSessions()`), `PopupDocument` (`elementHTML`, `triggers?`, `getModal()`, `showModal()`, `startTiming()`, `initTriggers()`, `disable()`), `PopupTriggers` (`destroyTriggers()`, `runTriggers()`) and `PopupTrigger`. Direct exports for the five main types.
+
 ## 2.0.0
 
 Accuracy release. The whole surface was audited against Elementor 4.4.0 source
